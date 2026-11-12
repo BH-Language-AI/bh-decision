@@ -1,0 +1,28 @@
+version: "0.2"
+protocol: "v1.0"
+created: "2026-11-12"
+derived_from: "manifest-v0.1.yaml (seed v0.1, 40 primjera; v0.1 ostaje neizmijenjen)"
+method: "template-expansion-v0.2 (scripts/expand_seed.py, stdlib only, seed=42; slot-filling + 3-4 sablona po datasetu)"
+datasets:
+  - {name: choice, file: datasets/expanded/choice.jsonl, count: 50}
+  - {name: ranking, file: datasets/expanded/ranking.jsonl, count: 50}
+  - {name: scoring, file: datasets/expanded/scoring.jsonl, count: 50}
+  - {name: risk, file: datasets/expanded/risk.jsonl, count: 50}
+  - {name: multicriteria, file: datasets/expanded/multicriteria.jsonl, count: 50}
+  - {name: confidence, file: datasets/expanded/confidence.jsonl, count: 50}
+  - {name: abstention, file: datasets/expanded/abstention.jsonl, count: 50}
+  - {name: benchmark, file: datasets/expanded/benchmark.jsonl, count: 50, eval_only: true}
+total_expanded_examples: 400
+lang_split: "bs=322 (~80%), en=78 (~20%; samo choice/scoring/benchmark)"
+quality_notes:
+  - "negacija u ~43% primjera (zahtjev >=15%)"
+  - "abstain samo u abstention/risk/choice/benchmark"
+  - "ID format BH-D-<ds>-NNN, jedinstveni; nijedan state nije doslovna kopija seeda (hash provjera)"
+license: "CC-BY-4.0"
+provenance_rules:
+  - "svaki red nosi source: template-expansion-v0.2 i license: CC-BY-4.0"
+  - "dedup hash (id + state) prije svakog prosirenja"
+  - "test set je pod embargom: ne ulazi u trening niti u prompt primjere"
+test_embargo_note: "TEST-EMBARGO I DALJE NA SNAZI: benchmark.jsonl i test splitovi samo za evaluaciju, nikad u trening."
+human_validation_required: "Prije FAZE 6 obavezna ljudska validacija uzorka expanded primjera (ton ijekavice, tacnost reference polja, registra)."
+# v0.2.1-regeneracija 2026-11-12: prepisani datasets/expanded/*.jsonl (400) — puna dijakritika, ispravni lokativi (u Tuzli/Bihaću/Sarajevu/Mostaru/Zenici/Banjoj Luci/Brčkom), validacija u scripts/expand_seed.py (kvačice+zabranjeni oblici+dedup); samples/ i manifest v0.1/v0.2 netaknuti.
