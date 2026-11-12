@@ -1,10 +1,8 @@
-"""BH-Decision pilot B — GPU smoke test na Kaggleu (FAZA 5).
+"""BH-Decision pilot B — pravi pilot na Kaggleu (FAZA 5).
 
-Cilj: dokazati da pipeline radi na GPU-u (LoRA SFT + loss pada + ijekavske
-generacije), NE finalni kvalitet — seed je samo 40 primjera.
-T4-sigurno: fp16 (T4 nema bf16), mali batch, max 100 koraka.
-OFFLINE kernel: bez git clonea i bez HF downloada — model dolazi iz
-model_sources (/kaggle/input), seed+harness su u vendor/ (kopije iz repoa).
+Trening na expanded setu (400) + val split 90/10 + format-validity metrika.
+T4-sigurno: fp16, mali batch, 3 epohe. OFFLINE: model iz model_sources,
+podaci iz dataset-sources (/kaggle/input).
 """
 import glob
 import json
@@ -56,7 +54,7 @@ model = get_peft_model(model, LoraConfig(
     target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
     task_type="CAUSAL_LM"))
 
-files = sorted(glob.glob(SEED_GLOB))
+files = sorted(glob.glob(os.path.join(VENDOR, "expanded", "*.jsonl")))
 tekstovi = []
 for put in files:
     with open(put, encoding="utf-8") as f:
@@ -67,10 +65,13 @@ for put in files:
             r = json.loads(red)
             tekstovi.append({"text": r.get("state", "") + "\nODLUKA: "
                              + json.dumps(r.get("reference", {}), ensure_ascii=False)})
-print("seed redova:", len(tekstovi), flush=True)
-assert tekstovi, "nema seed podataka"
+print("expanded redova:", len(tekstovi), flush=True)
+assert len(tekstovi) >= 380, "očekivano ~400 expanded primjera"
 from datasets import Dataset
-ds = Dataset.from_list(tekstovi)
+full = Dataset.from_list(tekstovi)
+split = full.train_test_split(test_size=0.1, seed=42)
+ds, ds_val = split["train"], split["test"]
+print("train/val:", len(ds), len(ds_val), flush=True)
 
 
 def tok_fn(r):
@@ -78,25 +79,43 @@ def tok_fn(r):
 
 
 ds = ds.map(tok_fn)
+ds_val = ds_val.map(tok_fn)
 args = TrainingArguments(output_dir=f"{OUT}/ckpt-b", per_device_train_batch_size=2,
                          gradient_accumulation_steps=8, learning_rate=2e-4,
-                         max_steps=100, fp16=True, gradient_checkpointing=True,
-                         logging_steps=10, save_steps=100, save_total_limit=1,
+                         num_train_epochs=3, fp16=True, gradient_checkpointing=True,
+                         logging_steps=10, eval_strategy="epoch", save_strategy="epoch",
+                         save_total_limit=1, load_best_model_at_end=True,
                          seed=42, report_to="none")
-Trainer(model=model, args=args, train_dataset=ds,
-        data_collator=DataCollatorForLanguageModeling(tok, mlm=False)).train()
+trainer = Trainer(model=model, args=args, train_dataset=ds, eval_dataset=ds_val,
+                  data_collator=DataCollatorForLanguageModeling(tok, mlm=False))
+trainer.train()
 model.save_pretrained(f"{OUT}/adapter-b")
+val = trainer.evaluate()
+print("VAL:", val, flush=True)
 
 model.eval()
-probe = [json.loads(l) for l in open(os.path.join(VENDOR, "samples", "benchmark.jsonl"))][:3]
-gen = []
+probe = [json.loads(l) for l in open(os.path.join(VENDOR, "samples", "benchmark.jsonl"))]
+gen, ok = [], 0
+need = {"decision", "confidence"}
 for r in probe:
     prompt = r["state"] + "\nODLUKA:"
     ids = tok(prompt, return_tensors="pt").to(model.device)
     with torch.inference_mode():
         out = model.generate(**{k: v[:, -512:] for k, v in ids.items()},
-                             max_new_tokens=96, do_sample=False, pad_token_id=tok.pad_token_id)
-    gen.append({"id": r["id"], "generacija": tok.decode(out[0], skip_special_tokens=True)[-600:]})
+                             max_new_tokens=128, do_sample=False, pad_token_id=tok.pad_token_id)
+    txt = tok.decode(out[0], skip_special_tokens=True)
+    frag = txt[len(prompt):].strip()[:800]
+    try:
+        d = json.loads(frag[frag.index("{"):frag.rindex("}") + 1])
+        if need <= set(d):
+            ok += 1
+    except Exception:
+        pass
+    gen.append({"id": r["id"], "generacija": frag})
 json.dump(gen, open(f"{OUT}/generacije-b.json", "w", encoding="utf-8"),
           ensure_ascii=False, indent=1)
-print("GOTOVO: adapter + 3 generacije u", OUT, flush=True)
+met = {"val_loss": val.get("eval_loss"), "format_valid_rate": ok / max(1, len(probe)),
+       "n_probe": len(probe), "n_train": len(ds), "n_val": len(ds_val)}
+json.dump(met, open(f"{OUT}/metrike-b.json", "w", encoding="utf-8"), indent=1)
+print("METRIKE:", met, flush=True)
+print("GOTOVO: adapter + generacije + metrike u", OUT, flush=True)
