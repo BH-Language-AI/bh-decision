@@ -1,0 +1,30 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install test deps
+        run: pip install pytest pyyaml
+      - name: Pytest
+        run: python3 -m pytest tests/ -q
+      - name: JSONL validation
+        run: |
+          for f in datasets/samples/*.jsonl; do
+            [ -e "$f" ] || continue
+            python3 -c "import json,sys; [json.loads(l) for l in open('$f', encoding='utf-8') if l.strip()]; print('OK $f')"
+          done
+          echo "JSONL provjera gotova."
+      - name: Harness self-test (ako postoji)
+        run: |
+          if [ -f benchmarks/harness.py ]; then
+            python3 benchmarks/harness.py --self-test
+          else
+            echo "Nema benchmarks/harness.py — preskače se."
+          fi

@@ -1,0 +1,42 @@
+# BH-Decision 2B — trening konfiguracija (FAZA 4, infrastruktura; trening je FAZA 5/6)
+base_model: "utter-project/EuroLLM-1.7B"  # stvarnih 1.657B; Apache 2.0
+ablation_base_model: "BSC-LT/salamandra-2b"  # ablacija za 2B tier
+family: "BH-Decision-2B"
+version: "0.x"
+
+lora:  # zajednički LoRA recept za porodicu
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]  # all-attn+mlp
+
+model:
+  max_seq_length: 4096  # kontekst 4k (EuroLLM ograničenje)
+  precision: "bf16"
+  gradient_checkpointing: true
+
+data_mix:  # omjer po tokenima; pobjednika bira ijekavski benchmark
+  bs: 75
+  en: 25
+  ablations: [[85, 15], [60, 40]]
+
+training:
+  seed: 42
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 8
+  learning_rate: 2.0e-4
+  num_train_epochs: 3
+  eval_every_steps: 200  # eval svakih N koraka
+  save_every_steps: 200
+  save_total_limit: 3
+  warmup_ratio: 0.03
+
+checkpointing:
+  output_dir: "checkpoints/bh-decision-2b"
+  save_strategy: "steps"
+  resume_from_checkpoint: null
+
+eval:
+  benchmark: "benchmarks/bh-decision-benchmark"
+  metrics: ["choice_accuracy", "ranking_quality", "scoring_error", "brier", "ece", "abstention_quality"]
+  report_per_language: true

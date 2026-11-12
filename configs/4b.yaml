@@ -1,0 +1,46 @@
+# BH-Decision 4B — trening konfiguracija (FAZA 4, infrastruktura; trening je FAZA 5/6)
+# 4B tier: nema evropske 4B baze → vlastiti 4B distilacijom/pruningom iz EuroLLM-9B.
+base_model: "utter-project/EuroLLM-9B"  # teacher/baza za distill/prune; stvarnih 9.154B; Apache 2.0
+teacher_models: ["utter-project/EuroLLM-9B", "TildeOpen-30B"]  # decision teacher + jezički teacher (CC-BY-4.0, atribucija)
+distillation:  # hipoteza 9B→4B; testirati i 2B-direktno (vidi proposed-architecture.md)
+  strategy: "distill-prune"  # distilacija + pruning iz 9B
+  skip_tier_if_worse: true  # preskakanje tiera ako pilot pokaže degradaciju
+family: "BH-Decision-4B"
+version: "0.x"
+
+lora:  # zajednički LoRA recept za porodicu
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]  # all-attn+mlp
+
+model:
+  max_seq_length: 4096  # kontekst 4k
+  precision: "bf16"
+  gradient_checkpointing: true
+
+data_mix:  # omjer po tokenima; pobjednika bira ijekavski benchmark
+  bs: 75
+  en: 25
+  ablations: [[85, 15], [60, 40]]
+
+training:
+  seed: 42
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 16
+  learning_rate: 2.0e-4
+  num_train_epochs: 3
+  eval_every_steps: 200  # eval svakih N koraka
+  save_every_steps: 200
+  save_total_limit: 3
+  warmup_ratio: 0.03
+
+checkpointing:
+  output_dir: "checkpoints/bh-decision-4b"
+  save_strategy: "steps"
+  resume_from_checkpoint: null
+
+eval:
+  benchmark: "benchmarks/bh-decision-benchmark"
+  metrics: ["choice_accuracy", "ranking_quality", "scoring_error", "brier", "ece", "abstention_quality"]
+  report_per_language: true

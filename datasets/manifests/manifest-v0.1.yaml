@@ -1,0 +1,21 @@
+version: "0.1"
+protocol: "v1.0"
+created: "2026-11-12"
+seed_scale_note: "pilot-skala (5 primjera po datasetu); cilj min. 1000 po glavnoj kategoriji"
+datasets:
+  - {name: choice, file: datasets/samples/choice.jsonl, seed_count: 5}
+  - {name: ranking, file: datasets/samples/ranking.jsonl, seed_count: 5}
+  - {name: scoring, file: datasets/samples/scoring.jsonl, seed_count: 5}
+  - {name: risk, file: datasets/samples/risk.jsonl, seed_count: 5}
+  - {name: multicriteria, file: datasets/samples/multicriteria.jsonl, seed_count: 5}
+  - {name: confidence, file: datasets/samples/confidence.jsonl, seed_count: 5}
+  - {name: abstention, file: datasets/samples/abstention.jsonl, seed_count: 5}
+  - {name: benchmark, file: datasets/samples/benchmark.jsonl, seed_count: 5, eval_only: true}
+total_seed_examples: 40
+license: "CC-BY-4.0"
+provenance_rules:
+  - "svaki red nosi source i license"
+  - "teacher-generisani primjeri cuvaju teacher, metodu, verziju i licencu"
+  - "test set je pod embargom: ne ulazi u trening niti u prompt primjere"
+  - "dedup hash (id + state) prije svakog prosirenja"
+test_embargo_note: "benchmark.jsonl i test splitovi su pod embargom — samo za evaluaciju."

@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: BH-Decision
+message: "Ako koristite BH-Decision, citirajte ovaj rad."
+type: software
+license: Apache-2.0
+authors:
+  - name: "Kolektiv d.o.o."
+  - name: "Gamatrade d.o.o."
+contact:
+  - email: xnetba@gmail.com
+repository-code: "https://github.com/BH-Language-AI/bh-decision"
+abstract: "Porodica modela za odlučivanje (2B/4B/9B) na bosanskoj ijekavici i engleskom."
+keywords:
+  - decision-models
+  - bosnian-language
+  - low-resource-nlp
+  - distillation
