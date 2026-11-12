@@ -11,9 +11,9 @@
 ## FAZA 3 — Dataset & Benchmark
 - Sheme 8 datasetova, validacijski primjeri, BH-Decision-Benchmark (min. 1.000 primjera po glavnoj kategoriji), manifesti, leakage zaštita.
 
-## FAZA 4 — Project Infrastructure ✅ kolekcija gotova (2026-11-12)
+## FAZA 4 — Project Infrastructure ✅ gotova (2026-11-12)
+- GH repo (sadržajan, ne prazan): https://github.com/BH-Language-AI/bh-decision — 19 testova zeleno, CI, seed datasetovi (40 primjera), benchmark harness verificiran end-to-end.
 - HF kolekcija BH-Decision: https://huggingface.co/collections/BH-Language-AI/bh-decision-6af57d53051dc84ba678cb41 (6 referentnih modela FAZE 1; vlastite težine tek nakon validacije u FAZI 7).
-- Skripta: `scripts/create_hf_collection.py` (idempotentna, ponovo se pokreće za dodavanje BH-Decision-2B/4B/9B).
 
 ## FAZA 5 — Pilot Training
 - Mali piloti A vs B vs C, izbor pobjednika dokazom.

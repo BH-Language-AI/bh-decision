@@ -1,0 +1,7 @@
+{
+  "name": "@bh-decision/core",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Provider-independent decision core (no OpenCode dependency). bs-ijekavica + en.",
+  "main": "./src/index.ts"
+}
