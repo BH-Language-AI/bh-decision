@@ -24,6 +24,45 @@
   adaptive overhead (udio `route=cot`, tokeni), failure rate, fallback frequency.
 - Svaki red: `provider, model, model_version, route/level, latency_ms` iz audit metapodataka.
 
+## Uvjeti mjerenja (zajednički / common)
+
+- Datum: 2026-11-12. Scenariji: `benchmarks/scenarios/anyjev-live.jsonl` (18 stavki, 9 scenarija × bs/en).
+- B/C/D: ovaj server (12 CPU, 47 GB RAM, bez GPU), `morriszjm/Tacit-4B`, transformers engine, float32.
+- A: `jev-1.13-free` preko OpenCode Console endpointa (ključ korisnika, $0).
+- E: nije mjeren — treba GPU + ~18 GB download (nema odobrenja).
+- Bodovanje: `correct` gdje reference postoji; yes_no normalizirano (Yes/True→tačno).
+
+## Rezultati / Results (izmjereno / measured)
+
+| Oznaka | Točnost (scored 14) | Greške | Latencija p50 / max | Napomena |
+|---|---|---|---|---|
+| B Decider L0 (Tacit-4B težine, CPU) | **11/14 (79%)** | 0 | 17.5 s / 47 s | K rotacija po odluci → sporiji |
+| C Tacit L0 (CPU) | **11/14 (79%)** | 0 | 9.9 s / 30 s | jedan forward; eskalacija se broji kao tačna uz normalizaciju |
+| D Tacit Adaptive (CPU) | **11/14 (79%)** | 0 | 7.8 s / 11 s | `route=cot` 0/18 → bez eskalacija, bez overheada na ovom setu |
+| A Jev 1.13 Free | **14/14 (100%)** | 0 | 334 ms / 1067 ms | `model_version: jev-1.13-free`, cost 0 (billing_source free) |
+| E Clef local | — (blokirano: GPU/download) | — | — | — |
+
+Pojedinosti: `benchmarks/reports/live-{B-decider-l0,C-tacit-l0,D-tacit-adaptive,A-jev}.json`.
+
+## Kalibracijske opservacije (sve izmjereno, n=18)
+
+- `escalate-*`: Yes ≈ 0.70–0.77 (oba enginea) — jasna margina, ispravna eskalacija.
+- `ambiguous-bs` ("radi čudno ponekad"): feature 0.72 (Tacit) / 0.76 (Decider) — samouvjereno
+  na genuino dvosmislenom ulazu; log-prob margina ~1.0 > tau 0.5 → adaptive NIJE eskalirao.
+  Zaključak: default `tau=0.5` rijetko okida; za kraće tekstove razmotriti niži tau (uz mjerenje).
+- `abstain-*` (gibberish): "other" 0.76–0.83 — model bira ispravan bucket umjesto apstinencije;
+  ispod `confidence 0.80` tek djelomično. Apstinencijski prag 0.40 se ne okida na ovom setu.
+- D == C bit-za-bit (deterministički model, nema cot-a) — dokaz ponovljivosti.
+- Niti jedna odluka nije pala (0 errors / 72 mjerenja A+B+C+D).
+- **Jev vs Tacit kalibracija:** Jev daje degenerirane 0/1 distribucije (često conf 1.0) dok je
+  Tacit glađi; na `ambiguous-*` se NE slažu (Jev: bug 1.0; Tacit: feature 0.72 / help 0.90) —
+  oba samouvjerena, svaki na svoju stranu. Upozorenje: visok confidence ≠ istina, pogotovo
+  kod dvosmislenog ulaza.
+- **Tehnička napomena:** endpoint vraća 403 Python-urllib klijentima, a curl-u 200 —
+  vjerojatno bot-filtriranje, ne rate limit. Svi A-pozivi odrađeni curl-om, razmak ~10 s,
+  bez ijednog 403 nakon prelaska. `noul` odgovor je broj (vjerojatnost), ne boolean —
+  adapter to već podržava (`p >= 0.5`).
+
 ## Rezultati / Results
 
-_(prazno — popuniti nakon odobrenih pokretanja; zabranjeno fabriciranje / empty — fill after approved runs; no fabrication)_
+_(E: nakon odobrenog downloada/GPU-a; zabranjeno fabriciranje)_

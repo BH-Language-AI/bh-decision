@@ -46,7 +46,9 @@
 ## DI FAZE 2–6 — Core/MCP/Skill/Plugin/Benchmark ✅ gotovo (2026-11-12)
 - Core, 14 MCP alata (11 + 3 anyjev), skill (+AnyJev sekcija), plugin (`/decision`, `/decision-status`, `provider=` prefiks), 43 TS + 19 Python testova zeleno.
 - Ispravljena 2 bug-a pronađena testiranjem (breaker reset, redactSecrets).
-- AnyJev adapter (tacit/decider, l0/adaptive, bridge+gateway) — default off, mock-testiran; live mjerenja blokirana (nema modela/ključa, nisu fabricirana).
+- AnyJev adapter (tacit/decider, l0/adaptive, bridge+gateway) — default off. Live mjerenja 2026-11-12:
+  B Decider L0 11/14, C Tacit L0 11/14, D Adaptive 11/14 (cot 0/18), A Jev Free 14/14 (p50 334 ms);
+  E Clef local blokiran (GPU/download). Detalji: `docs/benchmarking/anyjev-comparison.md`.
 - Izvještaj: `benchmarks/reports/phase-6.md`. Odluka: `docs/decisions/anyjev-integration.md`.
 
 ## DI FAZA 7 — Release priprema (sljedeće, treba odobrenje)
