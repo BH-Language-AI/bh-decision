@@ -1,0 +1,7 @@
+.env
+node_modules/
+dist/
+*.log
+.hf-cache/
+models/
+benchmarks/reports/*.json

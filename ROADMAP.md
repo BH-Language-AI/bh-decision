@@ -16,7 +16,8 @@
 - HF kolekcija BH-Decision: https://huggingface.co/collections/BH-Language-AI/bh-decision-6af57d53051dc84ba678cb41 (6 referentnih modela FAZE 1; vlastite težine tek nakon validacije u FAZI 7).
 
 ## FAZA 5 — Pilot Training
-- Mali piloti A vs B vs C, izbor pobjednika dokazom.
+- Status: spremna, blokirana — čeka GPU (1×24GB); pilot paket + dry-run verificirani.
+- Mali piloti A vs B vs C po `docs/training/pilot-faza5.md`, izbor pobjednika dokazom (`scripts/pilot.py`, `slurm/pilot.slurm`).
 
 ## FAZA 6 — Family Training
 - 9B, 4B, 2B po pobjedničkoj strategiji, zajednička evaluacija, optimizacija.
@@ -32,10 +33,21 @@
 > paketima i NE mijenja trening configs/scripts/datasets. / Decision infrastructure
 > lives in its own packages and does NOT touch training code.
 
-## DI FAZA 1 — Discovery ✅ nacrt gotov (2026-11-12), čeka odobrenje
+## DI FAZA 1 — Discovery ✅ gotovo (2026-11-12)
 - Provjereno: Jev 1.13 Free (endpoint, format, cijena, limited-time), Clef-Flash
   (Apache-2.0, SystemOne kompatibilnost, lokalno/hosted opcije), OpenCode plugin API
   v2.2.7, skill format, MCP SDK v1.32.2.
 - Korekcija: stvarni tipovi su `noul/choice/score`, ne `categorical/boolean`.
 - Izlazi: `docs/architecture/system-architecture.md`, `docs/providers/jev.md`,
   `docs/providers/clef-flash.md`, `docs/decisions/provider-selection.md`.
+
+## DI FAZE 2–6 — Core/MCP/Skill/Plugin/Benchmark ✅ gotovo (2026-11-12)
+- Core, 11 MCP alata, skill, plugin (`/decision`, `/decision-status`), 29 testova zeleno.
+- Ispravljena 2 bug-a pronađena testiranjem (breaker reset, redactSecrets).
+- Izvještaj: `benchmarks/reports/phase-6.md`. Live mjerenja čekaju ključeve (nisu fabricirana).
+
+## DI FAZA 7 — Release priprema (sljedeće, treba odobrenje)
+- [ ] `git init` + prvi commit (BH-Decision još nije git repo, nema remotea)
+- [ ] Instalacijska provjera na čistom checkoutu (skill load, MCP handshake, plugin load u OpenCode)
+- [ ] Live benchmark uz korisnički `OPENCODE_API_KEY` i/ili lokalni Clef (uz odobrenje downloada)
+- [ ] GitHub repo + release — SAMO uz eksplicitno odobrenje

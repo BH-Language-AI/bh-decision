@@ -32,6 +32,18 @@ python3 scripts/train.py --config configs/2b.yaml   # dry-run: samo validira i i
 python3 scripts/evaluate.py --ref ref.json --pred pred.json [--out out.json]
 ```
 
+## Decision Intelligence staza (odvojeno od treninga)
+
+Skill + MCP server + OpenCode plugin + zajednički Core (Jev 1.13 Free → lokalni
+Clef-Flash, nulti trošak). Ne mijenja trening kod: `packages/`, `skills/`, `config/`.
+
+- Arhitektura: `docs/architecture/system-architecture.md`, `docs/architecture/decision-protocol.md`
+- Provideri: `docs/providers/jev.md`, `docs/providers/clef-flash.md`, `docs/decisions/provider-selection.md`
+- Instalacija: `docs/installation/opencode.md`, `docs/installation/local-clef.md`
+- Privatnost: `docs/security/privacy.md` — Benchmark: `benchmarks/reports/phase-6.md`
+
+Testovi (bez ključeva/mreže): `node --experimental-strip-types --test tests/core/normalize.test.ts tests/core/providers.test.ts tests/mcp/server.test.ts tests/plugin/loading.test.ts tests/integration/project.test.ts`
+
 ## Licenca
 
 Apache License 2.0 — vidi [LICENSE](LICENSE). Doprinosi: [CONTRIBUTING.md](CONTRIBUTING.md). Upravljanje: [GOVERNANCE.md](GOVERNANCE.md). Sigurnost: [SECURITY.md](SECURITY.md).

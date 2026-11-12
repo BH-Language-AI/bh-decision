@@ -1,0 +1,39 @@
+# Primjer konfiguracije / Example configuration — kopiraj u decision.yaml i prilagodi.
+# Tajne NIKAD ovdje — samo env varijable. / Secrets NEVER here — env vars only.
+# Vrijednosti su početne i dokumentirane; sve se mogu mijenjati bez koda.
+providers:
+  primary: jev            # jev | clef_local | clef_hosted_free | future_bh_decision_2b/4b/9b
+  fallback:
+    - clef_local
+    # - clef_hosted_free  # samo uz verificirani free tier + odobrenje / verified free tier only
+
+  allow_paid: false       # NIKAD true automatski / NEVER true automatically
+
+  jev:
+    model: jev-1.13-free  # točan string; plaćeni jev-1.13 je na denylistu
+    enabled: true
+    # ključ: env OPENCODE_API_KEY / key from env
+
+  clef_local:
+    enabled: true
+    url: http://127.0.0.1:30000   # SGLang /v1/systemone
+    model: Cloudflare/clef-flash
+
+  clef_hosted_free:
+    enabled: false
+    require_verified_free_tier: true   # mora ostati true dok nema dokaza
+    # account: env CLOUDFLARE_ACCOUNT_ID, token: env CLOUDFLARE_AUTH_TOKEN
+
+policy:
+  automatic_decisions: true
+  confidence_threshold: 0.80   # ispod -> requires_escalation preporuka
+  escalation_threshold: 0.65   # ispod -> obavezna eskalacija na glavni LLM
+  abstain_threshold: 0.40      # max prob ispod -> apstinencija za to pitanje
+  timeout_ms: 1500             # budžet po provider pozivu
+  max_decisions_per_session: 20
+  cache_ttl_ms: 300000
+
+privacy:
+  send_repository_content: false  # cijeli repo NIKAD provideru
+  log_prompts: false              # puni promptovi se ne logiraju
+  telemetry: false

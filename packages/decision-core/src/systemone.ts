@@ -2,8 +2,8 @@
 // Normalization: internal concept <-> actual SystemOne wire format.
 import type {
   DecisionRequest, InternalQuestion, QuestionDecision, SysQuestion, SysRequest, SysResponse,
-} from "./types.js";
-import { DecisionError } from "./types.js";
+} from "./types.ts";
+import { DecisionError } from "./types.ts";
 
 const ID_RE = /^[A-Za-z0-9_.-]{1,100}$/;
 
