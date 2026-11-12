@@ -15,9 +15,10 @@
 - GH repo (sadržajan, ne prazan): https://github.com/BH-Language-AI/bh-decision — 19 testova zeleno, CI, seed datasetovi (40 primjera), benchmark harness verificiran end-to-end.
 - HF kolekcija BH-Decision: https://huggingface.co/collections/BH-Language-AI/bh-decision-6af57d53051dc84ba678cb41 (6 referentnih modela FAZE 1; vlastite težine tek nakon validacije u FAZI 7).
 
-## FAZA 5 — Pilot Training ✅ smoke prošao (2026-11-12, Kaggle T4)
+## FAZA 5 — Pilot Training ✅ smoke + pravi pilot B (2026-11-12, Kaggle T4)
 - Dokaz pipelinea: EuroLLM-1.7B + LoRA, loss 1.725→0.025 (100 koraka), izlaz validan protokolski JSON na ijekavici. Izvještaj: `docs/training/pilot-b-smoke-2026-11-12.md`.
-- Pravi pilot A/B/C (300–500 primjera + eval) čeka veći bosanski set. Adapter se ne objavljuje (smoke, nevalidiran).
+- Pravi pilot B: val_loss 0.491 (360/40, 3 epohe), format_valid_rate 0.4 — limit probe bio odsijecanje na 128 tokena (sljedeći run: 256). Izvještaj: `docs/training/pilot-b-2026-11-12.md`.
+- Adapteri neobjavljeni. Preostalo: ljudska validacija uzorka, krak C + clef-flash baseline na ≥24GB GPU-u.
 - Mali piloti A vs B vs C po `docs/training/pilot-faza5.md`, izbor pobjednika dokazom (`scripts/pilot.py`, `slurm/pilot.slurm`).
 
 ## FAZA 6 — Family Training
