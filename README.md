@@ -38,11 +38,11 @@ Skill + MCP server + OpenCode plugin + zajednički Core (Jev 1.13 Free → lokal
 Clef-Flash, nulti trošak). Ne mijenja trening kod: `packages/`, `skills/`, `config/`.
 
 - Arhitektura: `docs/architecture/system-architecture.md`, `docs/architecture/decision-protocol.md`
-- Provideri: `docs/providers/jev.md`, `docs/providers/clef-flash.md`, `docs/decisions/provider-selection.md`
+- Provideri: `docs/providers/jev.md`, `docs/providers/clef-flash.md`, `docs/providers/anyjev.md`, `docs/decisions/provider-selection.md`, `docs/decisions/anyjev-integration.md`
 - Instalacija: `docs/installation/opencode.md`, `docs/installation/local-clef.md`
 - Privatnost: `docs/security/privacy.md` — Benchmark: `benchmarks/reports/phase-6.md`
 
-Testovi (bez ključeva/mreže): `node --experimental-strip-types --test tests/core/normalize.test.ts tests/core/providers.test.ts tests/mcp/server.test.ts tests/plugin/loading.test.ts tests/integration/project.test.ts`
+Testovi (bez ključeva/mreže): `node --experimental-strip-types --test tests/core/normalize.test.ts tests/core/providers.test.ts tests/core/anyjev.test.ts tests/mcp/server.test.ts tests/plugin/loading.test.ts tests/integration/project.test.ts`
 
 ## Licenca
 

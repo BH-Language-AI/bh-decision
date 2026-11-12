@@ -31,6 +31,23 @@ judgment; skip them for trivial or deterministic work.
 4. `requires_escalation: true` ili visok rizik → ne izvršavaj sam; traži odobrenje.
 5. Odluka je savjet, ne dozvola: destruktivne akcije (brisanje, rm, deploy, objave, novac, kredencijali) uvijek prolaze normalna permission pravila.
 
+## AnyJev Decision Engine
+
+AnyJev (Apache-2.0, `nokia-applied-research/AnyJev`) pretvara otvorene modele u Jev-stilske
+odluke bez treninga: `Decider` (bilo koji lokalni model, nivo L0) i `Tacit` (samodestilirani
+`morriszjm/Tacit-{1.7B,2B,4B,8B,9B}`, jedan forward; `adaptive=True` šalje nesigurne na reasoning
+uz cap). Vrste: `choice` (max 26 opcija!), `yes_no`, `score` (2–10 nivoa). Svaka odluka nosi
+`answer + probs + route` (`one_forward`/`cot`) — vjerojatnost NIJE garancija.
+
+- **Kada AnyJev:** lokalna odluka bez slanja podataka vani; brze L0 rutine (klasifikacija, tool-pick, routing).
+- **Decider vs Tacit:** Decider = bilo koji model koji već imaš; Tacit = kalibriraniji jedan-forward, treba Tacit checkpoint.
+- **L0 vs Adaptive:** L0 uvijek prvo; Adaptive samo kad je L0 nesiguran (mala margina) i kad sekunde reasoninga vrijede.
+- **Kada Jev Free:** primarna hostirana ruta; šalje se samo minimalni state, nikad repo/tajne.
+- **Kada Clef-Flash lokalno:** SystemOne fallback kad AnyJev nema modela.
+- **Kada eskalacija/abstinencija:** `confidence` ispod praga, `route=cot` bez poboljšanja, ili `abstained` → glavni LLM/korisnik.
+- Operativna politika: 1) deterministička pravila prije modela. 2) AnyJev L0 za brze odluke. 3) Jev Free kao primarna hostirana ruta. 4) AnyJev Adaptive samo uz opravdanje. 5) Clef lokalno kao fallback. 6) Složenost glavnom agentu. 7) Bez dokaza → abstiniraj. 8) Probabilnost ≠ istina. 9) Dozvole uvijek važe.
+- Status/provjera: `decision_anyjev_status`, `decision_anyjev_test`; ručno: `/decision provider=anyjev_local <zadatak>`.
+
 ## Privatnost / Privacy
 
 - Sticky: `language: bs-ijekavica` kad korisnik piše bosanski.

@@ -66,8 +66,16 @@ export class DecisionCore {
     this.stat(id).errors += 1;
   }
 
-  status(): ProviderStatus[] {
-    const ids = new Set([...this.stats.keys(), ...this.registry.ids().filter((i) => !i.startsWith("future_"))]);
+  /** Direktan pristup provideru za dijagnostiku/konfiguraciju (ne zaobilazi budžet odlučivanja). */
+  provider(id: string): IProvider | undefined {
+    try {
+      return this.registry.get(id);
+    } catch {
+      return undefined;
+    }
+  }
+
+  status(): ProviderStatus[] {    const ids = new Set([...this.stats.keys(), ...this.registry.ids().filter((i) => !i.startsWith("future_"))]);
     return [...ids].map((id) => {
       const s = this.stats.get(id);
       const lat = s?.lat ?? [];

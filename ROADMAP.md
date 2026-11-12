@@ -15,8 +15,9 @@
 - GH repo (sadržajan, ne prazan): https://github.com/BH-Language-AI/bh-decision — 19 testova zeleno, CI, seed datasetovi (40 primjera), benchmark harness verificiran end-to-end.
 - HF kolekcija BH-Decision: https://huggingface.co/collections/BH-Language-AI/bh-decision-6af57d53051dc84ba678cb41 (6 referentnih modela FAZE 1; vlastite težine tek nakon validacije u FAZI 7).
 
-## FAZA 5 — Pilot Training
-- Status: spremna, blokirana — čeka GPU (1×24GB); pilot paket + dry-run verificirani.
+## FAZA 5 — Pilot Training ✅ smoke prošao (2026-11-12, Kaggle T4)
+- Dokaz pipelinea: EuroLLM-1.7B + LoRA, loss 1.725→0.025 (100 koraka), izlaz validan protokolski JSON na ijekavici. Izvještaj: `docs/training/pilot-b-smoke-2026-11-12.md`.
+- Pravi pilot A/B/C (300–500 primjera + eval) čeka veći bosanski set. Adapter se ne objavljuje (smoke, nevalidiran).
 - Mali piloti A vs B vs C po `docs/training/pilot-faza5.md`, izbor pobjednika dokazom (`scripts/pilot.py`, `slurm/pilot.slurm`).
 
 ## FAZA 6 — Family Training
@@ -42,9 +43,10 @@
   `docs/providers/clef-flash.md`, `docs/decisions/provider-selection.md`.
 
 ## DI FAZE 2–6 — Core/MCP/Skill/Plugin/Benchmark ✅ gotovo (2026-11-12)
-- Core, 11 MCP alata, skill, plugin (`/decision`, `/decision-status`), 29 testova zeleno.
+- Core, 14 MCP alata (11 + 3 anyjev), skill (+AnyJev sekcija), plugin (`/decision`, `/decision-status`, `provider=` prefiks), 43 TS + 19 Python testova zeleno.
 - Ispravljena 2 bug-a pronađena testiranjem (breaker reset, redactSecrets).
-- Izvještaj: `benchmarks/reports/phase-6.md`. Live mjerenja čekaju ključeve (nisu fabricirana).
+- AnyJev adapter (tacit/decider, l0/adaptive, bridge+gateway) — default off, mock-testiran; live mjerenja blokirana (nema modela/ključa, nisu fabricirana).
+- Izvještaj: `benchmarks/reports/phase-6.md`. Odluka: `docs/decisions/anyjev-integration.md`.
 
 ## DI FAZA 7 — Release priprema (sljedeće, treba odobrenje)
 - [ ] `git init` + prvi commit (BH-Decision još nije git repo, nema remotea)

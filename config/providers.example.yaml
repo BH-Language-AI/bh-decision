@@ -29,3 +29,9 @@ providers:
   future_bh_decision_9b:
     kind: reserved-slot
     status: not-trained
+  anyjev_local:
+    kind: local-optional
+    framework: AnyJev 0.3.0 (Apache-2.0, pip install "anyjev[hf]")
+    model: ""   # npr. morriszjm/Tacit-4B ili Qwen/Qwen3-4B (Decider); prazno = neregistriran
+    license_note: Tacit modeli nose Apache-2.0 svojih Qwen baza; samo eksperimentalni benchmark
+    enabled_by_default: false

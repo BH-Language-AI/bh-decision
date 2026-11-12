@@ -41,7 +41,7 @@ function cannedSystemOne(): Promise<{ server: Server; url: string }> {
 }
 
 describe("MCP server", () => {
-  it("slučaj 14: startup + 11 alata sa shemama", async () => {
+  it("slučaj 14: startup + 14 alata sa shemama", async () => {
     const { server: canned, url } = await cannedSystemOne();
     const dir = await mkdtemp(join(tmpdir(), "bh-dec-"));
     const cfgPath = join(dir, "decision.json");
@@ -51,7 +51,7 @@ describe("MCP server", () => {
     try {
       await client.connect(transport);
       const { tools } = await client.listTools();
-      assert.equal(tools.length, 11);
+      assert.equal(tools.length, 14);
       const names = tools.map((t) => t.name).sort();
       assert.ok(names.includes("decision_classify") && names.includes("decision_benchmark") && names.includes("decision_status"));
       for (const t of tools) assert.ok(t.inputSchema, `schema: ${t.name}`);

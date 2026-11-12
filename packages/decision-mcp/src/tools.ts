@@ -127,6 +127,72 @@ export function registerTools(server: McpServer, core: DecisionCore, _cfg: Decis
       session_id: Session,
     },
   }, async ({ limit, session_id }) => out(await runBenchmark(core, limit ?? 10, session_id ?? "bench")));
+
+  server.registerTool("decision_anyjev_status", {
+    description: "AnyJev zdravlje, efektivna konfiguracija i gateway statistika. / AnyJev health, config and gateway stats.",
+    inputSchema: {},
+  }, async () => out(await anyjevStatus(core, _cfg)));
+
+  server.registerTool("decision_anyjev_config", {
+    description: "Mijenja dozvoljena AnyJev polja (mode, decisionMode, model, url, tau). / Changes allowed AnyJev fields.",
+    inputSchema: {
+      field: z.enum(["mode", "decisionMode", "model", "url", "tau"]).describe("Polje / field"),
+      value: z.string().describe("Nova vrijednost / new value"),
+    },
+  }, async ({ field, value }) => out(anyjevConfig(core, _cfg, field, value)));
+
+  server.registerTool("decision_anyjev_test", {
+    description: "Probna AnyJev odluka (2 opcije) bez trošenja sesijskog budžeta. / Canned AnyJev test decision.",
+    inputSchema: { task: z.string().optional().describe("Probni zadatak / test task") },
+  }, async ({ task }) => out(await anyjevTest(core, _cfg, task ?? "Testna poruka: paket nije stigao.")));
+}
+
+async function anyjevStatus(core: DecisionCore, cfg: DecisionConfig) {
+  const row = core.status().find((s) => s.id === "anyjev_local") ?? null;
+  const eff = cfg.anyjev ?? null;
+  let gateway: unknown = null;
+  if (eff?.enabled && eff.url) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 3000);
+      try {
+        const res = await fetch(`${eff.url.replace(/\/$/, "")}/v1/stats`, { signal: ctrl.signal });
+        gateway = res.ok ? await res.json() : { error: `status ${res.status}` };
+      } finally {
+        clearTimeout(timer);
+      }
+    } catch (e) {
+      gateway = { error: (e as Error).message };
+    }
+  }
+  return { registered: row !== null, core: row, config: eff, gateway };
+}
+
+function anyjevConfig(core: DecisionCore, cfg: DecisionConfig, field: string, value: string) {
+  const p = core.provider("anyjev_local");
+  if (!p || typeof (p as { configure?: unknown }).configure !== "function")
+    throw new Error("anyjev_local nije registriran (ANYJEV_ENABLED=true + ANYJEV_MODEL).");
+  const patch: Record<string, unknown> = {
+    ...(field === "tau" ? { tau: Number(value) } : { [field]: value }),
+  };
+  const eff = (p as { configure: (x: unknown) => unknown }).configure(patch);
+  if (cfg.anyjev && field in cfg.anyjev) (cfg.anyjev as Record<string, unknown>)[field] = (patch as Record<string, unknown>)[field];
+  return { updated: eff };
+}
+
+async function anyjevTest(core: DecisionCore, cfg: DecisionConfig, task: string) {
+  const p = core.provider("anyjev_local");
+  if (!p) throw new Error("anyjev_local nije registriran (ANYJEV_ENABLED=true + ANYJEV_MODEL).");
+  const { toSystemOne, fromSystemOne } = await import("../../decision-core/src/systemone.ts");
+  const req = { state: { task }, questions: { probe: { id: "probe", type: "categorical" as const, instructions: "Koju kategoriju opisuje stanje?", options: { a: "Prva.", b: "Druga." } } } };
+  const sys = toSystemOne(req, p.caps().model);
+  const t0 = Date.now();
+  const outp = await p.decide(sys, { timeout_ms: cfg.thresholds.timeout_ms });
+  const norm = fromSystemOne(req, outp.response, cfg.thresholds.abstain);
+  return {
+    provider: "anyjev_local", model: p.caps().model, selected: norm.decisions.probe.selected,
+    confidence: norm.confidence, latency_ms: Date.now() - t0, usage: outp.response.usage ?? null,
+  };
 }
 
 async function runBenchmark(core: DecisionCore, limit: number, session: string) {

@@ -66,12 +66,19 @@ export default Plugin.define({
     await ctx.command.transform((editor) => {
       editor.add({
         name: "decision",
-        description: "Classify a task via BH-Decision (intent + complexity + escalation).",
+        description: "Classify a task via BH-Decision (intent + complexity + escalation). Prefix 'provider=<id>' for a one-off provider.",
         execute: async ({ sessionID, prompt }: { sessionID: string; prompt: { text: string } }) => {
-          const core = buildCore(process.env as Record<string, string>);
-          const text = prompt.text.trim();
+          let text = prompt.text.trim();
           if (!text) return;
+          let env = process.env as Record<string, string>;
+          const m = text.match(/^provider=([A-Za-z0-9_.-]+)\s+/);
+          if (m) { // jednokratni ručni izbor providera / one-off manual provider select
+            text = text.slice(m[0].length).trim();
+            env = { ...process.env as Record<string, string>, DECISION_PROVIDER: m[1] };
+            if (!text) return;
+          }
           try {
+            const core = buildCore(env);
             const r = await core.decide({
               state: { task: text },
               questions: {

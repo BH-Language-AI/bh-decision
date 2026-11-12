@@ -99,3 +99,15 @@ actions; silent fallback; no secrets in logs.
 3. Community kvantizacije (63 na HF) su chat-style, **ne** SystemOne protokol — samo eksperimentalno.
 4. Workers AI nema potvrđenu besplatnu kvotu za Clef → `clef_hosted_free` default **off**.
 5. `ctx.experimental.generate.decisions` API se može promijeniti (eksperimentalno).
+
+## 8. AnyJev (opcionalni engine / optional engine, 2026-11-12)
+
+- `anyjev_local` je običan `IProvider` (default **off**): `SysRequest` → `POST /v1/decide`
+  → `SysResponse`, pa postojeća `fromSystemOne` normalizacija radi bez promjena.
+  Detalj: `docs/providers/anyjev.md`; adapter: `packages/decision-core/src/providers/anyjev.ts`.
+- Dva lokalna servera iza istog ugovora: stock `python -m anyjev.serve` (Tacit + vLLM,
+  treba GPU) ili `scripts/anyjev_bridge.py` (Tacit/Decider, transformers = CPU OK).
+  TS strana ima nula novih ovisnosti (samo fetch).
+- Limiti se odbijaju, ne simuliraju: choice >26 opcija i score >10 nivoa → `unsupported`.
+- Qwen-bazirani Tacit modeli su samo eksperimentalni benchmark (vidjeti
+  `docs/decisions/anyjev-integration.md`), nikad temelj BH-Decision-2B/4B/9B.

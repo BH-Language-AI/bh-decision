@@ -9,17 +9,20 @@ model_sources (/kaggle/input), seed+harness su u vendor/ (kopije iz repoa).
 import glob
 import json
 import os
+import pathlib
 import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VENDOR = os.path.join(HERE, "vendor")
+DATA = "/kaggle/input/bh-decision-seed-v01"
+VENDOR = DATA if os.path.isdir(DATA) else os.path.join(HERE, "vendor")
 SEED_GLOB = os.path.join(VENDOR, "samples", "*.jsonl")
 HARNESS = os.path.join(VENDOR, "harness.py")
 OUT = "/kaggle/working/output"
 
-cands = sorted(glob.glob("/kaggle/input/eurollm-17b/*"))
-BASE = cands[0] if cands else None
+hits = sorted(pathlib.Path("/kaggle/input").rglob("config.json"))
+print("config.json na:", [str(h) for h in hits][:5], flush=True)
+BASE = str(hits[0].parent) if hits else None
 print("model dir:", BASE, flush=True)
 assert BASE, "nema modela u /kaggle/input/eurollm-17b"
 
@@ -31,6 +34,10 @@ def sh(cmd):
 
 # Kaggle image ima prestar torchao (0.10) koji ruši import pefta; ne treba nam.
 sh("pip uninstall -y torchao 2>&1 | tail -1")
+# Offline: noviji transformers+tokenizers iz dataseta (Kaggle image ima prestar,
+# a sentencepiece nema cp313 wheel i kernel nema internet).
+sh("pip install --no-index --find-links /kaggle/input/bh-decision-seed-v01 /kaggle/input/bh-decision-seed-v01/transformers-5.22.2-py3-none-any.whl 2>&1 | tail -3")
+sh("python3 -c \"import transformers, tokenizers; print('tf:', transformers.__version__, '| tok:', tokenizers.__version__)\"")
 sh(f"python3 {HARNESS} --self-test")
 
 import torch
@@ -39,8 +46,6 @@ assert torch.cuda.is_available(), "nema GPU-a, prekidam"
 
 from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer, DataCollatorForLanguageModeling
 from peft import LoraConfig, get_peft_model
-from datasets import load_dataset
-import glob
 
 tok = AutoTokenizer.from_pretrained(BASE)
 if tok.pad_token is None:
@@ -52,12 +57,24 @@ model = get_peft_model(model, LoraConfig(
     task_type="CAUSAL_LM"))
 
 files = sorted(glob.glob(SEED_GLOB))
-ds = load_dataset("json", data_files=files, split="train")
+tekstovi = []
+for put in files:
+    with open(put, encoding="utf-8") as f:
+        for red in f:
+            red = red.strip()
+            if not red:
+                continue
+            r = json.loads(red)
+            tekstovi.append({"text": r.get("state", "") + "\nODLUKA: "
+                             + json.dumps(r.get("reference", {}), ensure_ascii=False)})
+print("seed redova:", len(tekstovi), flush=True)
+assert tekstovi, "nema seed podataka"
+from datasets import Dataset
+ds = Dataset.from_list(tekstovi)
 
 
 def tok_fn(r):
-    t = r.get("state", "") + "\nODLUKA: " + json.dumps(r.get("reference", {}), ensure_ascii=False)
-    return tok(t, truncation=True, max_length=1024)
+    return tok(r["text"], truncation=True, max_length=1024)
 
 
 ds = ds.map(tok_fn)

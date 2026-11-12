@@ -9,3 +9,7 @@ Interni odgovor: `{decision_id, provider, model, model_version?, decisions:{id:{
 `confidence` = minimum max-vjerojatnosti; `requires_escalation` kad je ispod
 `escalation` praga ili ima apstinencija. Vjerojatnost ≠ kalibrirano povjerenje.
 Apstinencija kad max prob < `abstain` praga. Bez chain-of-thought.
+
+AnyJev mapiranje: `choice`→`choice` (≤26 opcija), `boolean`→`yes_no`, `score`→`score`
+sa levels kao options (selected = argmax indeks). Odgovor nosi `route` (`one_forward`/`cot`)
+i `level` u `usage`. Nepoznat oblik odgovora → `invalid_response`, nikad nagađanje.

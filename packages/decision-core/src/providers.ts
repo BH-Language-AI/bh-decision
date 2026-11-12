@@ -1,6 +1,8 @@
 // Provideri / Providers: apstrakcija, registar, denylist plaćenih modela.
 import type { CallOpts, IProvider, ProviderCaps, ProviderResult, SysRequest } from "./types.ts";
 import { DecisionError } from "./types.ts";
+import { AnyjevProvider } from "./providers/anyjev.ts";
+import type { AnyjevConfig } from "./config.ts";
 
 /** Nikad se ne pozivaju automatski dok je allow_paid=false. */
 export const PAID_DENYLIST = [
@@ -94,6 +96,7 @@ export interface RegistryOpts {
   clefHostedVerifiedFree?: boolean;
   clefAccountId?: string;
   clefToken?: string;
+  anyjev?: AnyjevConfig;
 }
 
 /** Registar: redoslijed, denylist, future_bh_* utori (bez lažnih implementacija). */
@@ -129,6 +132,18 @@ export class ProviderRegistry {
           if (!opts.clefToken) throw new DecisionError("auth", "Missing CLOUDFLARE_AUTH_TOKEN.", "clef_hosted_free", false);
           return { Authorization: `Bearer ${opts.clefToken}` };
         },
+      }));
+    }
+    if (opts.anyjev?.enabled && opts.anyjev.model) {
+      // Opt-in lokalni AnyJev (bridge ili gateway). Bez modela se ne registrira.
+      this.register(new AnyjevProvider({
+        model: opts.anyjev.model,
+        mode: opts.anyjev.mode,
+        decisionMode: opts.anyjev.decisionMode,
+        url: opts.anyjev.url,
+        tau: opts.anyjev.tau,
+        maxCotShare: opts.anyjev.maxCotShare,
+        cotWindow: opts.anyjev.cotWindow,
       }));
     }
   }

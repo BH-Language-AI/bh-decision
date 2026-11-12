@@ -24,6 +24,17 @@ providers:
     require_verified_free_tier: true   # mora ostati true dok nema dokaza
     # account: env CLOUDFLARE_ACCOUNT_ID, token: env CLOUDFLARE_AUTH_TOKEN
 
+  anyjev:
+    enabled: false        # opt-in: ANYJEV_ENABLED=true + model + lokalni server
+    mode: tacit           # tacit | decider (ANYJEV_MODE)
+    decision_mode: l0     # l0 | adaptive (ANYJEV_DECISION_MODE)
+    model: ""             # npr. morriszjm/Tacit-4B (ANYJEV_MODEL) — obavezno kad je enabled
+    backend: transformers # transformers | server (ANYJEV_BACKEND, za bridge)
+    url: http://127.0.0.1:8101   # bridge ili anyjev.serve gateway (ANYJEV_URL)
+    tau: 0.5
+    max_cot_share: 0.2
+    cot_window: 1000
+
 policy:
   automatic_decisions: true
   confidence_threshold: 0.80   # ispod -> requires_escalation preporuka
