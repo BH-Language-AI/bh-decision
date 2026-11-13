@@ -48,7 +48,15 @@ Pojedinosti: `benchmarks/reports/live-{B-decider-l0,C-tacit-l0,D-tacit-adaptive,
 `scripts/live_jev_bench.py` — **14/14, 0 grešaka, p50 256 ms / max 299 ms**.
 Reproducira 2026-11-12 (14/14, p50 334 ms); `ambiguous-*` i dalje `bug`,
 `abstain-*` i dalje `other`, `escalate-*` 0.86. Sirovo:
-`benchmarks/reports/live-A-jev-rerun-20261113.json`.
+`benchmarks/reports/live-A-jev-rerun-20261113.json` (lokalno, gitignore).
+
+**Rerun C (2026-11-13):** isti scenariji/model/engine/dtype
+(`morriszjm/Tacit-4B`, transformers, float32, tau 0.5), bridge iz repoa —
+sirovo **9/14 strogo, 0 grešaka, p50 6,4 s / max 18 s**, odgovori **bit-za-bit
+identični** snimljenom `live-C-tacit-l0.json` (18/18 istih answer+correct).
+Tabelarnih 11/14 = strogo 9 + 2 `escalate-*` uz yes_no normalizaciju iz
+metodologije (Yes→tačno); B je 11/14 i strogo. Sirovo:
+`benchmarks/reports/live-C-tacit-l0-rerun-20261113.json` (lokalno, gitignore).
 
 ## Kalibracijske opservacije (sve izmjereno, n=18)
 

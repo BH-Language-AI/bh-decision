@@ -5,6 +5,7 @@
 - Plugin: `/decision-risk <zadatak>` (risk_level + needs_approval), `/decision-rank <zadatak> | opt1, opt2, opt3` (min. 2 opcije); `provider=<id>` prefiks sada na sve tri komande; zajednički jednolinijski ispis.
 - Skill: dokumentirane nove ručne komande sa sintaksom.
 - Testovi: 45 zeleno (43 + 2 nova za rank-usage i risk-fallback).
+- Skill: ručni primjeri za `/decision-risk` i `/decision-rank` + napomena o zarezu.
 
 ## 0.1.0 (2026-11-12) — Faze 1–6
 
