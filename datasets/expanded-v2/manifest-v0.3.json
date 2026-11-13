@@ -1,0 +1,40 @@
+{
+ "seed": 13,
+ "source": "template-expansion-v0.3",
+ "license": "CC-BY-4.0",
+ "files": {
+  "choice": {
+   "n": 291,
+   "sha256": "4d84843f2a959abe"
+  },
+  "risk": {
+   "n": 261,
+   "sha256": "26e81e980805a8e1"
+  },
+  "ranking": {
+   "n": 354,
+   "sha256": "a6dab4f6d9174540"
+  },
+  "scoring": {
+   "n": 255,
+   "sha256": "25651c5457fd79eb"
+  },
+  "multicriteria": {
+   "n": 340,
+   "sha256": "05d9f03c4f5e62d9"
+  },
+  "confidence": {
+   "n": 260,
+   "sha256": "ca2141e5c6d7444b"
+  },
+  "abstention": {
+   "n": 299,
+   "sha256": "9474f6fdcdb64a36"
+  },
+  "benchmark": {
+   "n": 318,
+   "sha256": "cadedd850562a40e"
+  }
+ },
+ "total": 2378
+}
