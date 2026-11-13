@@ -1,0 +1,16 @@
+{
+  "primary": "anyjev_local",
+  "fallback": ["jev"],
+  "allow_paid": false,
+  "anyjev": {
+    "enabled": true,
+    "mode": "tacit",
+    "decisionMode": "l0",
+    "model": "morriszjm/Tacit-4B",
+    "backend": "transformers",
+    "url": "http://127.0.0.1:8101",
+    "tau": 0.5,
+    "maxCotShare": 0.2,
+    "cotWindow": 1000
+  }
+}

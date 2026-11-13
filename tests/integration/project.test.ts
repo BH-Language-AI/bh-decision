@@ -20,10 +20,22 @@ describe("project layout", () => {
       "packages/opencode-plugin/src/index.ts",
       "skills/decision-intelligence/SKILL.md",
       "config/decision.example.yaml", "config/providers.example.yaml",
+      "config/decision.basic.json", "config/decision.advanced.json",
       "docs/architecture/system-architecture.md", "docs/providers/jev.md",
       "docs/providers/clef-flash.md", "docs/decisions/provider-selection.md",
+      "docs/installation/tiers.md",
+      "scripts/anyjev_bridge.py", "scripts/anyjev_serve.sh",
       ".env.example", ".gitignore",
     ]) assert.ok(await exists(p), p);
+  });
+  it("tier presets su validan JSON s ocekivanim primaryjem", async () => {
+    const basic = JSON.parse(await readFile(join(ROOT, "config/decision.basic.json"), "utf8"));
+    const adv = JSON.parse(await readFile(join(ROOT, "config/decision.advanced.json"), "utf8"));
+    assert.equal(basic.primary, "jev");
+    assert.deepEqual(basic.fallback, []);
+    assert.equal(adv.primary, "anyjev_local");
+    assert.equal(adv.anyjev.model, "morriszjm/Tacit-4B");
+    assert.equal(adv.anyjev.enabled, true);
   });
   it("skill ima valjan frontmatter", async () => {
     const md = await readFile(join(ROOT, "skills/decision-intelligence/SKILL.md"), "utf8");

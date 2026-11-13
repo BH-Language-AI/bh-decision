@@ -46,6 +46,9 @@
   Muse grana gotova rucno: 15/15 (uz napomenu — eksperimentator poznaje reference,
   gornja granica). Jev grana (`scripts/ab_compare6.py`) ceka novi kljuc (stari mrtav).
   Sirovo: `benchmarks/reports/ab6-muse-20261113.json`.
+- Verzije proizvoda: basic (glavni model + Jev-1.13-Free, $0) i advanced (lokalni
+  Tacit-4B preko API-ja) — gotovi configi `config/decision.{basic,advanced}.json`,
+  bridge launcher `scripts/anyjev_serve.sh`, vodic `docs/installation/tiers.md`.
 - HTML izvještaji serije v1–v5: `benchmarks/reports/ab-v{1..5}-20261113.html`,
   generator: `scripts/ab_report.py`. v3 summary je paired (6 limit-zadataka
   dokumentirano isključeno iz obje grane).
