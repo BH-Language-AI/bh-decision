@@ -25,6 +25,9 @@
   12/13 (+7,7 pp), 5 poziva manje (3 precheck + 2 keš), −757 ms, −38% bajtova.
   Model sam potcijenio `rm -rf` kao low rizik. Runner: `scripts/ab_compare.py`,
   sirovo: `benchmarks/reports/ab-20261113.json`.
+- A/B v2 (30 zadataka, trik-varijante + near-miss + eskalacije + mamci): obje grane
+  25/28 (89,3%) — iste 3 greške modela; skill: 11 poziva manje (5 precheck + 6 keš),
+  −4023 ms / −38% bajtova. Runner: `scripts/ab_compare2.py`, sirovo: `benchmarks/reports/ab2-20261113.json`.
 
 ## Unreleased — Plugin UX komande
 
