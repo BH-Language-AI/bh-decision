@@ -4,6 +4,7 @@ import { z } from "zod";
 import type { DecisionCore } from "../../decision-core/src/core.ts";
 import type { DecisionConfig } from "../../decision-core/src/config.ts";
 import type { DecisionRequest, InternalQuestion } from "../../decision-core/src/types.ts";
+import { matchDestructive, precheckedRiskResult } from "../../decision-core/src/precheck.ts";
 
 const Lang = z.string().optional().describe("Jezik zadatka / task language, npr. bs-ijekavica");
 const Session = z.string().optional().describe("ID sesije za dedup i budžet / session ID");
@@ -25,7 +26,7 @@ function cat(id: string, instructions: string, options: Record<string, string>):
 
 export function registerTools(server: McpServer, core: DecisionCore, _cfg: DecisionConfig): void {
   server.registerTool("decision_classify", {
-    description: "Klasificira namjeru/posao korisnika. / Classifies user intent.",
+    description: "Namjera zadatka. / Task intent.",
     inputSchema: {
       task: z.string().describe("Opis zadatka / task description"),
       options: z.record(z.string(), z.string()).describe("Opcija->opis / option->description"),
@@ -35,7 +36,7 @@ export function registerTools(server: McpServer, core: DecisionCore, _cfg: Decis
     out(await core.decide(req(task, language, cat("intent", "Koju kategoriju zadatka opisuje stanje?", options)), session_id ?? "default")));
 
   server.registerTool("decision_route", {
-    description: "Preporučuje najboljeg agenta/model/providera. / Recommends agent/model/provider.",
+    description: "Najbolji kandidat. / Best candidate.",
     inputSchema: {
       task: z.string(), candidates: z.record(z.string(), z.string()).describe("Kandidat->opis"),
       language: Lang, session_id: Session,
@@ -44,7 +45,7 @@ export function registerTools(server: McpServer, core: DecisionCore, _cfg: Decis
     out(await core.decide(req(task, language, cat("route", "Koji kandidat je najprikladniji za zadatak?", candidates)), session_id ?? "default")));
 
   server.registerTool("decision_select_tool", {
-    description: "Bira najrelevantniji alat. / Chooses the most relevant tool.",
+    description: "Najbolji alat. / Best tool.",
     inputSchema: {
       task: z.string(), available_tools: z.array(z.string()), language: Lang, session_id: Session,
     },
@@ -54,7 +55,7 @@ export function registerTools(server: McpServer, core: DecisionCore, _cfg: Decis
   });
 
   server.registerTool("decision_assess_complexity", {
-    description: "Procjenjuje složenost zadatka. / Estimates task complexity.",
+    description: "Složenost. / Complexity.",
     inputSchema: { task: z.string(), language: Lang, session_id: Session },
   }, async ({ task, language, session_id }) =>
     out(await core.decide(req(task, language, {
@@ -63,17 +64,20 @@ export function registerTools(server: McpServer, core: DecisionCore, _cfg: Decis
     }), session_id ?? "default")));
 
   server.registerTool("decision_assess_risk", {
-    description: "Klasificira operativni i sigurnosni rizik. / Classifies risk.",
+    description: "Risk level + approval need. Destructive patterns answer instantly.",
     inputSchema: { task: z.string(), language: Lang, session_id: Session },
-  }, async ({ task, language, session_id }) =>
-    out(await core.decide(req(task, language, {
+  }, async ({ task, language, session_id }) => {
+    if (matchDestructive(task)) { core.notePrecheck(true); return out(precheckedRiskResult(task)); }
+    core.notePrecheck(false);
+    return out(await core.decide(req(task, language, {
       risk_level: { id: "risk_level", type: "categorical", instructions: "Koliki je rizik izvršenja?",
         options: { low: "Bezopasno.", medium: "Oprez, provjeriti.", high: "Visok rizik, ljudsko odobrenje." } },
       needs_approval: { id: "needs_approval", type: "boolean", instructions: "Treba li ljudsko odobrenje prije izvršenja?" },
-    }), session_id ?? "default")));
+    }), session_id ?? "default"));
+  });
 
   server.registerTool("decision_rank", {
-    description: "Rangira kandidate po vjerojatnosti. / Ranks candidates.",
+    description: "Poredak kandidata. / Candidate ranking.",
     inputSchema: {
       task: z.string(), candidates: z.record(z.string(), z.string()), language: Lang, session_id: Session,
     },
@@ -85,7 +89,7 @@ export function registerTools(server: McpServer, core: DecisionCore, _cfg: Decis
   });
 
   server.registerTool("decision_score", {
-    description: "Boduje opcije prema rubrici. / Scores options against a rubric.",
+    description: "Bodovanje po rubrici. / Rubric scoring.",
     inputSchema: {
       task: z.string(), options: z.array(z.string()).describe("ID-jevi opcija / option IDs"),
       rubric: z.array(z.string()).describe("Poredana legenda / ordered legend"),
@@ -98,7 +102,7 @@ export function registerTools(server: McpServer, core: DecisionCore, _cfg: Decis
   });
 
   server.registerTool("decision_confidence", {
-    description: "Procjenjuje povjerenje u tvrdnju. / Evaluates confidence in a claim.",
+    description: "Povjerenje u tvrdnju. / Claim confidence.",
     inputSchema: { task: z.string(), claim: z.string(), language: Lang, session_id: Session },
   }, async ({ task, claim, language, session_id }) =>
     out(await core.decide(req(`${task}\nTvrdnja/Claim: ${claim}`, language, {
@@ -106,7 +110,7 @@ export function registerTools(server: McpServer, core: DecisionCore, _cfg: Decis
     }), session_id ?? "default")));
 
   server.registerTool("decision_should_escalate", {
-    description: "Odlučuje treba li eskalacija glavnom LLM-u. / Decides on escalation.",
+    description: "Treba li eskalacija. / Escalation needed.",
     inputSchema: { task: z.string(), language: Lang, session_id: Session },
   }, async ({ task, language, session_id }) => {
     const r = await core.decide(req(task, language, {
@@ -116,12 +120,12 @@ export function registerTools(server: McpServer, core: DecisionCore, _cfg: Decis
   });
 
   server.registerTool("decision_status", {
-    description: "Dostupnost providera, aktivni model, latencije. / Provider health and stats.",
+    description: "Provajderi i statistika. / Providers and stats.",
     inputSchema: {},
   }, async () => out({ providers: core.status() }));
 
   server.registerTool("decision_benchmark", {
-    description: "Pokreće evaluacijski paket nad uzorcima. / Runs the eval suite.",
+    description: "Eval paket. / Eval suite.",
     inputSchema: {
       limit: z.number().int().min(1).max(100).optional().describe("Max primjera / max samples (default 10)"),
       session_id: Session,
@@ -129,12 +133,12 @@ export function registerTools(server: McpServer, core: DecisionCore, _cfg: Decis
   }, async ({ limit, session_id }) => out(await runBenchmark(core, limit ?? 10, session_id ?? "bench")));
 
   server.registerTool("decision_anyjev_status", {
-    description: "AnyJev zdravlje, efektivna konfiguracija i gateway statistika. / AnyJev health, config and gateway stats.",
+    description: "AnyJev status. / AnyJev status.",
     inputSchema: {},
   }, async () => out(await anyjevStatus(core, _cfg)));
 
   server.registerTool("decision_anyjev_config", {
-    description: "Mijenja dozvoljena AnyJev polja (mode, decisionMode, model, url, tau). / Changes allowed AnyJev fields.",
+    description: "AnyJev podešavanje. / AnyJev config.",
     inputSchema: {
       field: z.enum(["mode", "decisionMode", "model", "url", "tau"]).describe("Polje / field"),
       value: z.string().describe("Nova vrijednost / new value"),
@@ -142,7 +146,7 @@ export function registerTools(server: McpServer, core: DecisionCore, _cfg: Decis
   }, async ({ field, value }) => out(anyjevConfig(core, _cfg, field, value)));
 
   server.registerTool("decision_anyjev_test", {
-    description: "Probna AnyJev odluka (2 opcije) bez trošenja sesijskog budžeta. / Canned AnyJev test decision.",
+    description: "AnyJev proba. / AnyJev test.",
     inputSchema: { task: z.string().optional().describe("Probni zadatak / test task") },
   }, async ({ task }) => out(await anyjevTest(core, _cfg, task ?? "Testna poruka: paket nije stigao.")));
 }

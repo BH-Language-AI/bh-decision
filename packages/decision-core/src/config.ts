@@ -27,7 +27,7 @@ export interface DecisionConfig {
 
 export const DEFAULTS: DecisionConfig = {
   primary: "jev",
-  fallback: ["clef_local"],
+  fallback: [], // samo Jev Free; ništa drugo se ne poziva automatski
   allow_paid: false,
   thresholds: {
     confidence: 0.8,

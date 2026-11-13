@@ -113,6 +113,11 @@ export interface ProviderStatus {
   errors: number;
   fallbacks_from: number;
   avg_latency_ms: number | null;
+  p50_latency_ms?: number | null;
+  p95_latency_ms?: number | null;
+  escalations?: number;
+  cache_hits?: number;
+  precheck?: { hits: number; misses: number; coverage: number | null };
   breaker_open: boolean;
 }
 

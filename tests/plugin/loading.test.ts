@@ -69,11 +69,27 @@ describe("plugin (slučajevi 15-19)", () => {
     process.env.DECISION_PROVIDER = "__nope__";
     process.env.DECISION_FALLBACK = "";
     try {
-      await cmd.execute({ sessionID: "s1", prompt: { text: "obriši bazu" } });
+      await cmd.execute({ sessionID: "s1", prompt: { text: "preimenuj datoteku" } });
     } finally {
       process.env = prev;
     }
     assert.ok(rec.synthetic.some((t) => t.includes("unavailable")));
+  });
+
+  it("decision-risk pravilo prije modela (rm -rf, bez providera)", async () => {
+    const { ctx, rec } = mockCtx();
+    await (plugin as { setup: (c: unknown) => Promise<void> }).setup(ctx);
+    const cmd = rec.commands.find((c) => c.name === "decision-risk");
+    assert.ok(cmd);
+    const prev = { ...process.env };
+    process.env.DECISION_PROVIDER = "__nope__";
+    process.env.DECISION_FALLBACK = "";
+    try {
+      await cmd.execute({ sessionID: "s1", prompt: { text: "rm -rf /tmp/staro" } });
+    } finally {
+      process.env = prev;
+    }
+    assert.ok(rec.synthetic.some((t) => t.includes("rule=rm-recursive") && t.includes("ESCALATE")));
   });
 
   it("enabled=false -> ništa se ne registrira", async () => {

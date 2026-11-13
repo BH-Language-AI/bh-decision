@@ -1,5 +1,27 @@
 # CHANGELOG — Decision Intelligence
 
+## Unreleased — Nezavisna analiza (8 tačaka)
+
+- P1 metrike: `status()` sada vraća p50/p95 latenciju, broj eskalacija, keš hitove i
+  precheck pokrivenost (`hits/misses/coverage`); glavna metrika ostaje ukupno vrijeme
+  i tokeni po zadatku — naš dio se mjeri, agentski dio je izvan ovog sloja.
+- P2 kontekst: opisi 14 alata skraćeni 1017→511 znakova (~254→~127 tokena, −50%);
+  potpuno sažimanje 14→3-4 alata odgođeno jer je breaking change (testovi + skill + docs).
+- P3 auto-hook: NIJE izvodljivo — instalirani `@opencode/plugin` nema hook/event API
+  (`tool.execute.before` ne postoji u dist tipovima); rizik-gate ostaje ručni/MCP.
+- P4 pravila: novi `packages/decision-core/src/precheck.ts` (6 obrazaca: rm -rf, SQL
+  DROP, git push --force, delete-database, obriši-bazu, format/mkfs); `decision_assess_risk`
+  i `/decision-risk` prvo pitaju pravilo (0 ms, 0 tokena), pokrivenost se loguje.
+- P5 lokalna ruta: preskočeno po direktivi — samo Jev Free, ništa drugo.
+- P6 kalibracija: bez koda — Jev vraća degenerirane 0/1 confidence pa se scaler nema na
+  šta fitati (nema označene varijanse); pragovi ostaju, preporuka je eksplicitno
+  `noul` pitanje dostatnosti (već dokumentirano).
+- P7 keš: ključ normaliziran (mala slova + jedan razmak), hit rate u `status()`;
+  bez perzistencije na disk iz privatnosti (taskovi mogu sadržavati tajne).
+- P8 paralelizam: SKILL.md dopunjen — risk-procjena paralelno s prikazom odobrenja.
+- Jev-only default: `fallback: []` (bilo `clef_local`); `decision.example.yaml` usklađen.
+- Testovi: 51 zeleno (45 + 5 precheck + 1 plugin rule-hit).
+
 ## Unreleased — Plugin UX komande
 
 - Plugin: `/decision-risk <zadatak>` (risk_level + needs_approval), `/decision-rank <zadatak> | opt1, opt2, opt3` (min. 2 opcije); `provider=<id>` prefiks sada na sve tri komande; zajednički jednolinijski ispis.

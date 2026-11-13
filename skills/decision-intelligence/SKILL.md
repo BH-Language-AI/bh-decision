@@ -30,6 +30,7 @@ judgment; skip them for trivial or deterministic work.
 3. Gledaj `confidence` i `abstained`: ispod praga ili apstinencija → `decision_should_escalate`, pa sam rasuđuj ili pitaj korisnika. Vjerojatnost NIJE kalibrirano povjerenje u stvarni svijet.
 4. `requires_escalation: true` ili visok rizik → ne izvršavaj sam; traži odobrenje.
 5. Odluka je savjet, ne dozvola: destruktivne akcije (brisanje, rm, deploy, objave, novac, kredencijali) uvijek prolaze normalna permission pravila.
+6. Paralelizam: ako ionako čekaš korisničko odobrenje za rizičnu akciju, `decision_assess_risk` pozovi paralelno s prikazom odobrenja — latencija odluke se ne vidi.
 
 ## AnyJev Decision Engine
 

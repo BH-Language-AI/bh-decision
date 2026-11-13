@@ -2,10 +2,8 @@
 # Tajne NIKAD ovdje — samo env varijable. / Secrets NEVER here — env vars only.
 # Vrijednosti su početne i dokumentirane; sve se mogu mijenjati bez koda.
 providers:
-  primary: jev            # jev | clef_local | clef_hosted_free | future_bh_decision_2b/4b/9b
-  fallback:
-    - clef_local
-    # - clef_hosted_free  # samo uz verificirani free tier + odobrenje / verified free tier only
+  primary: jev            # samo Jev Free; ništa drugo se ne poziva automatski
+  fallback: []            # prazno po defaultu (prije: clef_local)
 
   allow_paid: false       # NIKAD true automatski / NEVER true automatically
 

@@ -24,6 +24,11 @@ export function redactSecrets(s: string): string {
     .replace(/((?:api[_-]?key|token|secret)\s*["']?\s*[:=]\s*["']?)[^"'}\s,;]+/gi, "$1[redacted]");
 }
 
+/** Normalizacija ključa: mala slova + jedan razmak (catches case/whitespace dupes). */
+export function normalizeKey(s: string): string {
+  return s.toLowerCase().replace(/\s+/g, " ").trim();
+}
+
 interface CacheEntry { at: number; result: DecisionResult; }
 interface Breaker { fails: number; openUntil: number; }
 
@@ -34,7 +39,7 @@ export class DecisionCore {
   private cache = new Map<string, CacheEntry>();
   private inflight = new Map<string, Promise<DecisionResult>>();
   private breakers = new Map<string, Breaker>();
-  private stats = new Map<string, { calls: number; errors: number; fallbacks: number; lat: number[] }>();
+  private stats = new Map<string, { calls: number; errors: number; fallbacks: number; lat: number[]; escalations: number }>();
   private sessionCounts = new Map<string, number>();
 
   private registry: ProviderRegistry;
@@ -47,8 +52,17 @@ export class DecisionCore {
 
   private stat(id: string) {
     let s = this.stats.get(id);
-    if (!s) { s = { calls: 0, errors: 0, fallbacks: 0, lat: [] }; this.stats.set(id, s); }
+    if (!s) { s = { calls: 0, errors: 0, fallbacks: 0, lat: [], escalations: 0 }; this.stats.set(id, s); }
     return s;
+  }
+  private preHits = 0;
+  private preMisses = 0;
+  private cacheHits = 0;
+
+  /** Deterministički pogodak/promasaj (P4 pokrivenost): 0 tokena kad pogodi. */
+  notePrecheck(hit: boolean): void {
+    if (hit) this.preHits += 1;
+    else this.preMisses += 1;
   }
 
   private breakerOpen(id: string): boolean {
@@ -76,13 +90,18 @@ export class DecisionCore {
   }
 
   status(): ProviderStatus[] {    const ids = new Set([...this.stats.keys(), ...this.registry.ids().filter((i) => !i.startsWith("future_"))]);
+    const preTotal = this.preHits + this.preMisses;
     return [...ids].map((id) => {
       const s = this.stats.get(id);
-      const lat = s?.lat ?? [];
+      const lat = [...(s?.lat ?? [])].sort((a, b) => a - b);
+      const pct = (p: number) => lat.length ? lat[Math.min(lat.length - 1, Math.floor(p * lat.length))] : null;
       return {
         id, enabled: true, healthy: s ? s.errors < s.calls : null,
         calls: s?.calls ?? 0, errors: s?.errors ?? 0, fallbacks_from: s?.fallbacks ?? 0,
         avg_latency_ms: lat.length ? Math.round(lat.reduce((a, b) => a + b, 0) / lat.length) : null,
+        p50_latency_ms: pct(0.5), p95_latency_ms: pct(0.95),
+        escalations: s?.escalations ?? 0, cache_hits: this.cacheHits,
+        precheck: { hits: this.preHits, misses: this.preMisses, coverage: preTotal ? this.preHits / preTotal : null },
         breaker_open: this.breakerOpen(id),
       };
     });
@@ -94,9 +113,9 @@ export class DecisionCore {
     const used = this.sessionCounts.get(sessionID) ?? 0;
     if (used >= t.max_decisions_per_session)
       throw new DecisionError("budget", `Session decision budget exhausted (${used}/${t.max_decisions_per_session}).`);
-    const key = fnv1a(sessionID + "|" + JSON.stringify(req));
+    const key = fnv1a(normalizeKey(sessionID + "|" + JSON.stringify(req)));
     const cached = this.cache.get(key);
-    if (cached && Date.now() - cached.at < t.cache_ttl_ms) return cached.result;
+    if (cached && Date.now() - cached.at < t.cache_ttl_ms) { this.cacheHits += 1; return cached.result; }
     const ongoing = this.inflight.get(key);
     if (ongoing) return ongoing;
     const p = this.run(req, sessionID, key).finally(() => this.inflight.delete(key));
@@ -136,6 +155,7 @@ export class DecisionCore {
         };
         const s = this.stat(id);
         s.calls += 1; s.lat.push(out.latency_ms);
+        if (result.requires_escalation) s.escalations += 1;
         this.sessionCounts.set(sessionID, (this.sessionCounts.get(sessionID) ?? 0) + 1);
         this.cache.set(key, { at: Date.now(), result });
         return result;

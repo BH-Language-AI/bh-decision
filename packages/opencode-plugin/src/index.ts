@@ -5,6 +5,7 @@ import { Plugin } from "@opencode/plugin";
 import { DecisionCore } from "../../decision-core/src/core.ts";
 import { ProviderRegistry } from "../../decision-core/src/providers.ts";
 import { loadConfig, applyEnv, registryOptsFromEnv } from "../../decision-core/src/config.ts";
+import { matchDestructive, precheckedRiskResult } from "../../decision-core/src/precheck.ts";
 
 const SKILL_ID = "decision-intelligence";
 
@@ -105,6 +106,11 @@ export default Plugin.define({
         execute: async ({ sessionID, prompt }: { sessionID: string; prompt: { text: string } }) => {
           const parsed = withProvider(prompt.text.trim());
           if (!parsed.text) return;
+          const rule = matchDestructive(parsed.text);
+          if (rule) { // determinističko pravilo: 0 ms, 0 tokena
+            await ctx.session.synthetic({ sessionID, text: `decision-risk: ${fmt(precheckedRiskResult(parsed.text))} rule=${rule}` });
+            return;
+          }
           try {
             const core = buildCore(parsed.env);
             const r = await core.decide({
