@@ -1,6 +1,9 @@
 # Instalacija u OpenCode / OpenCode installation
 
-1. Kopiraj skill: `skills/decision-intelligence/` → `.opencode/skills/decision-intelligence/`
+1. Zavisnosti (čist checkout): `npm install --prefix packages/decision-mcp` i
+   `npm install --prefix packages/opencode-plugin` (`decision-core` nema zavisnosti).
+   Provjereno 2026-11-13: `git worktree` + ova dva installa + puni suite zelen (45 TS + 19 Python).
+2. Kopiraj skill: `skills/decision-intelligence/` → `.opencode/skills/decision-intelligence/`
    (projektni) ili `~/.config/opencode/skills/` (globalni). OpenCode ga otkriva sam.
 2. MCP server — opcija A (preporučeno): instaliraj plugin
    `packages/opencode-plugin` u `plugins` listu `opencode.json`; plugin sam registrira

@@ -51,8 +51,8 @@
   E Clef local blokiran (GPU/download). Detalji: `docs/benchmarking/anyjev-comparison.md`.
 - Izvještaj: `benchmarks/reports/phase-6.md`. Odluka: `docs/decisions/anyjev-integration.md`.
 
-## DI FAZA 7 — Release priprema (sljedeće, treba odobrenje)
-- [ ] `git init` + prvi commit (BH-Decision još nije git repo, nema remotea)
-- [ ] Instalacijska provjera na čistom checkoutu (skill load, MCP handshake, plugin load u OpenCode)
+## DI FAZA 7 — Release priprema (u toku)
+- [x] Git repo postoji (`origin`: `BH-Language-AI/bh-decision`, grana `main`) — stavka "git init" iz ranijeg plana je zastarjela.
+- [x] Instalacijska provjera na čistom checkoutu (2026-11-13): `git worktree` na HEAD + `npm install` u `decision-mcp` i `opencode-plugin` + puni suite zelen (45 TS + 19 Python); `decision-core` bez zavisnosti.
 - [ ] Live benchmark uz korisnički `OPENCODE_API_KEY` i/ili lokalni Clef (uz odobrenje downloada)
-- [ ] GitHub repo + release — SAMO uz eksplicitno odobrenje
+- [ ] GitHub push + release — SAMO uz eksplicitno odobrenje (lokalni commitovi se ne pushaju sami)
