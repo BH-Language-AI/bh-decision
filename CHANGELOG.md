@@ -34,6 +34,13 @@
   Lažni pogodak: citirani `echo "rm -rf /"`. Kraj runa prekinuo FreeUsageLimit,
   zatim ključ mrtav (Invalid credential) — 6 zadataka paired-isključeno, treba novi ključ.
   Runner: `scripts/ab_compare3.py`, sirovo: `benchmarks/reports/ab3-20261113.json`.
+- A/B v4 (ista 52 zadatka, LOKALNI Tacit-4B CPU jer je ključ mrtav): model+skill
+  40/50 (80%) vs model sam 36/50 (72%); −15 poziva, −234 s (−57%), −31% bajtova.
+  Slabiji model → veća dobit. Dugi kontekst 0/4→2/4, injekcije 1/4→3/4 (README-injekcija
+  vara oba). Citirani `rm` vara i model i pravilo. Runner: `scripts/ab_compare4.py`.
+- HTML izvještaji serije (isti format kao mailovi): `benchmarks/reports/ab-v{1,2,3,4}-20261113.html`,
+  generator: `scripts/ab_report.py`. v3 summary preračunat kao paired (6 limit-zadataka
+  dokumentirano isključeno iz obje grane).
 
 ## Unreleased — Plugin UX komande
 

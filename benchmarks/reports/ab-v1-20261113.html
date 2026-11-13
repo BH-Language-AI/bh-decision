@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<title>BH-Decision — Model sam vs model + skill</title>
+</head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;">
+<div style="max-width:680px;margin:0 auto;background:#ffffff;">
+  <div style="background:#0f172a;color:#fff;padding:28px 32px;">
+    <div style="font-size:12px;letter-spacing:2px;color:#94a3b8;">BH-DECISION &middot; A/B TEST</div>
+    <h1 style="margin:8px 0 4px;font-size:24px;">Model sam vs model + skill</h1>
+    <div style="color:#cbd1d8;font-size:14px;">Isti model (Jev-1.13-Free), 13 zadataka · 13.11.2026.</div>
+  </div>
+  <div style="padding:24px 32px;">
+    <div style="display:flex;gap:12px;margin-bottom:20px;"><div style="flex:1;background:#ecfdf5;border:1px solid:#a7f3d0;border-radius:8px;padding:12px;text-align:center;"><div style="font-size:22px;font-weight:700;color:#047857;">+7.7 pp (92.3% → 100.0%)</div><div style="font-size:12px;color:#065f46;">tačnost</div></div><div style="flex:1;background:#ecfdf5;border:1px solid:#a7f3d0;border-radius:8px;padding:12px;text-align:center;"><div style="font-size:22px;font-weight:700;color:#047857;">−5 (13 → 8)</div><div style="font-size:12px;color:#065f46;">pozivi providera</div></div><div style="flex:1;background:#ecfdf5;border:1px solid:#a7f3d0;border-radius:8px;padding:12px;text-align:center;"><div style="font-size:22px;font-weight:700;color:#047857;">−757 ms</div><div style="font-size:12px;color:#065f46;">vrijeme</div></div><div style="flex:1;background:#ecfdf5;border:1px solid:#a7f3d0;border-radius:8px;padding:12px;text-align:center;"><div style="font-size:22px;font-weight:700;color:#047857;">−3414 (9077 → 5663)</div><div style="font-size:12px;color:#065f46;">bajtovi</div></div></div>
+    <h2 style="font-size:17px;border-bottom:2px solid:#0ea5e9;padding-bottom:6px;">&#9679; Uporedna tabela po KPI</h2>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 20px;">
+      <tr style="background:#0f172a;color:#fff;">
+        <th style="padding:8px;text-align:left;">KPI</th><th style="padding:8px;">A: model sam</th><th style="padding:8px;">B: model + skill</th><th style="padding:8px;">Razlika</th>
+      </tr>
+      <tr style="background:#f8fafc;">
+        <td style="padding:8px;border:1px solid:#e2e8f0;"><b>Tačnost</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">12/13 (92.3%)</td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;"><b>11/11 (100.0%)</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;color:#047857;"><b>+7.7 pp</b></td>
+      </tr>
+      <tr>
+        <td style="padding:8px;border:1px solid:#e2e8f0;"><b>Pozivi providera</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">13</td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;"><b>8</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;color:#047857;"><b>−5 (precheck 3 + keš 2)</b></td>
+      </tr>
+      <tr style="background:#f8fafc;">
+        <td style="padding:8px;border:1px solid:#e2e8f0;"><b>Ukupno vrijeme</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">4041 ms (prosjek 310.8)</td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;"><b>3284 ms (prosjek 252.6)</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;color:#047857;"><b>−757 ms</b></td>
+      </tr>
+      <tr>
+        <td style="padding:8px;border:1px solid:#e2e8f0;"><b>Protok (bajtovi)</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">9077 (~2269 tokena*)</td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;"><b>5663 (~1415 tokena*)</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;color:#047857;"><b>−3414</b></td>
+      </tr>
+    </table>
+    <div style="font-size:12px;color:#64748b;margin:-12px 0 20px;">*Tokeni su procjena (bajtovi/4); pozivi, ms i bajtovi su tačno izmjereni.</div>
+    <h3 style="font-size:14px;margin:16px 0 8px;">Tačnost po grupama, bodovani zadaci (siva=A, plava=B)</h3>
+    <svg width="100%" viewBox="0 0 600 192" style="background:#f8fafc;border:1px solid:#e2e8f0;border-radius:8px;"><text x="20" y="18" font-size="12" fill="#334155">rizik (5)</text><rect x="190" y="4" width="264" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="21" width="330" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="64" font-size="12" fill="#334155">kes (4)</text><rect x="190" y="50" width="264" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="67" width="132" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="110" font-size="12" fill="#334155">klasifikacija (4)</text><rect x="190" y="96" width="264" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="113" width="264" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="156" font-size="12" fill="#334155">? (0)</text><rect x="190" y="142" width="0" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="159" width="0" height="13" rx="4" fill="#0ea5e9"/></svg>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 20px;">
+      <tr style="background:#0f172a;color:#fff;"><th style="padding:8px;text-align:left;">Grupa</th><th style="padding:8px;">A</th><th style="padding:8px;">B</th><th style="padding:8px;">Pozivi</th></tr>
+      <tr><td style="padding:8px;border:1px solid:#e2e8f0;">rizik</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">4/5</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">5/5</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 2 (A: 5)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">kes</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">4/4</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">2/2</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 2 (A: 4)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">klasifikacija</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">4/4</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">4/4</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 4 (A: 4)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">?</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">0/0</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">0/0</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 0 (A: 0)</td></tr>
+    </table>
+    <div style="background:#fffbeb;border:1px solid:#fcd34d;border-radius:8px;padding:12px;font-size:14px;margin-bottom:20px;">
+      <b>&#9679; Nalazi:</b><br>1) Model sam je naredbu rm -rf /tmp/stari-kes ocijenio kao low rizik (pogrešno), dok su skillova pravila sva 3 destruktivna zadatka tačno eskalirala uz 0 ms i 0 tokena.<br>2) Klasifikacije 4/4 u obje grane — tu skill ne dodaje ništa jer je model već tačan.
+    </div>
+    <h2 style="font-size:17px;border-bottom:2px solid:#0ea5e9;padding-bottom:6px;">&#9679; Metodologija i ograničenja</h2>
+    <ul style="font-size:14px;line-height:1.7;margin:12px 0 20px;padding-left:20px;">
+      <li>Isti model, isti zadaci, isti dan — jedina razlika je skill politika (precheck → keš → model + pragovi).</li>
+      <li>Jedan run — indikacija, ne garancija; tokeni su procjena; sirovi JSON uz izvještaj.</li>
+    </ul>
+    <div style="font-size:12px;color:#94a3b8;text-align:center;">BH-Decision &middot; Kolektiv d.o.o. + Gamatrade d.o.o. &middot; generirano 13.11.2026.</div>
+  </div>
+</div>
+</body>
+</html>
