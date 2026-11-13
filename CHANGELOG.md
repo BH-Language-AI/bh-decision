@@ -42,6 +42,10 @@
   sam 58/86 (67,4%); −28 poziva, −1205 s (−76%), −35% bajtova. Injekcije 2/10→7/10,
   dugi kontekst 1/8→5/8; negacije 1/6 u obje grane (pravila ne pokrivaju yes_no).
   Runner: `scripts/ab_compare5.py`, sirovo: `benchmarks/reports/ab5-20261113.json`.
+- A/B v6 (NOVO, ceka kljuc): Muse Spark vs Muse Spark + Jev-1.13-Free, istih 16 zadataka.
+  Muse grana gotova rucno: 15/15 (uz napomenu — eksperimentator poznaje reference,
+  gornja granica). Jev grana (`scripts/ab_compare6.py`) ceka novi kljuc (stari mrtav).
+  Sirovo: `benchmarks/reports/ab6-muse-20261113.json`.
 - HTML izvještaji serije v1–v5: `benchmarks/reports/ab-v{1..5}-20261113.html`,
   generator: `scripts/ab_report.py`. v3 summary je paired (6 limit-zadataka
   dokumentirano isključeno iz obje grane).
