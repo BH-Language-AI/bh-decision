@@ -44,6 +44,12 @@
 
 Pojedinosti: `benchmarks/reports/live-{B-decider-l0,C-tacit-l0,D-tacit-adaptive,A-jev}.json`.
 
+**Rerun A (2026-11-13):** istih 18 scenarija, novi korisnički ključ, runner
+`scripts/live_jev_bench.py` — **14/14, 0 grešaka, p50 256 ms / max 299 ms**.
+Reproducira 2026-11-12 (14/14, p50 334 ms); `ambiguous-*` i dalje `bug`,
+`abstain-*` i dalje `other`, `escalate-*` 0.86. Sirovo:
+`benchmarks/reports/live-A-jev-rerun-20261113.json`.
+
 ## Kalibracijske opservacije (sve izmjereno, n=18)
 
 - `escalate-*`: Yes ≈ 0.70–0.77 (oba enginea) — jasna margina, ispravna eskalacija.
