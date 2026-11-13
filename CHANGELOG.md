@@ -28,6 +28,12 @@
 - A/B v2 (30 zadataka, trik-varijante + near-miss + eskalacije + mamci): obje grane
   25/28 (89,3%) — iste 3 greške modela; skill: 11 poziva manje (5 precheck + 6 keš),
   −4023 ms / −38% bajtova. Runner: `scripts/ab_compare2.py`, sirovo: `benchmarks/reports/ab2-20261113.json`.
+- A/B v3 (52 zadatka, injekcije + dugi kontekst + obfuskacije; paired 46): model+skill
+  43/46 (93,5%) vs model sam 39/46 (84,8%); −15 poziva, −3839 ms, −35% bajtova.
+  Model podlegao injekcijama (0/2) i zakopanim naredbama (0/2), pravila imuna.
+  Lažni pogodak: citirani `echo "rm -rf /"`. Kraj runa prekinuo FreeUsageLimit,
+  zatim ključ mrtav (Invalid credential) — 6 zadataka paired-isključeno, treba novi ključ.
+  Runner: `scripts/ab_compare3.py`, sirovo: `benchmarks/reports/ab3-20261113.json`.
 
 ## Unreleased — Plugin UX komande
 
