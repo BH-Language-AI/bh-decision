@@ -58,6 +58,14 @@ Tabelarnih 11/14 = strogo 9 + 2 `escalate-*` uz yes_no normalizaciju iz
 metodologije (Yes→tačno); B je 11/14 i strogo. Sirovo:
 `benchmarks/reports/live-C-tacit-l0-rerun-20261113.json` (lokalno, gitignore).
 
+**Rerun B (2026-11-13):** Decider preko istih Tacit-4B težina (HFBackend, CPU,
+float32) — sirovo **11/14 strogo, 0 grešaka, p50 17,1 s / max 40,7 s**,
+odgovori **bit-za-bit identični** snimljenom `live-B-decider-l0.json`
+(18/18). Za razliku od Tacita, Decider `escalate-*` vraća boolean pa su tačni
+i strogo. Sirovo: `benchmarks/reports/live-B-decider-l0-rerun-20261113.json`
+(lokalno, gitignore). D se ne ponavlja: dokumentirano D==C bit-za-bit, a
+adaptive na ovom setu nikad ne okida cot (0/18).
+
 ## Kalibracijske opservacije (sve izmjereno, n=18)
 
 - `escalate-*`: Yes ≈ 0.70–0.77 (oba enginea) — jasna margina, ispravna eskalacija.
