@@ -21,6 +21,24 @@
 - Adapteri neobjavljeni. Preostalo: ljudska validacija uzorka, krak C + clef-flash baseline na ≥24GB GPU-u.
 - Mali piloti A vs B vs C po `docs/training/pilot-faza5.md`, izbor pobjednika dokazom (`scripts/pilot.py`, `slurm/pilot.slurm`).
 
+## FAZA 5b — BH-Decision-4B grana (novo, 2026-11-13, dvije eksperimentalne grane)
+
+- **Grana R (referentna, gotova): Tacit-4B-Benchmark** — originalni `morriszjm/Tacit-4B`
+  (dodan u HF kolekciju kao referenca, težine se ne re-uploadaju), samo mjerenja:
+  CPU+GPU bench (B/C/D 11/14). Qwen3-4B baza → nikad temelj produkcijskog modela.
+- **Grana P (produkcijska): BH-Decision-4B na evropskoj bazi** — metodologija Tacit/AnyJev
+  (L0 readout, joint-head paradigma, self-distillation), NE Qwen težine:
+  - **Korak 1 — Bosanska specijalizacija (prvo):** vlastiti dataset (ijekavica;
+    klasifikacija, rizik, rangiranje, višekriterijsko, pravno/administrativno),
+    trening na EU bazi. Kandidati baze za provjeru licence/pogodnosti:
+    EuroLLM linija, Ministral, SmolLM — odluka dokazom, ne unaprijed.
+  - **Korak 2 — Self-distillation:** model generiše vlastite probleme, rješava uz
+    reasoning, uči jedan-prolaz odluke (AnyJev princip, bez tuđih izlaza).
+  - **Korak 3 — ⛔ BLOKIRANO: Jev distilacija (Faza A)** — MCA TypeSafe §2.3(b) izričito
+    zabranjuje distillation/imitation/competing-product iz Services/Outputa.
+    Ne pokretati bez pismene dozvole TypeSafe. Opcija: zatražiti research licencu.
+- Kalibracija vjerovatnoća je obavezan cilj treninga i evaluacije (poseban prag + ECE metrika).
+
 ## FAZA 6 — Family Training
 - 9B, 4B, 2B po pobjedničkoj strategiji, zajednička evaluacija, optimizacija.
 
