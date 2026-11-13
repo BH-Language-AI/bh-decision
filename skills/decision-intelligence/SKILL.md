@@ -46,7 +46,11 @@ uz cap). Vrste: `choice` (max 26 opcija!), `yes_no`, `score` (2–10 nivoa). Sva
 - **Kada Clef-Flash lokalno:** SystemOne fallback kad AnyJev nema modela.
 - **Kada eskalacija/abstinencija:** `confidence` ispod praga, `route=cot` bez poboljšanja, ili `abstained` → glavni LLM/korisnik.
 - Operativna politika: 1) deterministička pravila prije modela. 2) AnyJev L0 za brze odluke. 3) Jev Free kao primarna hostirana ruta. 4) AnyJev Adaptive samo uz opravdanje. 5) Clef lokalno kao fallback. 6) Složenost glavnom agentu. 7) Bez dokaza → abstiniraj. 8) Probabilnost ≠ istina. 9) Dozvole uvijek važe.
-- Status/provjera: `decision_anyjev_status`, `decision_anyjev_test`; ručno: `/decision [provider=<id>] <zadatak>`, `/decision-risk [provider=<id>] <zadatak>`, `/decision-rank [provider=<id>] <zadatak> | opt1, opt2, opt3`, `/decision-status`.
+- Status/provjera: `decision_anyjev_status`, `decision_anyjev_test`; ručno: `/decision`,
+  `/decision-risk`, `/decision-rank`, `/decision-status` (sve tri prve primaju `provider=<id>` prefiks).
+- Ručni primjeri: `/decision-risk obriši staru bazu` → `risk_level=high ... ESCALATE`;
+  `/decision-rank trebam alat za pretragu | grep, glob, websearch` → `rank=...`.
+  Rank opcije se dijele zarezom (opcija sa zarezom nije podržana).
 
 ## Privatnost / Privacy
 
