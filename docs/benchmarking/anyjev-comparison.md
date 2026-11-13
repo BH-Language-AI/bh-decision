@@ -29,7 +29,8 @@
 - Datum: 2026-11-12. Scenariji: `benchmarks/scenarios/anyjev-live.jsonl` (18 stavki, 9 scenarija × bs/en).
 - B/C/D: ovaj server (12 CPU, 47 GB RAM, bez GPU), `morriszjm/Tacit-4B`, transformers engine, float32.
 - A: `jev-1.13-free` preko OpenCode Console endpointa (ključ korisnika, $0).
-- E: nije mjeren — treba GPU + ~18 GB download (nema odobrenja).
+- GPU: Kaggle kernel Tesla T4 16GB (`admiragic/bh-decision-di-gpu-bench`, 13.11.), transformers, fp16.
+- E: ⏳ pokušaj u toku na T4 (fp16 + CPU offload, kernel `admiragic/bh-decision-di-clef-bench`).
 - Bodovanje: `correct` gdje reference postoji; yes_no normalizirano (Yes/True→tačno).
 
 ## Rezultati / Results (izmjereno / measured)
@@ -40,7 +41,10 @@
 | C Tacit L0 (CPU) | **11/14 (79%)** | 0 | 9.9 s / 30 s | jedan forward; eskalacija se broji kao tačna uz normalizaciju |
 | D Tacit Adaptive (CPU) | **11/14 (79%)** | 0 | 7.8 s / 11 s | `route=cot` 0/18 → bez eskalacija, bez overheada na ovom setu |
 | A Jev 1.13 Free | **14/14 (100%)** | 0 | 334 ms / 1067 ms | `model_version: jev-1.13-free`, cost 0 (billing_source free) |
-| E Clef local | — (blokirano: GPU/download) | — | — | — |
+| B Decider L0 (T4 GPU) | **11/14 (79%)** | 0 | 1.09 s / 2.6 s | 16× brže nego CPU, ista točnost |
+| C Tacit L0 (T4 GPU) | **11/14 (79%)** | 0 | 338 ms / 2.4 s | 29× brže nego CPU |
+| D Adaptive (T4 GPU) | **11/14 (79%)** | 0 | 342 ms / 504 ms | `cot` 0/18, bez overheada |
+| E Clef local (T4) | ❌ blokirano mjerenjem | — | — | 18 GB BF16 ne stane u T4 16 GB; `load_release_model` fiksira `device_map={"": "cuda"}` pa nema offload/quant puta (dupli kwarg greška dokazana); treba GPU ≥24 GB ili upstream quant podrška | — |
 
 Pojedinosti: `benchmarks/reports/live-{B-decider-l0,C-tacit-l0,D-tacit-adaptive,A-jev}.json`.
 
