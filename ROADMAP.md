@@ -54,5 +54,7 @@
 ## DI FAZA 7 — Release priprema (u toku)
 - [x] Git repo postoji (`origin`: `BH-Language-AI/bh-decision`, grana `main`) — stavka "git init" iz ranijeg plana je zastarjela.
 - [x] Instalacijska provjera na čistom checkoutu (2026-11-13): `git worktree` na HEAD + `npm install` u `decision-mcp` i `opencode-plugin` + puni suite zelen (45 TS + 19 Python); `decision-core` bez zavisnosti.
-- [ ] Live benchmark uz korisnički `OPENCODE_API_KEY` i/ili lokalni Clef (uz odobrenje downloada)
+- [x] Live benchmark + reproducibility reruni (2026-11-13, novi korisnički ključ):
+  A 14/14, B 11/14 strogo, C 9/14 strogo — sve bit-za-bit kao 2026-11-12;
+  D se ne ponavlja (D==C dokazano, cot 0/18). Sirovi JSON lokalno (gitignore).
 - [ ] GitHub push + release — SAMO uz eksplicitno odobrenje (lokalni commitovi se ne pushaju sami)
