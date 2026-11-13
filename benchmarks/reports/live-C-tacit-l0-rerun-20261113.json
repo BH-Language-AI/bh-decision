@@ -1,0 +1,310 @@
+{
+ "summary": {
+  "label": "tacit-l0-rerun",
+  "n": 18,
+  "errors": 0,
+  "scored": 14,
+  "correct": 9,
+  "lat_p50": 6354,
+  "lat_max": 18039,
+  "cot": 0
+ },
+ "results": [
+  {
+   "id": "intent-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "debugging",
+   "http": 200,
+   "latency_ms": 18039,
+   "answer": "testing",
+   "probs": {
+    "research": 0.002080304741551526,
+    "coding": 0.0012204128437647323,
+    "debugging": 0.25257367977390843,
+    "planning": 0.005495182168140445,
+    "testing": 0.7181745319876697,
+    "deployment": 0.008582751383522984,
+    "other": 0.011873137101442832
+   },
+   "route": "one_forward",
+   "correct": false
+  },
+  {
+   "id": "intent-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "debugging",
+   "http": 200,
+   "latency_ms": 7865,
+   "answer": "debugging",
+   "probs": {
+    "research": 0.0010907464772366786,
+    "coding": 0.0006950220177792957,
+    "debugging": 0.7674269204899166,
+    "planning": 0.005538707741362834,
+    "testing": 0.22060872431931886,
+    "deployment": 0.0012413501453085903,
+    "other": 0.0033985288090774782
+   },
+   "route": "one_forward",
+   "correct": true
+  },
+  {
+   "id": "toolsel-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "read",
+   "http": 200,
+   "latency_ms": 14570,
+   "answer": "read",
+   "probs": {
+    "read": 0.9836417831586839,
+    "bash": 0.013278030184286513,
+    "git": 0.0030801866570303537
+   },
+   "route": "one_forward",
+   "correct": true
+  },
+  {
+   "id": "toolsel-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "read",
+   "http": 200,
+   "latency_ms": 5034,
+   "answer": "read",
+   "probs": {
+    "read": 0.9726042544408583,
+    "bash": 0.02429513663732452,
+    "git": 0.003100608921817156
+   },
+   "route": "one_forward",
+   "correct": true
+  },
+  {
+   "id": "routing-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "dba",
+   "http": 200,
+   "latency_ms": 5691,
+   "answer": "dba",
+   "probs": {
+    "planner": 0.013749708183303245,
+    "coder": 0.06588056408309288,
+    "reviewer": 0.0012557126239543823,
+    "dba": 0.9191140151096495
+   },
+   "route": "one_forward",
+   "correct": true
+  },
+  {
+   "id": "routing-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "dba",
+   "http": 200,
+   "latency_ms": 6920,
+   "answer": "dba",
+   "probs": {
+    "planner": 0.008445062770772088,
+    "coder": 0.010089388266266288,
+    "reviewer": 0.0013285865852234126,
+    "dba": 0.9801369623777395
+   },
+   "route": "one_forward",
+   "correct": true
+  },
+  {
+   "id": "complex-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 7895,
+   "answer": "medium",
+   "probs": {
+    "low": 0.0017926751062040424,
+    "medium": 0.6371807698045576,
+    "high": 0.3610265550892398
+   },
+   "route": "one_forward",
+   "correct": false
+  },
+  {
+   "id": "complex-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 4880,
+   "answer": "high",
+   "probs": {
+    "low": 0.0002809761647559147,
+    "medium": 0.1390454890768479,
+    "high": 0.8606735347583965
+   },
+   "route": "one_forward",
+   "correct": true
+  },
+  {
+   "id": "next-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "fix",
+   "http": 200,
+   "latency_ms": 5736,
+   "answer": "retest",
+   "probs": {
+    "fix": 0.1747487201609609,
+    "retest": 0.8070810770927713,
+    "document": 0.017574739460816877,
+    "deploy": 0.0005954632854508243
+   },
+   "route": "one_forward",
+   "correct": false
+  },
+  {
+   "id": "next-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "fix",
+   "http": 200,
+   "latency_ms": 5811,
+   "answer": "fix",
+   "probs": {
+    "fix": 0.888669323055153,
+    "retest": 0.10939678178649384,
+    "document": 0.0017837724593064736,
+    "deploy": 0.00015012269904829664
+   },
+   "route": "one_forward",
+   "correct": true
+  },
+  {
+   "id": "risk-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 10874,
+   "answer": "high",
+   "probs": {
+    "low": 0.001988151861432916,
+    "medium": 0.022289626434422827,
+    "high": 0.9757222217041449
+   },
+   "route": "one_forward",
+   "correct": true
+  },
+  {
+   "id": "risk-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 8745,
+   "answer": "high",
+   "probs": {
+    "low": 0.002061507010601046,
+    "medium": 0.027800317947816,
+    "high": 0.9701381750415828
+   },
+   "route": "one_forward",
+   "correct": true
+  },
+  {
+   "id": "escalate-bs",
+   "lang": "bs-ijekavica",
+   "kind": "yes_no",
+   "reference": true,
+   "http": 200,
+   "latency_ms": 6234,
+   "answer": "Yes",
+   "probs": {
+    "Yes": 0.702033560944487,
+    "No": 0.2979664390555136
+   },
+   "route": "one_forward",
+   "correct": false
+  },
+  {
+   "id": "escalate-en",
+   "lang": "en",
+   "kind": "yes_no",
+   "reference": true,
+   "http": 200,
+   "latency_ms": 5889,
+   "answer": "Yes",
+   "probs": {
+    "Yes": 0.7139671057883143,
+    "No": 0.2860328942116858
+   },
+   "route": "one_forward",
+   "correct": false
+  },
+  {
+   "id": "ambiguous-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 6983,
+   "answer": "feature",
+   "probs": {
+    "bug": 0.02188662706811008,
+    "help": 0.26273034303179194,
+    "feature": 0.7153830299000963
+   },
+   "route": "one_forward"
+  },
+  {
+   "id": "ambiguous-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 6354,
+   "answer": "help",
+   "probs": {
+    "bug": 0.09810806541983753,
+    "help": 0.901352508743246,
+    "feature": 0.0005394258369164412
+   },
+   "route": "one_forward"
+  },
+  {
+   "id": "abstain-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 5633,
+   "answer": "other",
+   "probs": {
+    "research": 0.008640270178761653,
+    "coding": 0.08744024471863117,
+    "debugging": 0.0714151233599868,
+    "other": 0.8325043617426211
+   },
+   "route": "one_forward"
+  },
+  {
+   "id": "abstain-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 4251,
+   "answer": "other",
+   "probs": {
+    "research": 0.005599829146611958,
+    "coding": 0.22005819130475265,
+    "debugging": 0.013769753337019974,
+    "other": 0.7605722262116167
+   },
+   "route": "one_forward"
+  }
+ ]
+}

@@ -1,0 +1,317 @@
+{
+ "summary": {
+  "label": "jev-free-rerun",
+  "n": 18,
+  "errors": 0,
+  "scored": 14,
+  "correct": 14,
+  "lat_p50": 256,
+  "lat_max": 299
+ },
+ "results": [
+  {
+   "id": "intent-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "debugging",
+   "http": 200,
+   "latency_ms": 245,
+   "model_version": "jev-1.13-free",
+   "answer": "debugging",
+   "probs": {
+    "research": 0,
+    "coding": 0,
+    "debugging": 0.99,
+    "planning": 0,
+    "testing": 0.01,
+    "deployment": 0,
+    "other": 0
+   },
+   "confidence": 0.99,
+   "correct": true
+  },
+  {
+   "id": "intent-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "debugging",
+   "http": 200,
+   "latency_ms": 278,
+   "model_version": "jev-1.13-free",
+   "answer": "debugging",
+   "probs": {
+    "research": 0,
+    "coding": 0,
+    "debugging": 0.98,
+    "planning": 0,
+    "testing": 0.02,
+    "deployment": 0,
+    "other": 0
+   },
+   "confidence": 0.98,
+   "correct": true
+  },
+  {
+   "id": "toolsel-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "read",
+   "http": 200,
+   "latency_ms": 255,
+   "model_version": "jev-1.13-free",
+   "answer": "read",
+   "probs": {
+    "read": 0.99,
+    "bash": 0.01,
+    "git": 0
+   },
+   "confidence": 0.98,
+   "correct": true
+  },
+  {
+   "id": "toolsel-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "read",
+   "http": 200,
+   "latency_ms": 287,
+   "model_version": "jev-1.13-free",
+   "answer": "read",
+   "probs": {
+    "read": 1,
+    "bash": 0,
+    "git": 0
+   },
+   "confidence": 1,
+   "correct": true
+  },
+  {
+   "id": "routing-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "dba",
+   "http": 200,
+   "latency_ms": 267,
+   "model_version": "jev-1.13-free",
+   "answer": "dba",
+   "probs": {
+    "planner": 0,
+    "coder": 0.07,
+    "reviewer": 0,
+    "dba": 0.93
+   },
+   "confidence": 0.91,
+   "correct": true
+  },
+  {
+   "id": "routing-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "dba",
+   "http": 200,
+   "latency_ms": 257,
+   "model_version": "jev-1.13-free",
+   "answer": "dba",
+   "probs": {
+    "planner": 0,
+    "coder": 0.14,
+    "reviewer": 0,
+    "dba": 0.86
+   },
+   "confidence": 0.81,
+   "correct": true
+  },
+  {
+   "id": "complex-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 224,
+   "model_version": "jev-1.13-free",
+   "answer": "high",
+   "probs": {
+    "low": 0,
+    "medium": 0.1,
+    "high": 0.9
+   },
+   "confidence": 0.85,
+   "correct": true
+  },
+  {
+   "id": "complex-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 253,
+   "model_version": "jev-1.13-free",
+   "answer": "high",
+   "probs": {
+    "low": 0,
+    "medium": 0.12,
+    "high": 0.88
+   },
+   "confidence": 0.82,
+   "correct": true
+  },
+  {
+   "id": "next-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "fix",
+   "http": 200,
+   "latency_ms": 256,
+   "model_version": "jev-1.13-free",
+   "answer": "fix",
+   "probs": {
+    "fix": 0.94,
+    "retest": 0.06,
+    "document": 0,
+    "deploy": 0
+   },
+   "confidence": 0.92,
+   "correct": true
+  },
+  {
+   "id": "next-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "fix",
+   "http": 200,
+   "latency_ms": 229,
+   "model_version": "jev-1.13-free",
+   "answer": "fix",
+   "probs": {
+    "fix": 1,
+    "retest": 0,
+    "document": 0,
+    "deploy": 0
+   },
+   "confidence": 1,
+   "correct": true
+  },
+  {
+   "id": "risk-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 299,
+   "model_version": "jev-1.13-free",
+   "answer": "high",
+   "probs": {
+    "low": 0,
+    "medium": 0,
+    "high": 1
+   },
+   "confidence": 1,
+   "correct": true
+  },
+  {
+   "id": "risk-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 262,
+   "model_version": "jev-1.13-free",
+   "answer": "high",
+   "probs": {
+    "low": 0,
+    "medium": 0,
+    "high": 1
+   },
+   "confidence": 1,
+   "correct": true
+  },
+  {
+   "id": "escalate-bs",
+   "lang": "bs-ijekavica",
+   "kind": "yes_no",
+   "reference": true,
+   "http": 200,
+   "latency_ms": 212,
+   "model_version": "jev-1.13-free",
+   "answer": 0.86,
+   "correct": true
+  },
+  {
+   "id": "escalate-en",
+   "lang": "en",
+   "kind": "yes_no",
+   "reference": true,
+   "http": 200,
+   "latency_ms": 240,
+   "model_version": "jev-1.13-free",
+   "answer": 0.86,
+   "correct": true
+  },
+  {
+   "id": "ambiguous-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 290,
+   "model_version": "jev-1.13-free",
+   "answer": "bug",
+   "probs": {
+    "bug": 1,
+    "help": 0,
+    "feature": 0
+   },
+   "confidence": 1
+  },
+  {
+   "id": "ambiguous-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 247,
+   "model_version": "jev-1.13-free",
+   "answer": "bug",
+   "probs": {
+    "bug": 1,
+    "help": 0,
+    "feature": 0
+   },
+   "confidence": 1
+  },
+  {
+   "id": "abstain-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 253,
+   "model_version": "jev-1.13-free",
+   "answer": "other",
+   "probs": {
+    "research": 0,
+    "coding": 0.13,
+    "debugging": 0.01,
+    "other": 0.86
+   },
+   "confidence": 0.81
+  },
+  {
+   "id": "abstain-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 268,
+   "model_version": "jev-1.13-free",
+   "answer": "other",
+   "probs": {
+    "research": 0,
+    "coding": 0.14,
+    "debugging": 0,
+    "other": 0.86
+   },
+   "confidence": 0.81
+  }
+ ]
+}

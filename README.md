@@ -1,5 +1,9 @@
 # BH-Decision
 
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Tests](https://img.shields.io/badge/tests-45_TS_+_19_Py-green.svg)](#kako-pokrenuti-testove)
+[![Benchmark](https://img.shields.io/badge/benchmark-A%2FB%2FC_rerun_%E2%9C%93-orange.svg)](docs/benchmarking/anyjev-comparison.md)
+
 Porodica modela za odlučivanje na bosanskoj ijekavici + engleskom: tri veličine (2B/4B/9B), jedan format podataka, zajedničke izlazne sheme, zajednički benchmark. Nosioci: Kolektiv d.o.o. + Gamatrade d.o.o. Kontakt: xnetba@gmail.com.
 
 Primarni README na ijekavici: [README.bs.md](README.bs.md).
@@ -43,6 +47,45 @@ Clef-Flash, nulti trošak). Ne mijenja trening kod: `packages/`, `skills/`, `con
 - Privatnost: `docs/security/privacy.md` — Benchmark: `benchmarks/reports/phase-6.md`
 
 Testovi (bez ključeva/mreže): `node --experimental-strip-types --test tests/core/normalize.test.ts tests/core/providers.test.ts tests/core/anyjev.test.ts tests/mcp/server.test.ts tests/plugin/loading.test.ts tests/integration/project.test.ts`
+
+## Decision Intelligence — agent radi bolje i brže / Better and faster with the skill
+
+Bez skilla agent svaku mikro-odluku (klasifikacija, izbor alata, procjena rizika)
+donosi punim reasoningom glavnog modela: sporo, skupo i bez kalibracije — model je
+samouvjeren i kad griješi (Jev vraća confidence 1.0 i na pogrešnim odgovorima,
+izmjereno). Sa skillom odluka ide brzom L0 putanjom s pragovima povjerenja:
+
+```mermaid
+flowchart LR
+    T[Agent zadatak] --> D{Determinističko pravilo?}
+    D -- da --> R1[Direktno radi, bez modela]
+    D -- ne --> L0[AnyJev L0 / Jev Free]
+    L0 --> C{confidence ≥ 0.80?}
+    C -- da --> R2[Izvrši odluku]
+    C -- ne --> E[Eskalacija: jači model / čovjek]
+    E --> R2
+```
+
+**Brže:** L0 je jedan forward (Tacit, CPU) ili jedan hosted poziv (Jev, p50 256 ms);
+harness overhead je reda milisekundi (mock p50 8 ms). Teški reasoning se pali samo
+kad je opravdan (adaptive), a na mjerenom setu se nije morao paliti nijednom (cot 0/18).
+**Bolje:** svaka odluka nosi kalibrirano povjerenje; ispod praga slijedi eskalacija
+umjesto nagađanja, a `requires_escalation` nikad ne zaobilazi dozvole za destruktivne akcije.
+
+### Izmjereno, ne obećano / Measured, not promised (18 scenarija, 9 bs + 9 en)
+
+| Ruta | Točnost (12.11.) | Rerun (13.11.) | p50 rerun | Reproducibilnost |
+|---|---|---|---|---|
+| A Jev-1.13-Free (hosted, $0) | 14/14 (100%) | **14/14** | 256 ms | bit-za-bit ✓ |
+| B AnyJev Decider L0 (Tacit-4B, CPU) | 11/14 (79%) | **11/14** strogo | 17,1 s | 18/18 identično ✓ |
+| C AnyJev Tacit L0 (CPU) | 11/14 norm. | **9/14** strogo (= 11 norm.) | 6,4 s | 18/18 identično ✓ |
+| D Tacit Adaptive | 11/14 | nije ponavljan (D==C dokazano, cot 0/18) | — | — |
+| E Clef lokalno | — | blokirano (treba GPU/download) | — | — |
+
+Sirovi rezultati: `benchmarks/reports/live-{A-jev,B-decider-l0,C-tacit-l0,D-tacit-adaptive}.json`
++ `*-rerun-20261113.json`. Metodologija i kalibracijski nalazi:
+`docs/benchmarking/anyjev-comparison.md`. Pravilo repoa: bez fabriciranja —
+sve brojke iznad su iz stvarnih runova.
 
 ## Licenca
 

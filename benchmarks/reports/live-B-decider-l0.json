@@ -1,0 +1,310 @@
+{
+ "summary": {
+  "label": "decider4b-l0-live",
+  "n": 18,
+  "errors": 0,
+  "scored": 14,
+  "correct": 11,
+  "lat_p50": 17511,
+  "lat_max": 47083,
+  "cot": 0
+ },
+ "results": [
+  {
+   "id": "intent-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "debugging",
+   "http": 200,
+   "latency_ms": 47083,
+   "answer": "testing",
+   "probs": {
+    "research": 0.0011084990417603976,
+    "coding": 0.0015764416712776542,
+    "debugging": 0.05590073326855621,
+    "planning": 0.002461476008197331,
+    "testing": 0.9184832013101805,
+    "deployment": 0.008453341635259017,
+    "other": 0.012016307064768944
+   },
+   "route": null,
+   "correct": false
+  },
+  {
+   "id": "intent-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "debugging",
+   "http": 200,
+   "latency_ms": 28032,
+   "answer": "testing",
+   "probs": {
+    "research": 0.0008872472653094271,
+    "coding": 0.0013435064772154663,
+    "debugging": 0.25683879531405124,
+    "planning": 0.0031144619744275814,
+    "testing": 0.7318155856701053,
+    "deployment": 0.0018003231253485926,
+    "other": 0.004200080173542495
+   },
+   "route": null,
+   "correct": false
+  },
+  {
+   "id": "toolsel-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "read",
+   "http": 200,
+   "latency_ms": 18173,
+   "answer": "read",
+   "probs": {
+    "read": 0.9367139544597769,
+    "bash": 0.056799014718070986,
+    "git": 0.006487030822152138
+   },
+   "route": null,
+   "correct": true
+  },
+  {
+   "id": "toolsel-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "read",
+   "http": 200,
+   "latency_ms": 12651,
+   "answer": "read",
+   "probs": {
+    "read": 0.8557173203302552,
+    "bash": 0.13676803540660168,
+    "git": 0.0075146442631432876
+   },
+   "route": null,
+   "correct": true
+  },
+  {
+   "id": "routing-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "dba",
+   "http": 200,
+   "latency_ms": 24413,
+   "answer": "dba",
+   "probs": {
+    "planner": 0.01368882580808485,
+    "coder": 0.08809126931778831,
+    "reviewer": 0.0036839724891314153,
+    "dba": 0.8945359323849954
+   },
+   "route": null,
+   "correct": true
+  },
+  {
+   "id": "routing-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "dba",
+   "http": 200,
+   "latency_ms": 20762,
+   "answer": "dba",
+   "probs": {
+    "planner": 0.019748087711429874,
+    "coder": 0.024648473001131033,
+    "reviewer": 0.0036666182990406073,
+    "dba": 0.9519368209883986
+   },
+   "route": null,
+   "correct": true
+  },
+  {
+   "id": "complex-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 17511,
+   "answer": "high",
+   "probs": {
+    "low": 0.007444806676627428,
+    "medium": 0.4302087144671636,
+    "high": 0.5623464788562089
+   },
+   "route": null,
+   "correct": true
+  },
+  {
+   "id": "complex-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 15790,
+   "answer": "high",
+   "probs": {
+    "low": 0.0022711337835489556,
+    "medium": 0.09002414329496645,
+    "high": 0.9077047229214846
+   },
+   "route": null,
+   "correct": true
+  },
+  {
+   "id": "next-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "fix",
+   "http": 200,
+   "latency_ms": 18857,
+   "answer": "retest",
+   "probs": {
+    "fix": 0.323498788604487,
+    "retest": 0.6679790408570866,
+    "document": 0.00732392598372287,
+    "deploy": 0.0011982445547034217
+   },
+   "route": null,
+   "correct": false
+  },
+  {
+   "id": "next-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "fix",
+   "http": 200,
+   "latency_ms": 19444,
+   "answer": "fix",
+   "probs": {
+    "fix": 0.8021912383277179,
+    "retest": 0.19518248378463846,
+    "document": 0.00227810475140092,
+    "deploy": 0.0003481731362426256
+   },
+   "route": null,
+   "correct": true
+  },
+  {
+   "id": "risk-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 17022,
+   "answer": "high",
+   "probs": {
+    "low": 0.006116095871047899,
+    "medium": 0.014300142303342625,
+    "high": 0.9795837618256095
+   },
+   "route": null,
+   "correct": true
+  },
+  {
+   "id": "risk-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": "high",
+   "http": 200,
+   "latency_ms": 16928,
+   "answer": "high",
+   "probs": {
+    "low": 0.00437680236608187,
+    "medium": 0.01216737031939307,
+    "high": 0.983455827314525
+   },
+   "route": null,
+   "correct": true
+  },
+  {
+   "id": "escalate-bs",
+   "lang": "bs-ijekavica",
+   "kind": "yes_no",
+   "reference": true,
+   "http": 200,
+   "latency_ms": 13133,
+   "answer": true,
+   "probs": {
+    "Yes": 0.7154837966021927,
+    "No": 0.28451620339780725
+   },
+   "route": null,
+   "correct": true
+  },
+  {
+   "id": "escalate-en",
+   "lang": "en",
+   "kind": "yes_no",
+   "reference": true,
+   "http": 200,
+   "latency_ms": 9003,
+   "answer": true,
+   "probs": {
+    "Yes": 0.7716541706576392,
+    "No": 0.22834582934236075
+   },
+   "route": null,
+   "correct": true
+  },
+  {
+   "id": "ambiguous-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 11176,
+   "answer": "feature",
+   "probs": {
+    "bug": 0.052764279018380204,
+    "help": 0.1833688430850253,
+    "feature": 0.7638668778965945
+   },
+   "route": null
+  },
+  {
+   "id": "ambiguous-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 13399,
+   "answer": "help",
+   "probs": {
+    "bug": 0.2453102728220391,
+    "help": 0.753430476504483,
+    "feature": 0.0012592506734779238
+   },
+   "route": null
+  },
+  {
+   "id": "abstain-bs",
+   "lang": "bs-ijekavica",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 14636,
+   "answer": "other",
+   "probs": {
+    "research": 0.00831351570746161,
+    "coding": 0.18641718461377887,
+    "debugging": 0.0389927075177301,
+    "other": 0.7662765921610294
+   },
+   "route": null
+  },
+  {
+   "id": "abstain-en",
+   "lang": "en",
+   "kind": "choice",
+   "reference": null,
+   "http": 200,
+   "latency_ms": 21501,
+   "answer": "other",
+   "probs": {
+    "research": 0.007018029009495368,
+    "coding": 0.3168260853074331,
+    "debugging": 0.011676636217610252,
+    "other": 0.6644792494654612
+   },
+   "route": null
+  }
+ ]
+}
