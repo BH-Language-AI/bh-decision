@@ -32,11 +32,14 @@
     klasifikacija, rizik, rangiranje, višekriterijsko, pravno/administrativno),
     trening na EU bazi. Kandidati baze za provjeru licence/pogodnosti:
     EuroLLM linija, Ministral, SmolLM — odluka dokazom, ne unaprijed.
+    ✅ Prvi dokaz 2026-11-13: Ministral-3-3B-Base + QLoRA na expanded 400 (Kaggle T4):
+    val 0.804, format 1.0 — pipeline radi; rationale šablonski → treba veći dataset.
+    Izvještaj: `docs/training/grana-p-ministral-pilot-2026-11-13.md`.
   - **Korak 2 — Self-distillation:** model generiše vlastite probleme, rješava uz
     reasoning, uči jedan-prolaz odluke (AnyJev princip, bez tuđih izlaza).
-  - **Korak 3 — ⛔ BLOKIRANO: Jev distilacija (Faza A)** — MCA TypeSafe §2.3(b) izričito
-    zabranjuje distillation/imitation/competing-product iz Services/Outputa.
-    Ne pokretati bez pismene dozvole TypeSafe. Opcija: zatražiti research licencu.
+  - **Korak 3 — ⛔ ODBAČENO: Jev distilacija (Faza A)** — odluka korisnika 2026-11-13:
+    MCA TypeSafe §2.3(b) zabranjuje distillation/imitation; ne izvoditi.
+    Put je B → C, bez tuđih izlaza.
 - Kalibracija vjerovatnoća je obavezan cilj treninga i evaluacije (poseban prag + ECE metrika).
 
 ## FAZA 6 — Family Training
