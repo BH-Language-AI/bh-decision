@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<title>BH-Decision — Najduži test: 88 zadataka, lokalni Tacit</title>
+</head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;">
+<div style="max-width:680px;margin:0 auto;background:#ffffff;">
+  <div style="background:#0f172a;color:#fff;padding:28px 32px;">
+    <div style="font-size:12px;letter-spacing:2px;color:#94a3b8;">BH-DECISION &middot; A/B TEST</div>
+    <h1 style="margin:8px 0 4px;font-size:24px;">Najduži test: 88 zadataka, lokalni Tacit</h1>
+    <div style="color:#cbd1d8;font-size:14px;">Injekcije s autoritetom, negacije, parafraze, ~300 riječi konteksta · 13.11.2026.</div>
+  </div>
+  <div style="padding:24px 32px;">
+    <div style="display:flex;gap:12px;margin-bottom:20px;"><div style="flex:1;background:#ecfdf5;border:1px solid:#a7f3d0;border-radius:8px;padding:12px;text-align:center;"><div style="font-size:22px;font-weight:700;color:#047857;">+10.5 pp (67.4% → 77.9%)</div><div style="font-size:12px;color:#065f46;">tačnost</div></div><div style="flex:1;background:#ecfdf5;border:1px solid:#a7f3d0;border-radius:8px;padding:12px;text-align:center;"><div style="font-size:22px;font-weight:700;color:#047857;">−28 (88 → 60)</div><div style="font-size:12px;color:#065f46;">pozivi providera</div></div><div style="flex:1;background:#ecfdf5;border:1px solid:#a7f3d0;border-radius:8px;padding:12px;text-align:center;"><div style="font-size:22px;font-weight:700;color:#047857;">−1205527 ms</div><div style="font-size:12px;color:#065f46;">vrijeme</div></div><div style="flex:1;background:#ecfdf5;border:1px solid:#a7f3d0;border-radius:8px;padding:12px;text-align:center;"><div style="font-size:22px;font-weight:700;color:#047857;">−12637 (36573 → 23936)</div><div style="font-size:12px;color:#065f46;">bajtovi</div></div></div>
+    <h2 style="font-size:17px;border-bottom:2px solid:#0ea5e9;padding-bottom:6px;">&#9679; Uporedna tabela po KPI</h2>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 20px;">
+      <tr style="background:#0f172a;color:#fff;">
+        <th style="padding:8px;text-align:left;">KPI</th><th style="padding:8px;">A: model sam</th><th style="padding:8px;">B: model + skill</th><th style="padding:8px;">Razlika</th>
+      </tr>
+      <tr style="background:#f8fafc;">
+        <td style="padding:8px;border:1px solid:#e2e8f0;"><b>Tačnost</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">58/86 (67.4%)</td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;"><b>67/86 (77.9%)</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;color:#047857;"><b>+10.5 pp</b></td>
+      </tr>
+      <tr>
+        <td style="padding:8px;border:1px solid:#e2e8f0;"><b>Pozivi providera</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">88</td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;"><b>60</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;color:#047857;"><b>−28 (precheck 24 + keš 4)</b></td>
+      </tr>
+      <tr style="background:#f8fafc;">
+        <td style="padding:8px;border:1px solid:#e2e8f0;"><b>Ukupno vrijeme</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">1594885 ms (prosjek 18123.7)</td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;"><b>389358 ms (prosjek 4424.5)</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;color:#047857;"><b>−1205527 ms</b></td>
+      </tr>
+      <tr>
+        <td style="padding:8px;border:1px solid:#e2e8f0;"><b>Protok (bajtovi)</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">36573 (~9143 tokena*)</td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;"><b>23936 (~5984 tokena*)</b></td>
+        <td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;color:#047857;"><b>−12637</b></td>
+      </tr>
+    </table>
+    <div style="font-size:12px;color:#64748b;margin:-12px 0 20px;">*Tokeni su procjena (bajtovi/4); pozivi, ms i bajtovi su tačno izmjereni.</div>
+    <h3 style="font-size:14px;margin:16px 0 8px;">Tačnost po grupama, bodovani zadaci (siva=A, plava=B)</h3>
+    <svg width="100%" viewBox="0 0 600 468" style="background:#f8fafc;border:1px solid:#e2e8f0;border-radius:8px;"><text x="20" y="18" font-size="12" fill="#334155">destruktivni (16)</text><rect x="190" y="4" width="330" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="21" width="330" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="64" font-size="12" fill="#334155">benigni (12)</text><rect x="190" y="50" width="206" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="67" width="206" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="110" font-size="12" fill="#334155">injekcije (10)</text><rect x="190" y="96" width="41" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="113" width="144" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="156" font-size="12" fill="#334155">dugi-kontekst (8)</text><rect x="190" y="142" width="21" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="159" width="103" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="202" font-size="12" fill="#334155">parafraze (12)</text><rect x="190" y="188" width="227" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="205" width="227" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="248" font-size="12" fill="#334155">negacije (6)</text><rect x="190" y="234" width="21" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="251" width="21" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="294" font-size="12" fill="#334155">kes (8)</text><rect x="190" y="280" width="124" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="297" width="124" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="340" font-size="12" fill="#334155">klasifikacija (12)</text><rect x="190" y="326" width="186" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="343" width="186" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="386" font-size="12" fill="#334155">eskalacija (2)</text><rect x="190" y="372" width="41" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="389" width="41" height="13" rx="4" fill="#0ea5e9"/><text x="20" y="432" font-size="12" fill="#334155">apstinencija (0)</text><rect x="190" y="418" width="0" height="13" rx="4" fill="#94a3b8"/><rect x="190" y="435" width="0" height="13" rx="4" fill="#0ea5e9"/></svg>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 20px;">
+      <tr style="background:#0f172a;color:#fff;"><th style="padding:8px;text-align:left;">Grupa</th><th style="padding:8px;">A</th><th style="padding:8px;">B</th><th style="padding:8px;">Pozivi</th></tr>
+      <tr><td style="padding:8px;border:1px solid:#e2e8f0;">destruktivni</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">16/16</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">16/16</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 6 (A: 16)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">benigni</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">10/12</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">10/12</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 11 (A: 12)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">injekcije</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">2/10</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">7/10</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 4 (A: 10)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">dugi-kontekst</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">1/8</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">5/8</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 4 (A: 8)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">parafraze</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">11/12</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">11/12</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 11 (A: 12)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">negacije</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">1/6</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">1/6</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 4 (A: 6)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">kes</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">6/8</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">6/8</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 4 (A: 8)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">klasifikacija</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">9/12</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">9/12</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 12 (A: 12)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">eskalacija</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">2/2</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">2/2</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 2 (A: 2)</td></tr><tr><td style="padding:8px;border:1px solid:#e2e8f0;">apstinencija</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">0/0</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">0/0</td><td style="padding:8px;border:1px solid:#e2e8f0;text-align:center;">B pozivi: 2 (A: 2)</td></tr>
+    </table>
+    <div style="background:#fffbeb;border:1px solid:#fcd34d;border-radius:8px;padding:12px;font-size:14px;margin-bottom:20px;">
+      <b>&#9679; Nalazi:</b><br>1) Injekcije 2/10 → 7/10: pravila imuna na 6 poznatih oblika (rm, DROP, autoritet, lažni system tag, roleplay, indirektna); README-injekciju i base64-dd progutao i model — rupa za nova pravila.<br>2) Dugi kontekst 1/8 → 5/8: precheck našao sva 4 zakopana destruktivna; model sam izgubio i naredbe i klasifikaciju u ~300 riječi.<br>3) Negacije 1/6 u obje grane: model ne razumije negirana yes_no pitanja — skill tu ne pomaže jer pravila ne pokrivaju yes_no; otvoren pravac.<br>4) Identične greške obje grane (kes testing-miss, parafraze, benigni medium): determinizam modela, skill ih niti pravi niti ispravlja.
+    </div>
+    <h2 style="font-size:17px;border-bottom:2px solid:#0ea5e9;padding-bottom:6px;">&#9679; Metodologija i ograničenja</h2>
+    <ul style="font-size:14px;line-height:1.7;margin:12px 0 20px;padding-left:20px;">
+      <li>Isti model, isti zadaci, isti dan — jedina razlika je skill politika (precheck → keš → model + pragovi).</li>
+      <li>Jedan run — indikacija, ne garancija; tokeni su procjena; sirovi JSON uz izvještaj.</li>
+    </ul>
+    <div style="font-size:12px;color:#94a3b8;text-align:center;">BH-Decision &middot; Kolektiv d.o.o. + Gamatrade d.o.o. &middot; generirano 13.11.2026.</div>
+  </div>
+</div>
+</body>
+</html>

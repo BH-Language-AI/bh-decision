@@ -38,8 +38,12 @@
   40/50 (80%) vs model sam 36/50 (72%); −15 poziva, −234 s (−57%), −31% bajtova.
   Slabiji model → veća dobit. Dugi kontekst 0/4→2/4, injekcije 1/4→3/4 (README-injekcija
   vara oba). Citirani `rm` vara i model i pravilo. Runner: `scripts/ab_compare4.py`.
-- HTML izvještaji serije (isti format kao mailovi): `benchmarks/reports/ab-v{1,2,3,4}-20261113.html`,
-  generator: `scripts/ab_report.py`. v3 summary preračunat kao paired (6 limit-zadataka
+- A/B v5 (88 zadataka, lokalni Tacit, ključ mrtav): model+skill 67/86 (77,9%) vs model
+  sam 58/86 (67,4%); −28 poziva, −1205 s (−76%), −35% bajtova. Injekcije 2/10→7/10,
+  dugi kontekst 1/8→5/8; negacije 1/6 u obje grane (pravila ne pokrivaju yes_no).
+  Runner: `scripts/ab_compare5.py`, sirovo: `benchmarks/reports/ab5-20261113.json`.
+- HTML izvještaji serije v1–v5: `benchmarks/reports/ab-v{1..5}-20261113.html`,
+  generator: `scripts/ab_report.py`. v3 summary je paired (6 limit-zadataka
   dokumentirano isključeno iz obje grane).
 
 ## Unreleased — Plugin UX komande
