@@ -9,5 +9,5 @@
    i env `DECISION_CONFIG=<putanja>/decision.json` (JSON u obliku `decision.example.yaml`).
 3. Konfiguracija: preko env `DECISION_PROVIDER`, `DECISION_FALLBACK`, `DECISION_ALLOW_PAID`
    (default `false`). Ključevi samo kroz env (`OPENCODE_API_KEY`).
-4. Provjera: `/decision-status` komanda ili `decision_status` MCP alat.
+4. Provjera: `/decision-status` komanda ili `decision_status` MCP alat. Ručno: `/decision <zadatak>`, `/decision-risk <zadatak>`, `/decision-rank <zadatak> | opt1, opt2, opt3` (svaka prima `provider=<id>` prefiks za jednokratni izbor).
 5. Zahtjevi: Node ≥ 22. Bez modela, GPU-a i plaćenih poziva za instalaciju.

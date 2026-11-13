@@ -22,7 +22,7 @@ describe("plugin (slučajevi 15-19)", () => {
     await (plugin as { setup: (c: unknown) => Promise<void> }).setup(ctx);
     assert.equal(rec.skills.length, 1);
     assert.equal(rec.mcp.length, 1);
-    assert.deepEqual(rec.commands.map((c) => c.name).sort(), ["decision", "decision-status"]);
+    assert.deepEqual(rec.commands.map((c) => c.name).sort(), ["decision", "decision-rank", "decision-risk", "decision-status"]);
     const mcp = rec.mcp[0] as { n: string; c: { enabled: boolean } };
     assert.equal(mcp.n, "bh-decision");
     assert.equal(mcp.c.enabled, true);
@@ -45,6 +45,31 @@ describe("plugin (slučajevi 15-19)", () => {
     process.env.DECISION_FALLBACK = "";
     try {
       await cmd.execute({ sessionID: "s1", prompt: { text: "napravi izvještaj" } });
+    } finally {
+      process.env = prev;
+    }
+    assert.ok(rec.synthetic.some((t) => t.includes("unavailable")));
+  });
+
+  it("decision-rank traži sintaksu '<task> | opt1, opt2' bez poziva providera", async () => {
+    const { ctx, rec } = mockCtx();
+    await (plugin as { setup: (c: unknown) => Promise<void> }).setup(ctx);
+    const cmd = rec.commands.find((c) => c.name === "decision-rank");
+    assert.ok(cmd);
+    await cmd.execute({ sessionID: "s1", prompt: { text: "samo zadatak bez opcija" } });
+    assert.ok(rec.synthetic.some((t) => t.includes("usage: /decision-rank")));
+  });
+
+  it("decision-risk graceful fallback bez iznimke", async () => {
+    const { ctx, rec } = mockCtx();
+    await (plugin as { setup: (c: unknown) => Promise<void> }).setup(ctx);
+    const cmd = rec.commands.find((c) => c.name === "decision-risk");
+    assert.ok(cmd);
+    const prev = { ...process.env };
+    process.env.DECISION_PROVIDER = "__nope__";
+    process.env.DECISION_FALLBACK = "";
+    try {
+      await cmd.execute({ sessionID: "s1", prompt: { text: "obriši bazu" } });
     } finally {
       process.env = prev;
     }
