@@ -21,6 +21,10 @@
 - P8 paralelizam: SKILL.md dopunjen — risk-procjena paralelno s prikazom odobrenja.
 - Jev-only default: `fallback: []` (bilo `clef_local`); `decision.example.yaml` usklađen.
 - Testovi: 51 zeleno (45 + 5 precheck + 1 plugin rule-hit).
+- A/B test (13 zadataka, Jev-1.13-Free obje grane): model+skill 13/13 vs model sam
+  12/13 (+7,7 pp), 5 poziva manje (3 precheck + 2 keš), −757 ms, −38% bajtova.
+  Model sam potcijenio `rm -rf` kao low rizik. Runner: `scripts/ab_compare.py`,
+  sirovo: `benchmarks/reports/ab-20261113.json`.
 
 ## Unreleased — Plugin UX komande
 
