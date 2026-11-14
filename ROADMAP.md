@@ -35,6 +35,10 @@
     ✅ Prvi dokaz 2026-11-13: Ministral-3-3B-Base + QLoRA na expanded 400 (Kaggle T4):
     val 0.804, format 1.0 — pipeline radi; rationale šablonski → treba veći dataset.
     Izvještaj: `docs/training/grana-p-ministral-pilot-2026-11-13.md`.
+    ✅ Drugi dokaz 2026-11-14: expanded-v2 (2378) + held-out v1 (20 neviđenih):
+    val 0.163, format 1.0, held-out 10/19 (53%) — model defaulta na o1 (class-imbalance).
+    Sljedeće: balansirani dataset v0.4.
+    Izvještaj: `docs/training/grana-p-v2-2026-11-14.md`.
   - **Korak 2 — Self-distillation:** model generiše vlastite probleme, rješava uz
     reasoning, uči jedan-prolaz odluke (AnyJev princip, bez tuđih izlaza).
   - **Korak 3 — ⛔ ODBAČENO: Jev distilacija (Faza A)** — odluka korisnika 2026-11-13:
