@@ -38,6 +38,9 @@
     ✅ Drugi dokaz 2026-11-14: expanded-v2 (2378) + held-out v1 (20 neviđenih):
     val 0.163, format 1.0, held-out 10/19 (53%) — model defaulta na o1 (class-imbalance).
     Sljedeće: balansirani dataset v0.4.
+    ✅ Treći dokaz 2026-11-14: v0.3+v0.4 (4626) — Kaggle QLoRA val 0.149/held-out 6/19,
+    LUMI bf16 val 0.073/held-out 3/19: bolji fit = lošiji held-out (prior labela, ne rasuđivanje).
+    Template skaliranje iscrpljeno — sljedeće samo ljudski-pisani podaci.
     Izvještaj: `docs/training/grana-p-v2-2026-11-14.md`.
   - **Korak 2 — Self-distillation:** model generiše vlastite probleme, rješava uz
     reasoning, uči jedan-prolaz odluke (AnyJev princip, bez tuđih izlaza).

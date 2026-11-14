@@ -35,16 +35,18 @@ model = get_peft_model(model, LoraConfig(
     task_type="CAUSAL_LM"))
 
 tekstovi = []
-for put in sorted(glob.glob(os.path.join(a.data, "expanded-v2", "*.jsonl"))):
-    for red in open(put, encoding="utf-8"):
-        red = red.strip()
-        if not red:
-            continue
-        r = json.loads(red)
-        tekstovi.append({"text": r.get("state", "") + "\nODLUKA: "
-                         + json.dumps(r.get("reference", {}), ensure_ascii=False)})
+for pat in [os.path.join(a.data, "expanded-v2", "*.jsonl"),
+            os.path.join(a.data, "expanded-v04", "*.jsonl")]:
+    for put in sorted(glob.glob(pat)):
+        for red in open(put, encoding="utf-8"):
+            red = red.strip()
+            if not red:
+                continue
+            r = json.loads(red)
+            tekstovi.append({"text": r.get("state", "") + "\nODLUKA: "
+                             + json.dumps(r.get("reference", {}), ensure_ascii=False)})
 print("redova:", len(tekstovi), flush=True)
-assert len(tekstovi) >= 2000, "očekivano ~2378 primjera"
+assert len(tekstovi) >= 4000, "očekivano ~4600 primjera"
 
 
 class Enc(TorchDataset):
@@ -84,7 +86,7 @@ gen, ok, tocno, scored = [], 0, 0, 0
 need = {"decision", "confidence"}
 for r in held:
     prompt = r["state"] + "\nODLUKA:"
-    ids = tok(prompt, return_tensors=True).to(model.device)
+    ids = tok(prompt, return_tensors="pt").to(model.device)
     with torch.inference_mode():
         out = model.generate(**{k: v[:, -512:] for k, v in ids.items()},
                              max_new_tokens=256, do_sample=False,
