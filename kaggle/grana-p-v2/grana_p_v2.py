@@ -9,7 +9,7 @@ import subprocess
 import sys
 import urllib.request
 
-COMMIT = "d9fd6ad"
+COMMIT = "d459819"
 RAW = f"https://raw.githubusercontent.com/BH-Language-AI/bh-decision/{COMMIT}"
 MODEL = "mistralai/Ministral-3-3B-Base-2512"
 OUT = "/kaggle/working/output"
@@ -27,9 +27,13 @@ def fetch(url, dst):
     print("fetch:", dst, os.path.getsize(dst), flush=True)
 
 
-for c in ["abstention", "benchmark", "choice", "confidence", "multicriteria",
-          "ranking", "risk", "scoring"]:
-    fetch(f"{RAW}/datasets/expanded-v2/{c}.jsonl", f"/tmp/bh-data/{c}.jsonl")
+DATASETS = {"expanded-v2": ["abstention", "benchmark", "choice", "confidence", "multicriteria",
+                             "ranking", "risk", "scoring"],
+            "expanded-v04": ["abstention", "benchmark", "choice", "confidence", "multicriteria",
+                             "ranking", "risk", "scoring"]}
+for ddir, cats in DATASETS.items():
+    for c in cats:
+        fetch(f"{RAW}/datasets/{ddir}/{c}.jsonl", f"/tmp/bh-data/{ddir}-{c}.jsonl")
 fetch(f"{RAW}/datasets/heldout/heldout-v1.jsonl", "/tmp/bh-data/heldout.jsonl")
 
 sh("pip install -q peft datasets bitsandbytes 2>&1 | tail -1")
