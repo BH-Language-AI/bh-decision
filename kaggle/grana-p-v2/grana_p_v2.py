@@ -27,13 +27,10 @@ def fetch(url, dst):
     print("fetch:", dst, os.path.getsize(dst), flush=True)
 
 
-DATASETS = {"expanded-v2": ["abstention", "benchmark", "choice", "confidence", "multicriteria",
-                             "ranking", "risk", "scoring"],
-            "expanded-v04": ["abstention", "benchmark", "choice", "confidence", "multicriteria",
-                             "ranking", "risk", "scoring"]}
-for ddir, cats in DATASETS.items():
-    for c in cats:
-        fetch(f"{RAW}/datasets/{ddir}/{c}.jsonl", f"/tmp/bh-data/{ddir}-{c}.jsonl")
+CATS = ["abstention", "benchmark", "choice", "confidence", "multicriteria",
+        "ranking", "risk", "scoring"]
+for c in CATS:
+    fetch(f"{RAW}/datasets/train-mix-v1/{c}.jsonl", f"/tmp/bh-data/{c}.jsonl")
 fetch(f"{RAW}/datasets/heldout/heldout-v1.jsonl", "/tmp/bh-data/heldout.jsonl")
 
 sh("pip install -q peft datasets bitsandbytes 2>&1 | tail -1")
