@@ -1,0 +1,44 @@
+{
+ "seed": 7,
+ "source": "train-mix-v1 (v0.3-subsample + v0.4 + v0.5)",
+ "license": "CC-BY-4.0",
+ "files": {
+  "abstention": {
+   "n": 599,
+   "sha256": "1899b4910ff4fabf"
+  },
+  "benchmark": {
+   "n": 550,
+   "sha256": "ca8851ab29c3d923"
+  },
+  "choice": {
+   "n": 581,
+   "sha256": "9cd36c30234efc18"
+  },
+  "confidence": {
+   "n": 603,
+   "sha256": "0452afd32b4760fe"
+  },
+  "human-v05": {
+   "n": 131,
+   "sha256": "1cbea45dd7e5e36c"
+  },
+  "multicriteria": {
+   "n": 553,
+   "sha256": "f49c5c53f9a78f8a"
+  },
+  "ranking": {
+   "n": 596,
+   "sha256": "34c280ff91eab95a"
+  },
+  "risk": {
+   "n": 528,
+   "sha256": "ed73f5881fa172c9"
+  },
+  "scoring": {
+   "n": 616,
+   "sha256": "242ce662796cc0ad"
+  }
+ },
+ "total": 4757
+}
