@@ -9,7 +9,7 @@ import subprocess
 import sys
 import urllib.request
 
-COMMIT = "d459819"
+COMMIT = "c4d419a"
 RAW = f"https://raw.githubusercontent.com/BH-Language-AI/bh-decision/{COMMIT}"
 MODEL = "mistralai/Ministral-3-3B-Base-2512"
 OUT = "/kaggle/working/output"
