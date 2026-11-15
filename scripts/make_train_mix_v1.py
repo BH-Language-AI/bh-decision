@@ -34,6 +34,8 @@ bycat_human = {"human": human}
 CAP = {"o1": 600, "o2": 600, "o3": 600}
 mixed = []
 for (cat, dec), rs in sorted(by.items()):
+    if cat == "human-v05":
+        continue  # ide u zasebni human.jsonl ispod
     if dec in CAP and len(rs) > CAP[dec]:
         rs = R.sample(rs, CAP[dec])
     mixed.extend((cat, r) for r in rs)

@@ -5,44 +5,40 @@
  "files": {
   "abstention": {
    "n": 599,
-   "sha256": "1899b4910ff4fabf"
+   "sha256": "9cc6dcf04efd79e8"
   },
   "benchmark": {
    "n": 550,
-   "sha256": "ca8851ab29c3d923"
+   "sha256": "83349c608e8a72e8"
   },
   "choice": {
    "n": 581,
-   "sha256": "9cd36c30234efc18"
+   "sha256": "810fb8ad219c1475"
   },
   "confidence": {
    "n": 603,
-   "sha256": "0452afd32b4760fe"
-  },
-  "human-v05": {
-   "n": 131,
-   "sha256": "1cbea45dd7e5e36c"
+   "sha256": "ab4a2e77861b779a"
   },
   "multicriteria": {
    "n": 553,
-   "sha256": "f49c5c53f9a78f8a"
+   "sha256": "c39bc1ce8d987527"
   },
   "ranking": {
    "n": 596,
-   "sha256": "34c280ff91eab95a"
+   "sha256": "719f095d6848f9de"
   },
   "risk": {
    "n": 528,
-   "sha256": "ed73f5881fa172c9"
+   "sha256": "0a171e4d62fabc1d"
   },
   "scoring": {
    "n": 616,
-   "sha256": "242ce662796cc0ad"
+   "sha256": "5c6674fa6270f3b6"
   },
   "human": {
    "n": 131,
    "sha256": "d9fabf661e0f9a37"
   }
  },
- "total": 4888
+ "total": 4757
 }
