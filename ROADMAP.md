@@ -41,7 +41,11 @@
     ✅ Treći dokaz 2026-11-14: v0.3+v0.4 (4626) — Kaggle QLoRA val 0.149/held-out 6/19,
     LUMI bf16 val 0.073/held-out 3/19: bolji fit = lošiji held-out (prior labela, ne rasuđivanje).
     Template skaliranje iscrpljeno — sljedeće samo ljudski-pisani podaci.
-    Izvještaj: `docs/training/grana-p-v2-2026-11-14.md`.
+    ✅ Četvrti dokaz 2026-11-15: mix-v1 (4757, balansiran) LUMI bf16 — val 0.076,
+    held-out 5/19 (26%): balans uklonio default-prior, ostatak je pravi jaz generalizacije.
+    Sljedeće: skalirati human podatke (500+) ili Korak 2.
+    Izvještaji: `docs/training/grana-p-v2-2026-11-14.md`,
+    `docs/training/grana-p-mixv1-2026-11-15.md`.
   - **Korak 2 — Self-distillation:** model generiše vlastite probleme, rješava uz
     reasoning, uči jedan-prolaz odluke (AnyJev princip, bez tuđih izlaza).
   - **Korak 3 — ⛔ ODBAČENO: Jev distilacija (Faza A)** — odluka korisnika 2026-11-13:
