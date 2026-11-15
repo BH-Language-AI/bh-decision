@@ -16,7 +16,7 @@ os.makedirs(OUT, exist_ok=True)
 
 pool = []
 for pat in ["../datasets/expanded-v2/*.jsonl", "../datasets/expanded-v04/*.jsonl",
-            "../datasets/expanded-v05/*.jsonl"]:
+            "../datasets/expanded-v05/human-v05.jsonl"]:
     for f in sorted(glob.glob(os.path.join(BASE, pat))):
         cat = os.path.basename(f).replace(".jsonl", "")
         for l in open(f):
@@ -28,6 +28,8 @@ by = {}
 for cat, r in pool:
     key = (cat, str(r.get("reference", {}).get("decision")))
     by.setdefault(key, []).append(r)
+human = [r for cat, r in pool if r.get("id", "").startswith("BH-D5-")]
+bycat_human = {"human": human}
 
 CAP = {"o1": 600, "o2": 600, "o3": 600}
 mixed = []
@@ -50,6 +52,13 @@ for cat, rs in sorted(bycat.items()):
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
     manifest["files"][cat] = {"n": len(rs),
                                "sha256": hashlib.sha256(open(path, "rb").read()).hexdigest()[:16]}
+for hc, rs in bycat_human.items():
+    path = os.path.join(OUT, f"{hc}.jsonl")
+    with open(path, "w", encoding="utf-8") as f:
+        for r in rs:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    manifest["files"][hc] = {"n": len(rs),
+                              "sha256": hashlib.sha256(open(path, "rb").read()).hexdigest()[:16]}
 manifest["total"] = sum(v["n"] for v in manifest["files"].values())
 json.dump(manifest, open(os.path.join(OUT, "manifest-mix-v1.json"), "w"),
           ensure_ascii=False, indent=1)
