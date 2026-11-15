@@ -35,7 +35,9 @@ model = get_peft_model(model, LoraConfig(
     task_type="CAUSAL_LM"))
 
 tekstovi = []
-for pat in [os.path.join(a.data, "train-mix-v1", "*.jsonl")]:
+pats = sorted(glob.glob(os.path.join(a.data, "*", "*.jsonl")))
+pats = [x for x in pats if "heldout" not in x] or [os.path.join(a.data, "*.jsonl")]
+for pat in pats:
     for put in sorted(glob.glob(pat)):
         for red in open(put, encoding="utf-8"):
             red = red.strip()
