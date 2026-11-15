@@ -35,8 +35,7 @@ model = get_peft_model(model, LoraConfig(
     task_type="CAUSAL_LM"))
 
 tekstovi = []
-for pat in [os.path.join(a.data, "expanded-v2", "*.jsonl"),
-            os.path.join(a.data, "expanded-v04", "*.jsonl")]:
+for pat in [os.path.join(a.data, "train-mix-v1", "*.jsonl")]:
     for put in sorted(glob.glob(pat)):
         for red in open(put, encoding="utf-8"):
             red = red.strip()
@@ -46,7 +45,7 @@ for pat in [os.path.join(a.data, "expanded-v2", "*.jsonl"),
             tekstovi.append({"text": r.get("state", "") + "\nODLUKA: "
                              + json.dumps(r.get("reference", {}), ensure_ascii=False)})
 print("redova:", len(tekstovi), flush=True)
-assert len(tekstovi) >= 4000, "očekivano ~4600 primjera"
+assert len(tekstovi) >= 4000, "očekivano ~4757 primjera"
 
 
 class Enc(TorchDataset):
