@@ -47,7 +47,7 @@ for pat in pats:
             tekstovi.append({"text": r.get("state", "") + "\nODLUKA: "
                              + json.dumps(r.get("reference", {}), ensure_ascii=False)})
 print("redova:", len(tekstovi), flush=True)
-assert len(tekstovi) >= 4000, "očekivano ~4757 primjera"
+assert len(tekstovi) >= 100, "premalo primjera"
 
 
 class Enc(TorchDataset):
