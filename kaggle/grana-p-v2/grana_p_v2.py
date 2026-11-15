@@ -9,7 +9,7 @@ import subprocess
 import sys
 import urllib.request
 
-COMMIT = "c4d419a"
+COMMIT = "3a083ac"
 RAW = f"https://raw.githubusercontent.com/BH-Language-AI/bh-decision/{COMMIT}"
 MODEL = "mistralai/Ministral-3-3B-Base-2512"
 OUT = "/kaggle/working/output"
@@ -28,7 +28,7 @@ def fetch(url, dst):
 
 
 CATS = ["abstention", "benchmark", "choice", "confidence", "multicriteria",
-        "ranking", "risk", "scoring"]
+        "ranking", "risk", "scoring", "human"]
 for c in CATS:
     fetch(f"{RAW}/datasets/train-mix-v1/{c}.jsonl", f"/tmp/bh-data/{c}.jsonl")
 fetch(f"{RAW}/datasets/heldout/heldout-v1.jsonl", "/tmp/bh-data/heldout.jsonl")
