@@ -45,7 +45,8 @@
     held-out 5/19 (26%): balans uklonio default-prior, ostatak je pravi jaz generalizacije.
     Sljedeće: skalirati human podatke (500+) ili Korak 2.
     Izvještaji: `docs/training/grana-p-v2-2026-11-14.md`,
-    `docs/training/grana-p-mixv1-2026-11-15.md`.
+    `docs/training/grana-p-mixv1-2026-11-15.md`,
+    `docs/training/grana-p-human-only-2026-11-15.md`.
   - **Korak 2 — Self-distillation:** model generiše vlastite probleme, rješava uz
     reasoning, uči jedan-prolaz odluke (AnyJev princip, bez tuđih izlaza).
   - **Korak 3 — ⛔ ODBAČENO: Jev distilacija (Faza A)** — odluka korisnika 2026-11-13:
