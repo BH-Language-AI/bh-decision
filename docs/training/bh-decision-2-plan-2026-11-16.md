@@ -29,7 +29,7 @@
 - Validacija mixa v2 (offline, 2026-11-16): format 1.0 (4989/4989 validan JSON
   s `decision`), en udio ~8.4% (vidljiv), held-out leakage 0/20, think ostataka 0.
 - Kernel `kaggle/bh2-mixv2/` spreman (commit 471358c); push 2026-11-16 odbijen —
-  Kaggle GPU quota puna (qwen35-2b-fc QUEUED). Retry u pozadini.
+  Kaggle GPU quota puna (qwen35-2b-fc QUEUED). Retry uspio iz 2. pokušaja (~19:20 UTC); kernel QUEUED na T4, watcher u pozadini.
 - LUMI pokušaj (2026-11-16): oba SSH puta mrtva — EFP cert istekao (treba refresh
   na sshca.my-eurohpc.eu portalu), klasični `lumi` host ima placeholder username.
   BLOKER: korisnik mora osvježiti EFP cert. Kad SSH proradi, staging + submit:
