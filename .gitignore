@@ -5,3 +5,4 @@ dist/
 .hf-cache/
 models/
 benchmarks/reports/*.json
+__pycache__/
