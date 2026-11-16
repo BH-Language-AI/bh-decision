@@ -28,6 +28,8 @@
   `manifest-v2.json`. Sljedeće: LoRA run + readout provjera, SAMO uz odobrenje.
 - Validacija mixa v2 (offline, 2026-11-16): format 1.0 (4989/4989 validan JSON
   s `decision`), en udio ~8.4% (vidljiv), held-out leakage 0/20, think ostataka 0.
+- Kernel `kaggle/bh2-mixv2/` spreman (commit 471358c); push 2026-11-16 odbijen —
+  Kaggle GPU quota puna (qwen35-2b-fc QUEUED). Retry u pozadini.
 
 ## Korak-2 proba v2 (2026-11-16, gotova)
 
