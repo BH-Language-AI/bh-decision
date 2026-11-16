@@ -47,10 +47,16 @@ JOBS = [
     ("bs-decision-heldout-v01", "heldout",
      "ZAKLJUČAN held-out set (20 neviđenih stavki) — SAMO za evaluaciju, nikad za trening.",
      "LOCKED held-out set (20 unseen items) — evaluation ONLY, never train on it."),
+    ("bs-decision-bh2-mixv2-v01", "bh-decision-2",
+     "BH-Decision-2 mix v2 (4989 stavki, samo JSON ciljevi: šabloni + human; bez think-tragova i bosnian-core spama; o2 prior srezan).",
+     "BH-Decision-2 mix v2 (4989 items, JSON targets only: templates + human; no think-traces, no bosnian-core spam; o2 prior subsampled).",
+     ["train-v2.jsonl", "manifest-v2.json"]),
 ]
 
 api = HfApi()
-for repo, subdir, desc_bs, desc_en in JOBS:
+for job in JOBS:
+    repo, subdir, desc_bs, desc_en = job[:4]
+    only = job[4] if len(job) > 4 else None
     rid = f"{ORG}/{repo}"
     api.create_repo(repo_id=rid, repo_type="dataset", exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
@@ -58,6 +64,8 @@ for repo, subdir, desc_bs, desc_en in JOBS:
         import glob as _g
         import shutil
         files = sorted(_g.glob(os.path.join(src, "*.json*")))
+        if only:
+            files = [f for f in files if os.path.basename(f) in only]
         assert files, f"nema fajlova u {src}"
         for f in files:
             shutil.copy(f, tmp)
