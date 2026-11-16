@@ -20,7 +20,7 @@ import torch  # noqa: E402
 assert torch.cuda.is_available(), "nema GPU-a"
 print("cuda:", torch.cuda.get_device_name(0), flush=True)
 
-from transformers import (AutoModelForImageTextToText, AutoTokenizer,  # noqa: E402
+from transformers import (AutoModelForCausalLM, AutoModelForImageTextToText, AutoTokenizer,  # noqa: E402
                           Trainer, TrainingArguments, DataCollatorForLanguageModeling)
 from peft import LoraConfig, get_peft_model  # noqa: E402
 from torch.utils.data import Dataset as TorchDataset  # noqa: E402 (izbjegava datasets/pyarrow fingerprint bug)
@@ -28,7 +28,12 @@ from torch.utils.data import Dataset as TorchDataset  # noqa: E402 (izbjegava da
 tok = AutoTokenizer.from_pretrained(a.model)
 if tok.pad_token is None:
     tok.pad_token = tok.eos_token
-model = AutoModelForImageTextToText.from_pretrained(a.model, torch_dtype=torch.bfloat16)
+try:
+    model = AutoModelForCausalLM.from_pretrained(a.model, torch_dtype=torch.bfloat16)
+    print("klasa: AutoModelForCausalLM (tekstualni model)", flush=True)
+except ValueError:
+    model = AutoModelForImageTextToText.from_pretrained(a.model, torch_dtype=torch.bfloat16)
+    print("klasa: AutoModelForImageTextToText (multimodalni model)", flush=True)
 model = get_peft_model(model, LoraConfig(
     r=16, lora_alpha=32, lora_dropout=0.05,
     target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
