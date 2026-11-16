@@ -18,3 +18,12 @@
 - Cilj: popraviti held-out iznad 7/19 uz očuvan format 1.0; joint head evaluacija naknadno.
 - Rizik (iskreno): SFT backbonea može pokvariti joint head readout — provjeriti nakon treninga
   AnyJev readoutom na istoj held-out listi.
+
+## Korak-2 proba (2026-11-17, prekinuta)
+
+- Naivni dizajn (generičke opcije "postupi/provjeri/odustani" za sve situacije): model u
+  14/14 odgovora bira srednju opciju, route uvijek one_forward. Proces ubijen prije kraja;
+  datoteka nije zapisana, ali log dovoljan za zaključak.
+- Greška dizajna, ne modela: generičke opcije nemaju tačan odgovor, pa je konstantan
+  odgovor očekivan. Pravi Korak-2 test traži state-specifične opcije = isti autorski
+  posao kao human podaci. Pauzirano dok human pool ne naraste.
