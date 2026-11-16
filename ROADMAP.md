@@ -26,8 +26,8 @@
 - **Grana R (referentna, gotova): Tacit-4B-Benchmark** — originalni `morriszjm/Tacit-4B`
   (dodan u HF kolekciju kao referenca, težine se ne re-uploadaju), samo mjerenja:
   CPU+GPU bench (B/C/D 11/14). Qwen3-4B baza → nikad temelj produkcijskog modela.
-- **Grana P (produkcijska): BH-Decision-4B na evropskoj bazi** — metodologija Tacit/AnyJev
-  (L0 readout, joint-head paradigma, self-distillation), NE Qwen težine:
+- **Linija 1 (EU/Ministral): BH-Decision-1-4B** (HF: `BH-Language-AI/bh-decision-1-4b`,
+  placeholder, baza TBD→Ministral-3-3B) — metodologija Tacit/AnyJev, NE Qwen težine:
   - **Korak 1 — Bosanska specijalizacija (prvo):** vlastiti dataset (ijekavica;
     klasifikacija, rizik, rangiranje, višekriterijsko, pravno/administrativno),
     trening na EU bazi. Kandidati baze za provjeru licence/pogodnosti:
@@ -55,6 +55,7 @@
   - **Korak 3 — ⛔ ODBAČENO: Jev distilacija (Faza A)** — odluka korisnika 2026-11-13:
     MCA TypeSafe §2.3(b) zabranjuje distillation/imitation; ne izvoditi.
     Put je B → C, bez tuđih izlaza.
+- **Linija 2 (Tacit): BH-Decision-2-4B** (HF: `BH-Language-AI/bh-decision-2-4b`, placeholder + model card, Apache-2.0) — Tacit-4B backbone + LoRA SFT na bh-decision-2 miksu (8474: šabloni + 200 human + thinking 500 + confirmation 800 + bosnian-core 2000). Baseline stock Tacit: held-out 7/19 (37%). LUMI job u toku; težine se objavljuju tek nakon validacije.
 - Kalibracija vjerovatnoća je obavezan cilj treninga i evaluacije (poseban prag + ECE metrika).
 
 ## FAZA 6 — Family Training
