@@ -30,6 +30,12 @@
   s `decision`), en udio ~8.4% (vidljiv), held-out leakage 0/20, think ostataka 0.
 - Kernel `kaggle/bh2-mixv2/` spreman (commit 471358c); push 2026-11-16 odbijen —
   Kaggle GPU quota puna (qwen35-2b-fc QUEUED). Retry u pozadini.
+- LUMI pokušaj (2026-11-16): oba SSH puta mrtva — EFP cert istekao (treba refresh
+  na sshca.my-eurohpc.eu portalu), klasični `lumi` host ima placeholder username.
+  BLOKER: korisnik mora osvježiti EFP cert. Kad SSH proradi, staging + submit:
+  `train_grana_p.py` već čita `{"text": ...}` linije pa je kompatibilan s train-v2
+  bez izmjena; submit: `sbatch slurm/grana-p-v2/grana-p-v2.sbatch <jobdir> morriszjm/Tacit-4B`
+  uz jobdir s `train_grana_p.py + data/train-v2.jsonl + data/heldout-v1.jsonl`.
 
 ## Korak-2 proba v2 (2026-11-16, gotova)
 
