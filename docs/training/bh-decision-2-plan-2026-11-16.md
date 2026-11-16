@@ -36,6 +36,11 @@
   `train_grana_p.py` već čita `{"text": ...}` linije pa je kompatibilan s train-v2
   bez izmjena; submit: `sbatch slurm/grana-p-v2/grana-p-v2.sbatch <jobdir> morriszjm/Tacit-4B`
   uz jobdir s `train_grana_p.py + data/train-v2.jsonl + data/heldout-v1.jsonl`.
+- Kaggle run GOTOV (2026-11-17, T4, ~2.5h): val 0.124, format 10/20 (0.5),
+  held-out 2/10 — gore od stocka 7/19 i od v1 adaptera. o2-default na 19/20:
+  prior je strukturni, subsample ne pomaže. Izvještaj: `docs/training/bh-decision-2-v2-2026-11-16.md`.
+  **Linija 2 SFT pauzirana.** LUMI rerun otkazan kao nepotreban (pad nije T4 artefakt
+  koji bi mijenjao odluku — format se raspao, a to je backbone/SFT interakcija).
 
 ## Korak-2 proba v2 (2026-11-16, gotova)
 
