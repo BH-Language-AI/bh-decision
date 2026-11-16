@@ -8,11 +8,12 @@
 #SBATCH --gpus-per-task=1
 #SBATCH --time=02:30:00
 #SBATCH --output=bh-grana-p-v2-%j.out
-# BH-Decision Grana P v2 — Ministral-3-3B-Base + LoRA bf16, expanded-v2 + held-out.
-# Upotreba: sbatch grana-p-v2.sbatch <job-dir-na-scratchu>
-# (job-dir sadrzi train_grana_p.py + data/{expanded-v2,heldout})
+# BH-Decision trening — LoRA bf16 (ROCm, bez bitsandbytes).
+# Upotreba: sbatch grana-p-v2.sbatch <job-dir-na-scratchu> [model-hf-id]
+# (job-dir sadrzi train_grana_p.py + data/<skupovi> + data/heldout/heldout-v1.jsonl)
 set -euo pipefail
-JOBDIR="${1:?upotreba: sbatch grana-p-v2.sbatch <job-dir>}"
+JOBDIR="${1:?upotreba: sbatch grana-p-v2.sbatch <job-dir> [model]}"
+MODEL="${2:-mistralai/Ministral-3-3B-Base-2512}"
 module purge
 module load Local-LAIF lumi-aif-singularity-bindings
 export SIF=/appl/local/laifs/containers/lumi-multitorch-latest.sif
@@ -25,5 +26,5 @@ srun -n1 singularity exec "$SIF" env PYTHONPATH="$PYLIBS" python -c \
   "import torch; assert 'rocm' in torch.__version__, torch.__version__; print('ROCM-TORCH-OK', torch.__version__)"
 cd "$JOBDIR"
 srun --unbuffered singularity exec -B "$JOBDIR:/job" -B /scratch:/scratch "$SIF" \
-  python -u /job/train_grana_p.py --data /job/data --out /job/out
+  python -u /job/train_grana_p.py --data /job/data --out /job/out --model "$MODEL"
 echo TRAIN_DONE

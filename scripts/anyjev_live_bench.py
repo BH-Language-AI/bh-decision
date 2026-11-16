@@ -26,7 +26,8 @@ def main():
     for s in lines:
         item = {"state": s["state"], "question": s["question"], "kind": s["kind"]}
         if s.get("options"):
-            item["options"] = list(s["options"].keys())
+            o = s["options"]
+            item["options"] = list(o.keys()) if isinstance(o, dict) else list(o)
         st, body, ms = post(base + "/v1/decide", item, timeout)
         rec = {"id": s["id"], "lang": s["lang"], "kind": s["kind"], "reference": s.get("reference"),
                "http": st, "latency_ms": ms}

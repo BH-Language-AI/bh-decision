@@ -44,8 +44,11 @@ for pat in pats:
             if not red:
                 continue
             r = json.loads(red)
-            tekstovi.append({"text": r.get("state", "") + "\nODLUKA: "
-                             + json.dumps(r.get("reference", {}), ensure_ascii=False)})
+            if "text" in r:
+                tekstovi.append({"text": r["text"]})
+            else:
+                tekstovi.append({"text": r.get("state", "") + "\nODLUKA: "
+                                 + json.dumps(r.get("reference", {}), ensure_ascii=False)})
 print("redova:", len(tekstovi), flush=True)
 assert len(tekstovi) >= 100, "premalo primjera"
 

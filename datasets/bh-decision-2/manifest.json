@@ -1,0 +1,12 @@
+{
+ "seed": 7,
+ "n": 8474,
+ "sha256": "225bad908f5e60ce",
+ "sastav": {
+  "templates": "train-mix-v1 bez human",
+  "human": 200,
+  "thinking": 500,
+  "confirmation": 800,
+  "bosnian_core": 2000
+ }
+}
