@@ -26,6 +26,8 @@
   ekavski boilerplate, nula decision sadržaja), o2 subsample 1744→1559 (= o1).
   Izlaz: `datasets/bh-decision-2/train-v2.jsonl` (4989, samo JSON ciljevi) +
   `manifest-v2.json`. Sljedeće: LoRA run + readout provjera, SAMO uz odobrenje.
+- Validacija mixa v2 (offline, 2026-11-16): format 1.0 (4989/4989 validan JSON
+  s `decision`), en udio ~8.4% (vidljiv), held-out leakage 0/20, think ostataka 0.
 
 ## Korak-2 proba v2 (2026-11-16, gotova)
 
