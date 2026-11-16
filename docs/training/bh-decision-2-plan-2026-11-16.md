@@ -19,11 +19,17 @@
 - Rizik (iskreno): SFT backbonea može pokvariti joint head readout — provjeriti nakon treninga
   AnyJev readoutom na istoj held-out listi.
 
-## Korak-2 proba (2026-11-17, prekinuta)
+## Korak-2 proba v2 (2026-11-16, gotova)
 
-- Naivni dizajn (generičke opcije "postupi/provjeri/odustani" za sve situacije): model u
-  14/14 odgovora bira srednju opciju, route uvijek one_forward. Proces ubijen prije kraja;
-  datoteka nije zapisana, ali log dovoljan za zaključak.
-- Greška dizajna, ne modela: generičke opcije nemaju tačan odgovor, pa je konstantan
-  odgovor očekivan. Pravi Korak-2 test traži state-specifične opcije = isti autorski
-  posao kao human podaci. Pauzirano dok human pool ne naraste.
+- Popravljen dizajn: 12 novih situacija sa state-specific opcijama
+  (`scripts/selfdistill_probe_v2.py`, sirovo `datasets/selfdistill/probe-v2.jsonl`).
+- Rezultat: **12/12 pogodak, ali cot=0/12, confidence ~0.99** — distraktori su
+  apsurdni (npr. "ostaviti ključ pod otiračem"), pa model bira razumnu opciju
+  po površinskoj formi, bez reasoninga. Test je prelagan: ne dokazuje da model
+  može generisati vlastite trening podatke, samo da razlikuje razumno od
+  apsurdnog. Degenerisani confidence (sve ~1.0) je isti fenomen kao kod Jev-a.
+- Napomena o pristrasnosti: autor proba i referentnih odgovora je eksperimentator
+  (ista ograda kao A/B v6 Muse grana) — gornja granica, ne nezavisna mjera.
+- Pravi Korak-2 test traži uvjerljive distraktore (heldout-stil, sve opcije
+  plauzibilne) = isti autorski posao kao human podaci. Pauzirano dok human
+  pool ne naraste; v2 ostaje kao negativna kontrola dizajna probi.
