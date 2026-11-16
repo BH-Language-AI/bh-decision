@@ -19,6 +19,14 @@
 - Rizik (iskreno): SFT backbonea može pokvariti joint head readout — provjeriti nakon treninga
   AnyJev readoutom na istoj held-out listi.
 
+## Mix v2 (2026-11-16, spreman — čeka GPU odobrenje)
+
+- `scripts/build_bh2_mixv2.py` (seed 7): od v1 miksa (8474) van 3300 ne-JSON
+  zapisa (1300 think-tragova + 2000 bosnian-core spama — provjereno travel/ISO
+  ekavski boilerplate, nula decision sadržaja), o2 subsample 1744→1559 (= o1).
+  Izlaz: `datasets/bh-decision-2/train-v2.jsonl` (4989, samo JSON ciljevi) +
+  `manifest-v2.json`. Sljedeće: LoRA run + readout provjera, SAMO uz odobrenje.
+
 ## Korak-2 proba v2 (2026-11-16, gotova)
 
 - Popravljen dizajn: 12 novih situacija sa state-specific opcijama

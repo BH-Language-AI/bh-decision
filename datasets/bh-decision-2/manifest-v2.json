@@ -1,0 +1,17 @@
+{
+ "seed": 7,
+ "n": 4989,
+ "sha256": "9056938e723cdc51",
+ "izvor": "train.jsonl v1 filtriran",
+ "izbaceno_nejson": 3300,
+ "o2_subsample_drop": 185,
+ "decision_distribucija": {
+  "salter": 200,
+  "o2": 1559,
+  "o1": 1559,
+  "o3": 578,
+  "abstain": 643,
+  "e-uprava": 211,
+  "posta": 239
+ }
+}
