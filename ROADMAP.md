@@ -22,6 +22,10 @@
 - Mali piloti A vs B vs C po `docs/training/pilot-faza5.md`, izbor pobjednika dokazom (`scripts/pilot.py`, `slurm/pilot.slurm`).
 
 ## FAZA 5b — BH-Decision-4B grana (novo, 2026-11-13, dvije eksperimentalne grane)
+> **Dvojezični zahtjev (trajno pravilo, 2026-11-16): model MORA raditi i na bosanskom
+> (ijekavica) i na engleskom.** Svaki trening miks drži en udio vidljivim u izvještaju;
+> held-out obavezno sadrži oba jezika (`tests/test_heldout.py` to provjerava);
+> evaluacijski izvještaji razdvajaju bs/en rezultate.
 
 - **Grana R (referentna, gotova): Tacit-4B-Benchmark** — originalni `morriszjm/Tacit-4B`
   (dodan u HF kolekciju kao referenca, težine se ne re-uploadaju), samo mjerenja:
