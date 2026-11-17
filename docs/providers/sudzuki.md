@@ -43,6 +43,15 @@ Ministral SFT 5/19, Tacit-v2 SFT 2/10. Sudzuki je najbolje što trenutno radi.
 
 ## Sljedeće (uz odobrenje)
 
-- Rerun istih 20 radi varijanse (stohastičnost!); ECE kalibracijska krivulja.
-- Provjera cijene/licence/retention → tek onda prijedlog za provider-selection.
-- Test `analyze/compare/rank` na istom setu.
+## Rerun (2026-11-17, istih 20 stavki)
+
+- Ukupno scored: **14/18 (78%)** — run 1 bio 15/18 (83%).
+- Razlike: 001 se popravila (o2→o1), 015 se pokvarila (o2→o3, tie-break 0.41=0.41
+  pa 0.40 o3). Slaganje run1-vs-rerun: **18/20 (90%)** — stohastičnost postoji,
+  ali je ograničena na tijesne pozive.
+- Latencija reruna p50 **~5 s** (raspon 2–14 s) umjesto ~29 s — model je bio
+  topao ili je opterećenje palo; L0 priča i dalje ne stoji (Jev 256 ms),
+  ali 5 s mijenja računicu za batch/adaptive upotrebu.
+- Cijena: javno neprovjerljiva (nema tragova `sudzuki-4b-cloud` modelu na webu —
+  vjerovatno interni harness model). Status ostaje: **nikad default** dok se
+  cijena/licenca ne potvrde pisanim putem.
