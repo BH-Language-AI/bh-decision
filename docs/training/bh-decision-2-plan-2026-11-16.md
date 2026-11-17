@@ -69,3 +69,11 @@
 - Pravi Korak-2 test traži uvjerljive distraktore (heldout-stil, sve opcije
   plauzibilne) = isti autorski posao kao human podaci. Pauzirano dok human
   pool ne naraste; v2 ostaje kao negativna kontrola dizajna probi.
+
+## LUMI v3 run GOTOV (2026-11-17, job 23816816, 1:11, bf16)
+
+- val 0.0999, strogo format 1/20 + 0/1 (trailing garbage reže strogi parse),
+  tolerantno 6/19 (32%), o2-default slomljen (9/20).
+- Izvještaj: `docs/training/bh-decision-2-v3-2026-11-17.md`.
+- **SFT linije zatvorene** (mehanizam dokazan, 3 poraza od stocka, memorizacija).
+- Kaggle retry3 otkazan — v3 već odrađen na boljem hardveru.
