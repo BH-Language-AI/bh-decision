@@ -53,7 +53,7 @@
 - HF: `bs-decision-bh2-mixv3-v01` + `bs-decision-human-v02` objavljeni.
 - Kernel `kaggle/bh2-mixv3/` (pin 3d7ef39): push BLOKIRAN — tjedna GPU kvota 30h
   potrošena (mixv2 run + qwen jobovi). Retry svakih 12h u pozadini (7 dana);
-  LUMI i dalje čeka EFP refresh kao paralelna opcija.
+  LUMI proradio preko Oracle skočnog čvora (agentmujo-training worker docs); job stagean na scratch, sbatch čeka QOS slot (amj-train oslobađa dev-g za ~50 min); submit+watch u pozadini.
 
 ## Korak-2 proba v2 (2026-11-16, gotova)
 
