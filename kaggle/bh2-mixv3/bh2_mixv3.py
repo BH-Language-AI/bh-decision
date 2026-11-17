@@ -8,7 +8,7 @@ import os
 import subprocess
 import urllib.request
 
-COMMIT = "22ae9d5"
+COMMIT = "3d7ef39"
 RAW = f"https://raw.githubusercontent.com/BH-Language-AI/bh-decision/{COMMIT}"
 MODEL = "morriszjm/Tacit-4B"
 DATA_LABEL = "bh-decision-2-mixv3"
