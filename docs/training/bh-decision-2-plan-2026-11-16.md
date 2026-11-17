@@ -42,6 +42,19 @@
   **Linija 2 SFT pauzirana.** LUMI rerun otkazan kao nepotreban (pad nije T4 artefakt
   koji bi mijenjao odluku — format se raspao, a to je backbone/SFT interakcija).
 
+## Human v06 + mix v3 (2026-11-17, trening se nastavlja)
+
+- `datasets/expanded-v06/` (200 stavki, 100 bs + 100 en, manifest-v0.6):
+  plauzibilni distraktori (heldout-stil), balans referenci o1 50 / o2 50 / o3 100 —
+  prvi set koji napada o2-prior podacima, ne subsampleom. Balans izveden swapom
+  ID-eva (tekst i rationale ostaju, mijenja se samo nosilac tačnog odgovora).
+- `scripts/build_bh2_mixv3.py`: mix v3 = train-v2 + v06 → `train-v3.jsonl` (5189),
+  dist o1 1609 / o2 1609 / o3 678, en ~10.2% (prag zadovoljen), leakage 0/20, think 0.
+- HF: `bs-decision-bh2-mixv3-v01` + `bs-decision-human-v02` objavljeni.
+- Kernel `kaggle/bh2-mixv3/` (pin 3d7ef39): push BLOKIRAN — tjedna GPU kvota 30h
+  potrošena (mixv2 run + qwen jobovi). Retry svakih 12h u pozadini (7 dana);
+  LUMI i dalje čeka EFP refresh kao paralelna opcija.
+
 ## Korak-2 proba v2 (2026-11-16, gotova)
 
 - Popravljen dizajn: 12 novih situacija sa state-specific opcijama
