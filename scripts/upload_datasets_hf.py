@@ -73,6 +73,9 @@ JOBS = [
      "BH-Decision-2 mix v6 (4543: mix v4 dedup, prvi ostaje; 5-epoha run, zadnji template eksperiment).",
      "BH-Decision-2 mix v6 (4543: deduped mix v4, first kept; 5-epoch run, last template experiment).",
      ["train-v6.jsonl", "manifest-v6.json"]),
+    ("bs-decision-human-v04", "expanded-v08",
+     "Human v08 (140: reasoning traces 60 + negacije 30 + apstinencija 20 + multi-choice 30; bs/en 70/70; novi tipovi).",
+     "Human v08 (140: reasoning traces 60 + negations 30 + abstention 20 + multi-choice 30; bs/en 70/70; new types)."),
 ]
 
 api = HfApi()
