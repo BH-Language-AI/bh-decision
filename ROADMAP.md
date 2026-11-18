@@ -59,7 +59,10 @@
   - **Korak 3 — ⛔ ODBAČENO: Jev distilacija (Faza A)** — odluka korisnika 2026-11-13:
     MCA TypeSafe §2.3(b) zabranjuje distillation/imitation; ne izvoditi.
     Put je B → C, bez tuđih izlaza.
-- **Linija 2 (Tacit): BH-Decision-2-4B** (HF: `BH-Language-AI/bh-decision-2-4b`, placeholder + model card, Apache-2.0) — Tacit-4B backbone + LoRA SFT na bh-decision-2 miksu (8474: šabloni + 200 human + thinking 500 + confirmation 800 + bosnian-core 2000). Baseline stock Tacit: held-out 7/19 (37%). LUMI job u toku; težine se objavljuju tek nakon validacije.
+- **Linija 2 (Tacit): BH-Decision-2-4B** — v0.1 adapter objavljen na HF (iskren card:
+  6/19 ispod stocka 7/19); mix v2 (4989) → v3 (5189) → v4 (5389, očišćeni targeti)
+  → **v5 (3627, o1=o2=o3=778, odlučujući eksperiment, LUMI job 23838644 u toku)**.
+  Serija: stock 7/19 > v3 6/19 > v1 4/15 > v4 3/16 > v2 2/10. Detalji u `docs/training/`.
 - Kalibracija vjerovatnoća je obavezan cilj treninga i evaluacije (poseban prag + ECE metrika).
 
 ## FAZA 6 — Family Training
