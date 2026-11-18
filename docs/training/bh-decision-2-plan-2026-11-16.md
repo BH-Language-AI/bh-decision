@@ -82,3 +82,13 @@
 
 - Adapter (127MB, LoRA r16) objavljen na `BH-Language-AI/bh-decision-2-4b` (HTTP 200).
 - Model card iskren: 6/19 ispod stocka 7/19, istraživački artefakt, ne za produkciju.
+
+## Human v07 + mix v4 (2026-11-18, produkcijski push po nalogu)
+
+- `datasets/expanded-v07/` (200 stavki, 100 bs + 100 en, o1 50/o2 50/o3 100,
+  manifest-v0.7). HF: `bs-decision-human-v03`.
+- `scripts/build_bh2_mixv4.py`: mix v4 = train-v3 + v07 → `train-v4.jsonl` (5389),
+  dist o1 1659/o2 1659/o3 778, en ~12%, leak 0. NOVO: svi targeti očišćeni na
+  7 ključeva (4989 očišćenih, 0 metadata ostataka) — lijek protiv papagaja i
+  trailing garbagea iz v3. HF: `bs-decision-bh2-mixv4-v01`.
+- Job stagean na LUMI scratch (bh2-mixv4), sbatch na dev-g u toku.
