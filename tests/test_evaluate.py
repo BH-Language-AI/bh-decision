@@ -22,10 +22,10 @@ def test_accuracy_dict_reference():
 
 def test_brier_rewards_calibration():
     ref = [{"id": "a", "decision": "o1"}, {"id": "b", "decision": "o1"}]
-    confident = [{"id": "a", "decision": "o1", "probs": {"o1": 0.9}},
-                 {"id": "b", "decision": "o2", "probs": {"o1": 0.9}}]
-    humble = [{"id": "a", "decision": "o1", "probs": {"o1": 0.6}},
-              {"id": "b", "decision": "o2", "probs": {"o1": 0.6}}]
+    confident = [{"id": "a", "decision": "o1", "probs": {"o1": 0.9, "o2": 0.1}},
+                 {"id": "b", "decision": "o2", "probs": {"o1": 0.1, "o2": 0.9}}]
+    humble = [{"id": "a", "decision": "o1", "probs": {"o1": 0.6, "o2": 0.4}},
+              {"id": "b", "decision": "o2", "probs": {"o1": 0.4, "o2": 0.6}}]
     assert minimal_score(ref, confident)["brier"] > minimal_score(ref, humble)["brier"]
     assert minimal_score(ref, confident)["brier_n"] == 2
 
