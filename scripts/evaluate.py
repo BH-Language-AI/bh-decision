@@ -25,14 +25,29 @@ def load_records(path):
 def minimal_score(ref_records, pred_records):
     preds = {r.get("id"): r for r in pred_records if isinstance(r, dict) and "id" in r}
     total, hit = 0, 0
+    brier_sum, brier_n = 0.0, 0
     for r in ref_records:
         if not isinstance(r, dict) or "id" not in r:
             continue
         total += 1
         p = preds.get(r["id"], {})
-        if p.get("decision") == r.get("decision") or p.get("decision") == r.get("reference"):
+        exp = r.get("decision", r.get("reference"))
+        if isinstance(exp, dict):
+            exp = exp.get("decision")
+        if p.get("decision") == exp:
             hit += 1
-    return {"total": total, "hit": hit, "accuracy": (hit / total) if total else 0.0}
+        probs = p.get("probs")
+        if isinstance(probs, dict) and exp in probs:
+            try:
+                brier_sum += (1.0 - float(probs[exp])) ** 2
+                brier_n += 1
+            except (TypeError, ValueError):
+                pass
+    result = {"total": total, "hit": hit, "accuracy": (hit / total) if total else 0.0}
+    if brier_n:  # proper scoring (d1.2 praksa): kaznjava samouvjerene greške
+        result["brier"] = round(brier_sum / brier_n, 4)
+        result["brier_n"] = brier_n
+    return result
 
 
 def main(argv=None):
