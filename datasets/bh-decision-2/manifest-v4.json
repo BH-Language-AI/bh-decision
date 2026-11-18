@@ -1,0 +1,17 @@
+{
+ "seed": 7,
+ "n": 5389,
+ "sha256": "ed3cd7a104dd2d7f",
+ "izvor": "train-v3 + human-v07 (200)",
+ "ociscenih_targeta": 4989,
+ "decision_distribucija": {
+  "abstain": 643,
+  "o1": 1659,
+  "o3": 778,
+  "salter": 200,
+  "o2": 1659,
+  "e-uprava": 211,
+  "posta": 239
+ },
+ "en_udio_grubo": 0.118
+}

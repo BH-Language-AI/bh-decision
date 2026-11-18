@@ -1,0 +1,16 @@
+{
+ "seed": 99,
+ "source": "human-v0.7",
+ "license": "CC-BY-4.0",
+ "n": 200,
+ "sha256": "c62a1d5e4acce205",
+ "decision": {
+  "o1": 50,
+  "o3": 100,
+  "o2": 50
+ },
+ "lang": {
+  "bs": 100,
+  "en": 100
+ }
+}
