@@ -69,10 +69,11 @@ Obrazac: visoki bin savršen (20/20), srednji pre-samouvjeren (0.50 vs 0.70).
 Zaključak za pragove: odluke s conf < 0.8 šalji na eskalaciju/ljudsku provjeru —
 prag 0.80 iz SKILL.md-a ovim dobija empirijsku potvrdu. Uzorak mali (n=36).
 
-## Ostali alati (2026-11-18, pojedinačne probe)
+## Ostali alati (2026-11-18)
 
 - `analyze` (kašnjenje plate): risk **high** (0.69) — razumno.
 - `compare` (3 opcije): pisani rok isplate, 0.99 — razumno.
-- `rank` (vodoinstalater): **pogrešno i samouvjereno** — "Razbiti zid sam" prvi
-  s 0.615, ispravan odgovor zadnji (0.16). Jedna proba (n=1), ali ozbiljna:
-  `rank` se ne vjeruje dok se ne izmjeri na cijelom held-outu.
+- `rank` na cijelom held-outu (18 bodovanih): **17/18** — jedina greška 007.
+  Ranija n=1 proba ("Razbiti zid sam" prvi) bila je artefakt moje greške: opcije
+  bez konteksta situacije. Kad opcije nose puni tekst, rank radi. Pouka za skill:
+  nikad kratke opcije bez statea.
