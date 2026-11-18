@@ -26,3 +26,14 @@
 4. Proizvodni prag: format 1.0 (readout ga daje strukturom) + held-out ≥ stocka.
    v4 je na pragu (15 vs 16 — jedan item). Sljedeći korak: v0.2-rc objava s
    readout brojkama, bez tvrdnje da tuče stock.
+
+## Question-sweep (2026-11-18, +120 readout poziva)
+
+|  | q1 "najbolji odgovor" | q2 (state kao pitanje) | q3 "sljedeći korak" |
+|---|---|---|---|
+| stock | 16/19 | 13/19 | 15/19 |
+| v4 | 15/19 | 16/19 | 16/19 |
+
+Formulacija miče ±3 itema, plafon ostaje 16/19 — nema prompt-čarolije iznad.
+v4 dostiže stock uz q2/q3. Proizvodna konfiguracija: v4 adapter + readout +
+q2/q3 formulacija = 16/19 (paritet sa stockom).
