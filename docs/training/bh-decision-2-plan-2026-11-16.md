@@ -77,3 +77,8 @@
 - Izvještaj: `docs/training/bh-decision-2-v3-2026-11-17.md`.
 - **SFT linije zatvorene** (mehanizam dokazan, 3 poraza od stocka, memorizacija).
 - Kaggle retry3 otkazan — v3 već odrađen na boljem hardveru.
+
+## Objava v0.1 (2026-11-18)
+
+- Adapter (127MB, LoRA r16) objavljen na `BH-Language-AI/bh-decision-2-4b` (HTTP 200).
+- Model card iskren: 6/19 ispod stocka 7/19, istraživački artefakt, ne za produkciju.
