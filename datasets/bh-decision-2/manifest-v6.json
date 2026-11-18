@@ -1,0 +1,17 @@
+{
+ "seed": 7,
+ "n": 4543,
+ "sha256": "bfa3a8bfbd3df26e",
+ "izvor": "train-v4 dedup (prvi ostaje)",
+ "izbaceno_duplikata": 846,
+ "decision_distribucija": {
+  "o2": 1504,
+  "o1": 1625,
+  "abstain": 199,
+  "o3": 592,
+  "e-uprava": 202,
+  "salter": 191,
+  "posta": 230
+ },
+ "en_udio_grubo": 0.089
+}

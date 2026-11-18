@@ -69,6 +69,10 @@ JOBS = [
      "BH-Decision-2 mix v5 (3627: mix v4 balansiran o1=o2=o3=778; odlučujući eksperiment protiv prior-defaulta).",
      "BH-Decision-2 mix v5 (3627: mix v4 balanced o1=o2=o3=778; decisive experiment vs prior-defaulting).",
      ["train-v5.jsonl", "manifest-v5.json"]),
+    ("bs-decision-bh2-mixv6-v01", "bh-decision-2",
+     "BH-Decision-2 mix v6 (4543: mix v4 dedup, prvi ostaje; 5-epoha run, zadnji template eksperiment).",
+     "BH-Decision-2 mix v6 (4543: deduped mix v4, first kept; 5-epoch run, last template experiment).",
+     ["train-v6.jsonl", "manifest-v6.json"]),
 ]
 
 api = HfApi()

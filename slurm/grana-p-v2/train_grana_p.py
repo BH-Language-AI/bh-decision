@@ -12,7 +12,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--data", required=True)
 ap.add_argument("--out", required=True)
 ap.add_argument("--model", default="mistralai/Ministral-3-3B-Base-2512")
-ap.add_argument("--epochs", type=int, default=3)
+ap.add_argument("--epochs", type=int, default=int(os.environ.get("EPOCHS", 3)))
 a = ap.parse_args()
 os.makedirs(f"{a.out}/adapter", exist_ok=True)
 
