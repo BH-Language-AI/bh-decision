@@ -55,3 +55,18 @@ Ministral SFT 5/19, Tacit-v2 SFT 2/10. Sudzuki je najbolje što trenutno radi.
 - Cijena: javno neprovjerljiva (nema tragova `sudzuki-4b-cloud` modelu na webu —
   vjerovatno interni harness model). Status ostaje: **nikad default** dok se
   cijena/licenca ne potvrde pisanim putem.
+
+## Kalibracija (2026-11-18, oba runa, n=36 bodovanih)
+
+| Bin povjerenja | n | Tačnost | Prosj. conf |
+|---|---|---|---|
+| 0.2–0.4 | 1 | 0.00 | 0.40 |
+| 0.4–0.6 | 3 | 1.00 | 0.50 |
+| 0.6–0.8 | 12 | 0.50 | 0.70 |
+| 0.8–1.0 | 20 | 1.00 | 0.93 |
+
+**ECE ≈ 0.16 (16 poena)** — debelo iznad d1.2-ultra (0.8) i Jev 1.14 (2.7) iz
+d1.2 članka (drugi benchmarkovi, nije direktno uporedivo, ali red veličine je jasan).
+Obrazac: visoki bin savršen (20/20), srednji pre-samouvjeren (0.50 vs 0.70).
+Zaključak za pragove: odluke s conf < 0.8 šalji na eskalaciju/ljudsku provjeru —
+prag 0.80 iz SKILL.md-a ovim dobija empirijsku potvrdu. Uzorak mali (n=36).
