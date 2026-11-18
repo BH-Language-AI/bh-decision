@@ -1,0 +1,10 @@
+{
+ "seed": 0,
+ "n": 17875,
+ "sha256": "91064b8dfbc0637e",
+ "sastav": {
+  "EXT-CSQA": 9741,
+  "EXT-QASC": 8134
+ },
+ "napomena": "samo train splitovi; atribucija u README kartici"
+}
