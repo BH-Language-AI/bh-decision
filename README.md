@@ -8,23 +8,29 @@ Porodica modela za odlučivanje na bosanskoj ijekavici + engleskom: tri veličin
 
 Primarni README na ijekavici: [README.bs.md](README.bs.md).
 
-## Status (FAZA 1–4)
+## Status (18.11.2026)
 
-- FAZA 1 — Research & model selection: nacrt gotov, čeka odobrenje.
-- FAZA 2 — Arhitektura i trening dizajn: sljedeća, treba odobrenje.
-- FAZA 3 — Dataseti i benchmark: planirano.
-- FAZA 4 — Infrastruktura (ovaj repo): u izradi — configi, skripte, CI testovi.
-- FAZE 5–7 — Pilot trening, porodični trening, release: nisu počele. Bez GPU jobova i bez objava bez plana, licence i odobrenja.
+- FAZE 1–4 — gotove (research, arhitektura, dataseti/benchmark, infrastruktura).
+- FAZA 5 — Pilot + Linija 2 do **v0.2-rc**: `BH-Language-AI/bh-decision-2-4b`
+  (LoRA na Tacit-4B, readout 15/19 vs stock 16/19 — [release](../../releases)).
+  SFT na šablonima zatvoren peticom poraza od stocka; format/reasoning nalazi
+  u `docs/training/`. Bez daljih GPU runova bez human 10x.
+- DI staza — Core/MCP/Skill/Plugin gotovi (71 test zeleno); sudzuki-4b-cloud
+  profilisan (15/18, ECE 0.16); provider-selection čeka cijenu/licencu.
+  Vlastiti pipeline ovdje ne radi bez ključa (Jev mrtav, Clef nema).
 
 ## Struktura
 
 ```
-configs/         trening konfiguracije 2b/4b/9b (infrastruktura; trening je FAZA 5/6)
-scripts/         train.py (dry-run stub), evaluate.py (omotač oko harness-a)
-tests/           pytest: protokol, dataseti, configi (samo stdlib + pytest)
-docs/            model-selection, architecture, decisions (FAZA 1)
-benchmarks/      harness (FAZA 3, još ne postoji)
-datasets/        uzorci (FAZA 3, još ne postoje)
+configs/         trening konfiguracije 2b/4b/9b
+scripts/         train.py, evaluate.py (+Brier), build_bh2_mix*.py, readout_eval.py, pilot.py
+slurm/ kaggle/  LUMI sbatch + Kaggle kerneli (mix v2–v5, svi runovi)
+tests/           24 pytest + 47 TS (core/mcp/plugin/integracija)
+docs/            model-selection, architecture, decisions, training (v1–v5 + readout izvještaji), providers (jev/clef/sudzuki)
+benchmarks/      harness (accuracy + Brier) + reports
+datasets/        train-mix-v1/v2, bh-decision-2 (mix v2–v5), expanded-v05..v07 human, heldout-v1 (zaključan)
+packages/        decision-core, decision-mcp, opencode-plugin
+skills/          decision-intelligence (SKILL.md)
 ```
 
 ## Kako pokrenuti testove
