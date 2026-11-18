@@ -52,6 +52,8 @@ uz cap). Vrste: `choice` (max 26 opcija!), `yes_no`, `score` (2–10 nivoa). Sva
 - Ručni primjeri: `/decision-risk obriši staru bazu` → `risk_level=high ... ESCALATE`;
   `/decision-rank trebam alat za pretragu | grep, glob, websearch` → `rank=...`.
   Rank opcije se dijele zarezom (opcija sa zarezom nije podržana).
+  Rank traži samodovoljne opcije: kratke krnje verzije bez konteksta situacije
+  daju pogrešan poredak (mjereno: 1/1 promašaj) — uvijek puni tekst opcije.
 
 ## Privatnost / Privacy
 
