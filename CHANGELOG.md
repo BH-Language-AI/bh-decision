@@ -1,5 +1,15 @@
 # CHANGELOG — Decision Intelligence
 
+## Unreleased — DI health check (2026-11-18)
+
+- `decision_benchmark` (limit 5) u ovom okruženju: **0/5, sve greške** — Jev
+  provider nema ključ (`Missing OPENCODE_API_KEY`, breaker otvoren nakon 3
+  greške), `clef_local` 0 poziva (nema lokalnog modela/GPU-a). Vlastiti DI
+  pipeline trenutno nije izvodiv end-to-end bez novog ključa ili Clef setupa.
+  Mjereno, ne pretpostavljeno.
+- Sudzuki `rank` proba: pogrešan redoslijed uz 0.615 confidence (detalj u
+  `docs/providers/sudzuki.md`) — rank se ne koristi dok se ne izmjeri na setu.
+
 ## Unreleased — Nezavisna analiza (8 tačaka)
 
 - P1 metrike: `status()` sada vraća p50/p95 latenciju, broj eskalacija, keš hitove i

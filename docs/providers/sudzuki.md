@@ -41,8 +41,6 @@ Ministral SFT 5/19, Tacit-v2 SFT 2/10. Sudzuki je najbolje što trenutno radi.
 4. Apstinencija: model ne može vratiti abstain kroz choice (013 → "Approve");
    gibberish ulaz i dalje treba `precheck`/poseban noul sloj.
 
-## Sljedeće (uz odobrenje)
-
 ## Rerun (2026-11-17, istih 20 stavki)
 
 - Ukupno scored: **14/18 (78%)** — run 1 bio 15/18 (83%).
@@ -70,3 +68,11 @@ d1.2 članka (drugi benchmarkovi, nije direktno uporedivo, ali red veličine je 
 Obrazac: visoki bin savršen (20/20), srednji pre-samouvjeren (0.50 vs 0.70).
 Zaključak za pragove: odluke s conf < 0.8 šalji na eskalaciju/ljudsku provjeru —
 prag 0.80 iz SKILL.md-a ovim dobija empirijsku potvrdu. Uzorak mali (n=36).
+
+## Ostali alati (2026-11-18, pojedinačne probe)
+
+- `analyze` (kašnjenje plate): risk **high** (0.69) — razumno.
+- `compare` (3 opcije): pisani rok isplate, 0.99 — razumno.
+- `rank` (vodoinstalater): **pogrešno i samouvjereno** — "Razbiti zid sam" prvi
+  s 0.615, ispravan odgovor zadnji (0.16). Jedna proba (n=1), ali ozbiljna:
+  `rank` se ne vjeruje dok se ne izmjeri na cijelom held-outu.
