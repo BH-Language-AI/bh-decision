@@ -92,3 +92,10 @@
   7 ključeva (4989 očišćenih, 0 metadata ostataka) — lijek protiv papagaja i
   trailing garbagea iz v3. HF: `bs-decision-bh2-mixv4-v01`.
 - Job stagean na LUMI scratch (bh2-mixv4), sbatch na dev-g u toku.
+
+## Mix v5 GOTOV (2026-11-18, job 23838644): SFT zatvoren
+
+- Odlučujući eksperiment negativan: balansiran miks dao 3/19 (16%, nivo šanse),
+  format pao na 0.55. Bez priora nema rasuđivanja — točka na SFT na šablonima.
+- Izvještaj: `docs/training/bh-decision-2-v5-2026-11-18.md`.
+- Preostalo samo uz timski human 10x; GPU trening se ne nastavlja bez toga.
