@@ -1,0 +1,16 @@
+{
+ "seed": 7,
+ "n": 3627,
+ "sha256": "b6652bbd38b8dc47",
+ "izvor": "train-v4 balansiran o1=o2=o3",
+ "decision_distribucija": {
+  "salter": 200,
+  "o1": 778,
+  "abstain": 643,
+  "o2": 778,
+  "o3": 778,
+  "e-uprava": 211,
+  "posta": 239
+ },
+ "en_udio_grubo": 0.138
+}

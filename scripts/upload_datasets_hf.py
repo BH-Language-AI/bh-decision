@@ -65,6 +65,10 @@ JOBS = [
     ("bs-decision-human-v03", "expanded-v07",
      "Ljudski-pisane situacije v07 (200 stavki, 100 bs + 100 en, plauzibilni distraktori, o1 50/o2 50/o3 100).",
      "Human-authored situations v07 (200 items, 100 bs + 100 en, plausible distractors, o1 50/o2 50/o3 100)."),
+    ("bs-decision-bh2-mixv5-v01", "bh-decision-2",
+     "BH-Decision-2 mix v5 (3627: mix v4 balansiran o1=o2=o3=778; odlučujući eksperiment protiv prior-defaulta).",
+     "BH-Decision-2 mix v5 (3627: mix v4 balanced o1=o2=o3=778; decisive experiment vs prior-defaulting).",
+     ["train-v5.jsonl", "manifest-v5.json"]),
 ]
 
 api = HfApi()
