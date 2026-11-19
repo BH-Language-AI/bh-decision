@@ -1,0 +1,10 @@
+{
+ "seed": 0,
+ "n": 35701,
+ "sha256": "bb6c15d6cef66935",
+ "sastav": {
+  "ethics-commonsense-train": 13910,
+  "ethics-justice-train": 21791
+ },
+ "napomena": "ETHICS train; deontology/virtue preskoceni (nepotpun kontekst)"
+}
