@@ -19,3 +19,14 @@
 - Readout provjera v7 adaptera BLOKIRANA: EFP cert na Oracle skočnom čvoru istekao
   (isti portal-refresh kao i lokalni). Čeka se osvježenje za merge + readout.
 - Ako readout potvrdi ≥16/19 → v0.3-rc kandidat. Ako ostane 15 → paritet, bez prednosti.
+
+## Readout (2026-11-19, lokalni CPU)
+
+|  | q1 | q2 |
+|---|---|---|
+| v7 | 15/19 | 15/19 |
+| stock (referenca) | 16/19 | 13/19 |
+
+v4 ostaje najbolji adapter (16/19 uz q2/q3). Nijedan adapter nigdje ne tuče stock.
+Serija readouta: stock 16 ≥ v4 = v5 = v6 = v7 15.
+**Trening zatvoren definitivno.** Proizvod = v0.2-rc (v4 adapter) + readout + q2/q3.
