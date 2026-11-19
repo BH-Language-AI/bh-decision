@@ -1,0 +1,23 @@
+{
+ "seed": 7,
+ "n": 7529,
+ "sha256": "0b308cc27466b5ca",
+ "izvor": "train-v7 + 1k CSQA + 1k ETHICS",
+ "decision_distribucija": {
+  "o2": 1891,
+  "no": 448,
+  "o3": 992,
+  "o1": 1890,
+  "posta": 239,
+  "o4": 211,
+  "abstain": 655,
+  "yes": 552,
+  "salter": 200,
+  "o5": 208,
+  "e-uprava": 211,
+  "['o1', 'o2']": 26,
+  "null": 2,
+  "['o1', 'o2', 'o3']": 4
+ },
+ "en_udio_grubo": 0.348
+}
