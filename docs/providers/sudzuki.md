@@ -69,11 +69,13 @@ Obrazac: visoki bin savršen (20/20), srednji pre-samouvjeren (0.50 vs 0.70).
 Zaključak za pragove: odluke s conf < 0.8 šalji na eskalaciju/ljudsku provjeru —
 prag 0.80 iz SKILL.md-a ovim dobija empirijsku potvrdu. Uzorak mali (n=36).
 
-## Ostali alati (2026-11-18)
+## Ostali alati (2026-11-18/19, puni held-out)
 
-- `analyze` (kašnjenje plate): risk **high** (0.69) — razumno.
-- `compare` (3 opcije): pisani rok isplate, 0.99 — razumno.
-- `rank` na cijelom held-outu (18 bodovanih): **17/18** — jedina greška 007.
-  Ranija n=1 proba ("Razbiti zid sam" prvi) bila je artefakt moje greške: opcije
-  bez konteksta situacije. Kad opcije nose puni tekst, rank radi. Pouka za skill:
-  nikad kratke opcije bez statea.
+- `analyze` (18 bodovanih): točan nivo **5/18**, uz toleranciju ±1 nivo **16/18**.
+  Obrazac: sistematska precijenjenost za ~1 nivo (11/18 puta "high"); jedini
+  opasan promašaj 008 (dim iz motora → "low"). Upotrebljivo kao trijaža
+  (ništa opasno ne prolazi kao "low"), ne kao apsolutna mjera.
+- `compare` (18 bodovanih): **14/18 (78%)** — isti promašaji kao decide
+  (001, 002, 007, 016). Konzistentno teški itemi za cijelu porodicu alata.
+- `rank` (18 bodovanih): **17/18** — jedina greška 007; opcije moraju biti
+  samodovoljne (kratke opcije bez konteksta daju pogrešan poredak, mjereno).
