@@ -3,6 +3,9 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-45_TS_+_19_Py-green.svg)](#kako-pokrenuti-testove)
 [![Benchmark](https://img.shields.io/badge/benchmark-A%2FB%2FC_rerun_%E2%9C%93-orange.svg)](docs/benchmarking/anyjev-comparison.md)
+[![Model](https://img.shields.io/badge/model-v0.3--rc-yellowgreen.svg)](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
+[![Held-out](https://img.shields.io/badge/heldout_readout-15%2F19-yellowgreen.svg)](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01)
+[![Datasets](https://img.shields.io/badge/datasets-14_repoa-blue.svg)](https://huggingface.co/collections/BH-Language-AI/bh-decision-6af57d53051dc84ba678cb41)
 
 Porodica modela za odlučivanje na bosanskoj ijekavici + engleskom: tri veličine (2B/4B/9B), jedan format podataka, zajedničke izlazne sheme, zajednički benchmark. Nosioci: Kolektiv d.o.o. + Gamatrade d.o.o. Kontakt: xnetba@gmail.com.
 
@@ -95,6 +98,21 @@ Sirovi rezultati: `benchmarks/reports/live-{A-jev,B-decider-l0,C-tacit-l0,D-taci
 + `*-rerun-20261113.json`. Metodologija i kalibracijski nalazi:
 `docs/benchmarking/anyjev-comparison.md`. Pravilo repoa: bez fabriciranja —
 sve brojke iznad su iz stvarnih runova.
+
+### Held-out modela / Model held-out (20 neviđenih, 19 bodovanih)
+
+![held-out rezultati](docs/heldout-chart.png)
+
+| Verzija | Readout | Generacija (tolerantno) |
+|---|---|---|
+| stock Tacit-4B | **16/19 (84%)** | 7/19 (37%) |
+| 🥇 v0.3-rc (mix v7) | 15/19 (79%) | **7/19 (37%)** |
+| v0.2-rc (mix v4) | 15/19 (79%) | 6/19 (32%) |
+| v0.1 (mix v2) | — | 2/10 (20%) |
+
+Model: [BH-Language-AI/bh-decision-2-4b](https://huggingface.co/BH-Language-AI/bh-decision-2-4b) (v0.3-rc).
+Eval set: [bs-decision-heldout-v01](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01) (zaključan).
+Slike/grafike: bedževi su shields.io, graf je mjereni held-out (matplotlib, sirovi brojevi iznad).
 
 ## Licenca
 
