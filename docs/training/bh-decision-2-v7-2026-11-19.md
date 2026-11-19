@@ -1,0 +1,21 @@
+# BH-Decision-2 mix v7 run (2026-11-18/19, LUMI dev-g MI250X, bf16, job 23848999)
+
+> Tacit-4B + LoRA (r16, 3 epohe, bf16) na `train-v7.jsonl` (5529: mix v4 + v08 full
+> s rationale_full). Prvi run s reasoning tragovima.
+
+## Rezultat (generacijski harness)
+
+| Metrika | Vrijednost |
+|---|---|
+| val_loss | 0.158 |
+| Format (strogi) | 3/20 (0.15) |
+| Held-out (strogo) | 1/3 |
+| Held-out (tolerantno) | **7/19 (37%)** — izjednačen stock |
+
+## Dijagnoza
+
+- Tolerantno 7/19 = najbolji generacijski skor ikad (paritet sa stock generacijom).
+  Reasoning tragovi nisu odmagli; strogi format i dalje mrtav (kratki odsječak + verbose).
+- Readout provjera v7 adaptera BLOKIRANA: EFP cert na Oracle skočnom čvoru istekao
+  (isti portal-refresh kao i lokalni). Čeka se osvježenje za merge + readout.
+- Ako readout potvrdi ≥16/19 → v0.3-rc kandidat. Ako ostane 15 → paritet, bez prednosti.
