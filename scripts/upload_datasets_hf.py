@@ -91,6 +91,9 @@ JOBS = [
     ("bs-decision-human-v04", "expanded-v08",
      "Human v08 (140: reasoning traces 60 + negacije 30 + apstinencija 20 + multi-choice 30; bs/en 70/70; novi tipovi).",
      "Human v08 (140: reasoning traces 60 + negations 30 + abstention 20 + multi-choice 30; bs/en 70/70; new types)."),
+    ("bs-decision-human-v05", "expanded-v09",
+     "Human v09 (200: reasoning 80 + negacije 60 + apstinencija 30 + multi-choice 30; bs/en 100/100).",
+     "Human v09 (200: 80 reasoning + 60 negations + 30 abstention + 30 multi-choice; bs/en 100/100)."),
 ]
 
 api = HfApi()
