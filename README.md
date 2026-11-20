@@ -1,90 +1,62 @@
-# BH-Decision
+<div align="center">
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-45_TS_+_19_Py-green.svg)](#kako-pokrenuti-testove)
-[![Benchmark](https://img.shields.io/badge/benchmark-A%2FB%2FC_rerun_%E2%9C%93-orange.svg)](docs/benchmarking/anyjev-comparison.md)
-[![Model](https://img.shields.io/badge/model-v0.3--rc-yellowgreen.svg)](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
+# 🤖 BH-Decision
+
+**Porodica modela za odlučivanje na bosanskoj ijekavici + engleskom**<br>
+<i>3 veličine (2B/4B/9B) · jedan format podataka · zajedničke izlazne sheme · zajednički benchmark</i>
+
+[![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
+[![Tests](https://img.shields.io/badge/testovi-24_Py_%2B_47_TS-zeleno-green.svg)](#-testovi)
 [![Held-out](https://img.shields.io/badge/heldout_readout-15%2F19-yellowgreen.svg)](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01)
-[![Datasets](https://img.shields.io/badge/datasets-14_repoa-blue.svg)](https://huggingface.co/collections/BH-Language-AI/bh-decision-6af57d53051dc84ba678cb41)
+[![Model](https://img.shields.io/badge/model-v0.3--rc-yellowgreen.svg)](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
+[![Datasets](https://img.shields.io/badge/dataseti-14_repova-blue.svg)](https://huggingface.co/collections/BH-Language-AI/bh-decision-6af57d53051dc84ba678cb41)
+[![Benchmark](https://img.shields.io/badge/benchmark-mjereno_ne_obećano-orange.svg)](docs/benchmarking/anyjev-comparison.md)
 
-Porodica modela za odlučivanje na bosanskoj ijekavici + engleskom: tri veličine (2B/4B/9B), jedan format podataka, zajedničke izlazne sheme, zajednički benchmark. Nosioci: Kolektiv d.o.o. + Gamatrade d.o.o. Kontakt: xnetba@gmail.com.
+Nosioci: **Kolektiv d.o.o.** + **Gamatrade d.o.o.** · Kontakt: xnetba@gmail.com<br>
+Primarni README na ijekavici: [README.bs.md](README.bs.md)
 
-Primarni README na ijekavici: [README.bs.md](README.bs.md).
+</div>
 
-## Status (18.11.2026)
+> ## 🏆 Najbolji rezultati
+> | Šta | Skor | Gdje |
+> |---|---|---|
+> | **Stock Tacit-4B, readout** | **16/19 (84%)** | held-out v1 |
+> | **v0.3-rc (mix v7) + readout, q2/q3** | **16/19 (84%) — paritet** | held-out v1 |
+> | v0.3-rc generacija (tolerantno) | 7/19 (37%) — paritet sa stockom | held-out v1 |
+> | Format (strogi JSON) | **18–20/20** (mix v9: 18/20) | held-out v1 |
+> | Jev 1.13 Free, DI staza | 14/14 (100%), p50 256 ms | 18 scenarija A/B |
+> | Sudzuki-4b-cloud, DI staza | 15/18 (83%) | held-out v1 |
+>
+> Proizvodna konfiguracija: **v0.3-rc + AnyJev readout + q2/q3 formulacija** = paritet sa stockom.
+> Pravilo repoa: bez fabriciranja — svaka brojka ispod je iz stvarnog runa.
+
+## Status (20.11.2026)
 
 - FAZE 1–4 — gotove (research, arhitektura, dataseti/benchmark, infrastruktura).
-- FAZA 5 — Pilot + Linija 2 do **v0.2-rc**: `BH-Language-AI/bh-decision-2-4b`
-  (LoRA na Tacit-4B, readout 15/19 vs stock 16/19 — [release](../../releases)).
-  SFT na šablonima zatvoren peticom poraza od stocka; format/reasoning nalazi
-  u `docs/training/`. Bez daljih GPU runova bez human 10x.
-- DI staza — Core/MCP/Skill/Plugin gotovi (71 test zeleno); sudzuki-4b-cloud
+- FAZA 5 — Linija 2 do **v0.3-rc**: [`BH-Language-AI/bh-decision-2-4b`](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
+  (LoRA na Tacit-4B; readout paritet 15–16/19; generacija tolerantno 7/19).
+  SFT serija v1–v9: format popravljen podacima (0.05→0.90), prior mican (o2→o3→nijedan),
+  rasuđivanje ostalo na stock nivou. Nalazi: [`docs/training/`](docs/training/).
+- DI staza — Core/MCP/Skill/Plugin gotovi (**71 test zeleno**); sudzuki-4b-cloud
   profilisan (15/18, ECE 0.16); provider-selection čeka cijenu/licencu.
   Vlastiti pipeline ovdje ne radi bez ključa (Jev mrtav, Clef nema).
 
-## Struktura
+## 📊 Benchmark modela — held-out (20 neviđenih, 19 bodovanih)
 
-```
-configs/         trening konfiguracije 2b/4b/9b
-scripts/         train.py, evaluate.py (+Brier), build_bh2_mix*.py, readout_eval.py, pilot.py
-slurm/ kaggle/  LUMI sbatch + Kaggle kerneli (mix v2–v5, svi runovi)
-tests/           24 pytest + 47 TS (core/mcp/plugin/integracija)
-docs/            model-selection, architecture, decisions, training (v1–v5 + readout izvještaji), providers (jev/clef/sudzuki)
-benchmarks/      harness (accuracy + Brier) + reports
-datasets/        train-mix-v1/v2, bh-decision-2 (mix v2–v5), expanded-v05..v07 human, heldout-v1 (zaključan)
-packages/        decision-core, decision-mcp, opencode-plugin
-skills/          decision-intelligence (SKILL.md)
-```
+![held-out rezultati](docs/heldout-chart.png)
 
-## Kako pokrenuti testove
+| Verzija | Readout | Generacija (tolerantno) | Generacija (strogo) | val_loss |
+|---|---|---|---|---|
+| stock Tacit-4B | **16/19 (84%)** | 7/19 (37%) | — | — |
+| 🥇 v0.3-rc (mix v7) | 15/19 (79%) | **7/19 (37%)** | 3/20 | 0.158 |
+| v0.2-rc (mix v4) | 15/19 (79%) | 6/19 (32%) | 1/20 | 0.100 |
+| v0.1 (mix v2) | — | 2/10 (20%) | 10/20 | 0.124 |
 
-```bash
-pip install pytest pyyaml
-python3 -m pytest tests/ -q
-python3 scripts/train.py --config configs/2b.yaml   # dry-run: samo validira i ispisuje plan
-python3 scripts/evaluate.py --ref ref.json --pred pred.json [--out out.json]
-```
+Eval set: [bs-decision-heldout-v01](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01) (zaključan, leakage 0).
+Slike/grafike: bedževi su shields.io, graf je mjereni held-out (matplotlib).
 
-## Decision Intelligence staza (odvojeno od treninga)
-
-Skill + MCP server + OpenCode plugin + zajednički Core (Jev 1.13 Free → lokalni
-Clef-Flash, nulti trošak). Ne mijenja trening kod: `packages/`, `skills/`, `config/`.
-
-- Arhitektura: `docs/architecture/system-architecture.md`, `docs/architecture/decision-protocol.md`
-- Provideri: `docs/providers/jev.md`, `docs/providers/clef-flash.md`, `docs/providers/anyjev.md`, `docs/decisions/provider-selection.md`, `docs/decisions/anyjev-integration.md`
-- Instalacija: `docs/installation/opencode.md`, `docs/installation/local-clef.md`
-- Verzije: basic (Jev Free) vs advanced (lokalni Tacit-4B) — `docs/installation/tiers.md`,
-  gotovi configi `config/decision.basic.json` i `config/decision.advanced.json`,
-  bridge launcher `scripts/anyjev_serve.sh`
-- Privatnost: `docs/security/privacy.md` — Benchmark: `benchmarks/reports/phase-6.md`
-
-Testovi (bez ključeva/mreže): `node --experimental-strip-types --test tests/core/normalize.test.ts tests/core/providers.test.ts tests/core/anyjev.test.ts tests/mcp/server.test.ts tests/plugin/loading.test.ts tests/integration/project.test.ts`
-
-## Decision Intelligence — agent radi bolje i brže / Better and faster with the skill
-
-Bez skilla agent svaku mikro-odluku (klasifikacija, izbor alata, procjena rizika)
-donosi punim reasoningom glavnog modela: sporo, skupo i bez kalibracije — model je
-samouvjeren i kad griješi (Jev vraća confidence 1.0 i na pogrešnim odgovorima,
-izmjereno). Sa skillom odluka ide brzom L0 putanjom s pragovima povjerenja:
-
-```mermaid
-flowchart LR
-    T[Agent zadatak] --> D{Determinističko pravilo?}
-    D -- da --> R1[Direktno radi, bez modela]
-    D -- ne --> L0[AnyJev L0 / Jev Free]
-    L0 --> C{confidence ≥ 0.80?}
-    C -- da --> R2[Izvrši odluku]
-    C -- ne --> E[Eskalacija: jači model / čovjek]
-    E --> R2
-```
-
-**Brže:** L0 je jedan forward (Tacit, CPU) ili jedan hosted poziv (Jev, p50 256 ms);
-harness overhead je reda milisekundi (mock p50 8 ms). Teški reasoning se pali samo
-kad je opravdan (adaptive), a na mjerenom setu se nije morao paliti nijednom (cot 0/18).
-**Bolje:** svaka odluka nosi kalibrirano povjerenje; ispod praga slijedi eskalacija
-umjesto nagađanja, a `requires_escalation` nikad ne zaobilazi dozvole za destruktivne akcije.
-
-### Izmjereno, ne obećano / Measured, not promised (18 scenarija, 9 bs + 9 en)
+<details>
+<summary>📈 Decision Intelligence benchmark (18 scenarija, 9 bs + 9 en) — klikni za detalje</summary>
 
 | Ruta | Točnost (12.11.) | Rerun (13.11.) | p50 rerun | Reproducibilnost |
 |---|---|---|---|---|
@@ -94,25 +66,52 @@ umjesto nagađanja, a `requires_escalation` nikad ne zaobilazi dozvole za destru
 | D Tacit Adaptive | 11/14 | nije ponavljan (D==C dokazano, cot 0/18) | — | — |
 | E Clef lokalno | — | blokirano (treba GPU/download) | — | — |
 
-Sirovi rezultati: `benchmarks/reports/live-{A-jev,B-decider-l0,C-tacit-l0,D-tacit-adaptive}.json`
-+ `*-rerun-20261113.json`. Metodologija i kalibracijski nalazi:
-`docs/benchmarking/anyjev-comparison.md`. Pravilo repoa: bez fabriciranja —
-sve brojke iznad su iz stvarnih runova.
+Sirovo: `benchmarks/reports/live-{A-jev,B-decider-l0,C-tacit-l0,D-tacit-adaptive}.json`
++ `*-rerun-20261113.json`. Metodologija: `docs/benchmarking/anyjev-comparison.md`.
 
-### Held-out modela / Model held-out (20 neviđenih, 19 bodovanih)
+Agent s skillom je brži i bolji: L0 je jedan forward (CPU) ili jedan hosted poziv (p50 256 ms);
+svaka odluka nosi kalibrirano povjerenje; ispod praga 0.80 slijedi eskalacija.
+Mermaid dijagram toka: [`docs/architecture/system-architecture.md`](docs/architecture/system-architecture.md).
 
-![held-out rezultati](docs/heldout-chart.png)
+</details>
 
-| Verzija | Readout | Generacija (tolerantno) |
+## ✅ Testovi
+
+| Sloj | Broj | Komanda |
 |---|---|---|
-| stock Tacit-4B | **16/19 (84%)** | 7/19 (37%) |
-| 🥇 v0.3-rc (mix v7) | 15/19 (79%) | **7/19 (37%)** |
-| v0.2-rc (mix v4) | 15/19 (79%) | 6/19 (32%) |
-| v0.1 (mix v2) | — | 2/10 (20%) |
+| Python (pytest) | **24 zeleno** | `python3 -m pytest tests/ -q` |
+| TypeScript (core/mcp/plugin/integracija) | **47 zeleno** | `node --experimental-strip-types --test tests/core/normalize.test.ts tests/core/providers.test.ts tests/core/anyjev.test.ts tests/mcp/server.test.ts tests/plugin/loading.test.ts tests/integration/project.test.ts` |
 
-Model: [BH-Language-AI/bh-decision-2-4b](https://huggingface.co/BH-Language-AI/bh-decision-2-4b) (v0.3-rc).
-Eval set: [bs-decision-heldout-v01](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01) (zaključan).
-Slike/grafike: bedževi su shields.io, graf je mjereni held-out (matplotlib, sirovi brojevi iznad).
+```bash
+pip install pytest pyyaml
+python3 -m pytest tests/ -q
+python3 scripts/train.py --config configs/2b.yaml   # dry-run: samo validira i ispisuje plan
+python3 scripts/evaluate.py --ref ref.json --pred pred.json [--out out.json]  # +Brier scoring
+```
+
+## 📁 Struktura
+
+```
+configs/         trening konfiguracije 2b/4b/9b
+scripts/         train.py, evaluate.py (+Brier), build_bh2_mix*.py, readout_eval.py, pilot.py
+slurm/ kaggle/  LUMI sbatch + Kaggle kerneli (mix v2–v9, svi runovi)
+tests/           24 pytest + 47 TS (core/mcp/plugin/integracija)
+docs/            model-selection, architecture, decisions, training (v1–v9 + readout izvještaji), providers (jev/clef/sudzuki)
+benchmarks/      harness (accuracy + Brier) + reports
+datasets/        train-mix-v1/v2, bh-decision-2 (mix v2–v9), expanded-v05..v09 human, heldout-v1 (zaključan), external (CSQA+QASC+ETHICS)
+packages/        decision-core, decision-mcp, opencode-plugin
+skills/          decision-intelligence (SKILL.md)
+```
+
+## Decision Intelligence staza (odvojeno od treninga)
+
+Skill + MCP server + OpenCode plugin + zajednički Core. Ne mijenja trening kod: `packages/`, `skills/`, `config/`.
+
+- Arhitektura: `docs/architecture/system-architecture.md`, `docs/architecture/decision-protocol.md`
+- Provideri: `docs/providers/jev.md`, `docs/providers/clef-flash.md`, `docs/providers/sudzuki.md`, `docs/decisions/provider-selection.md`
+- Instalacija: `docs/installation/opencode.md`, `docs/installation/local-clef.md`
+- Verzije: basic (Jev Free) vs advanced (lokalni Tacit-4B) — `docs/installation/tiers.md`
+- Privatnost: `docs/security/privacy.md` — Benchmark: `benchmarks/reports/phase-6.md`
 
 ## Licenca
 
