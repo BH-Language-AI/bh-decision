@@ -1,0 +1,23 @@
+{
+ "seed": 7,
+ "n": 7729,
+ "sha256": "8d24dee7b032fc18",
+ "izvor": "train-v8 + v09 full (200)",
+ "decision_distribucija": {
+  "o2": 1960,
+  "o1": 1946,
+  "no": 448,
+  "o3": 1020,
+  "yes": 552,
+  "o4": 211,
+  "posta": 239,
+  "salter": 200,
+  "abstain": 672,
+  "o5": 208,
+  "e-uprava": 211,
+  "['o1', 'o2']": 56,
+  "['o1', 'o2', 'o3']": 4,
+  "null": 2
+ },
+ "en_udio_grubo": 0.353
+}
