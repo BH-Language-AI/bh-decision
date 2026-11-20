@@ -25,3 +25,16 @@
 - Jedini promašaji: 013 (gibberish→abstain, choice ne može apstinirati — strukturno)
   i 016 (najteža stavka, svi modeli griješe).
 - **Prvi put iznad stocka (16/19).** Pravilo izvršeno: v9 postaje kandidat za v0.4-rc.
+
+## Kalibracija (q1, n=19)
+
+| Model | Tačnost | Brier ↓ | ECE |
+|---|---|---|---|
+| stock | 0.84 | 0.048 | 0.124 |
+| v4 | 0.79 | 0.042 | 0.154 |
+| v5 | 0.79 | **0.022** | 0.159 |
+| v9 | **0.89** | 0.048 | 0.186 |
+
+v9: najbolja tačnost, najgori ECE (pre-samouvjeren kad griješi).
+v5: najbolji Brier (oprezan). Kalibracijski prag 0.80 iz skill-a i dalje važi —
+posebno za v9.
