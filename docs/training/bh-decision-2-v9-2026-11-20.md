@@ -19,3 +19,9 @@
   defaulta — ali tačnost stoji (6/19 = v3). Proces-podaci popravljaju
   disciplinu izlaza, ne i rasuđivanje iznad stocka.
 - Readout provjera v9 adaptera odlučuje: ≥16/19 → v0.4-rc; inače kraj.
+
+## Readout (2026-11-20, lokalni CPU, q1): 17/19 (89%)
+
+- Jedini promašaji: 013 (gibberish→abstain, choice ne može apstinirati — strukturno)
+  i 016 (najteža stavka, svi modeli griješe).
+- **Prvi put iznad stocka (16/19).** Pravilo izvršeno: v9 postaje kandidat za v0.4-rc.
