@@ -7,7 +7,7 @@
 
 [![Licenca](https://img.shields.io/badge/Licenca-Apache--2.0-blue.svg)](LICENSE)
 [![Testovi](https://img.shields.io/badge/testovi-24_Py_%2B_47_TS-zeleno-green.svg)](#-testovi)
-[![Held-out](https://img.shields.io/badge/heldout_readout-15%2F19-yellowgreen.svg)](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01)
+[![Held-out](https://img.shields.io/badge/heldout_readout-17%2F19-yellowgreen.svg)](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01)
 [![Model](https://img.shields.io/badge/model-v1.0-yellowgreen.svg)](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
 [![Dataseti](https://img.shields.io/badge/dataseti-21_stavka-blue.svg)](https://huggingface.co/collections/BH-Language-AI/bh-decision-6af57d53051dc84ba678cb41)
 [![Benchmark](https://img.shields.io/badge/benchmark-mjereno_ne_obećano-orange.svg)](docs/benchmarking/anyjev-comparison.md)
@@ -27,7 +27,7 @@ Kraća engleska verzija: [README.md](README.md).
 > | Jev 1.13 Free, DI staza | 14/14 (100%), p50 256 ms | 18 scenarija A/B |
 > | Sudzuki-4b-cloud, DI staza | 15/18 (83%) | held-out v1 |
 >
-> Proizvodna konfiguracija: **v1.0 + AnyJev readout + q2/q3 formulacija** = paritet sa stockom.
+> Proizvodna konfiguracija: **v0.4-rc + AnyJev readout** = 17/19, prvi put iznad stocka.
 > Pravilo repoa: bez fabriciranja — svaka brojka ispod je iz stvarnog runa.
 
 ## Status (20.11.2026)
@@ -49,6 +49,7 @@ Kraća engleska verzija: [README.md](README.md).
 |---|---|---|---|---|
 | stock Tacit-4B | **16/19 (84%)** | 7/19 (37%) | — | — |
 | ✅ v1.0 (mix v4, q2/q3) | **16/19 (84%)** | 6/19 (32%) | 1/20 | 0.100 |
+| v1.0 (mix v4, q2/q3) | 16/19 (84%) | 6/19 (32%) | 1/20 | 0.100 |
 | v0.2-rc (mix v4) | 15/19 (79%) | 6/19 (32%) | 1/20 | 0.100 |
 | v0.1 (mix v2) | — | 2/10 (20%) | 10/20 | 0.124 |
 
