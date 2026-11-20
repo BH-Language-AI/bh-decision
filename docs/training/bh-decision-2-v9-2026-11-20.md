@@ -38,3 +38,8 @@
 v9: najbolja tačnost, najgori ECE (pre-samouvjeren kad griješi).
 v5: najbolji Brier (oprezan). Kalibracijski prag 0.80 iz skill-a i dalje važi —
 posebno za v9.
+
+## Readout q2/q3 (2026-11-20, lokalni CPU): q2 16/19, q3 17/19
+
+- v9 drži prednost na svim formulacijama (q1 17, q2 16, q3 17) — vodstvo je
+  robustno, ne artefakt jednog pitanja. Stock: q1 16, q2 13, q3 15.
