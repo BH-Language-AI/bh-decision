@@ -59,9 +59,11 @@
   - **Korak 3 — ⛔ ODBAČENO: Jev distilacija (Faza A)** — odluka korisnika 2026-11-13:
     MCA TypeSafe §2.3(b) zabranjuje distillation/imitation; ne izvoditi.
     Put je B → C, bez tuđih izlaza.
-- **Linija 2 (Tacit): BH-Decision-2-4B** — v0.1 adapter objavljen na HF (iskren card:
-  6/19 ispod stocka 7/19); mix v2 (4989) → v3 (5189) → v4 (5389, očišćeni targeti)
-  → **v5 (3627, o1=o2=o3=778, odlučujući eksperiment, LUMI job 23838644 u toku)**.
+- **Linija 2 (Tacit): BH-Decision-2-4B** — **v1.1 na HF** (mix v9 adapter, readout
+  q1 17 / q2 16 / q3 17 — iznad stocka na svim formulacijama).
+  Serija: v0.1 2/10 → v2 2/10 → v3 6/19 → v4 3/16 → v5 3/19 → v6 3/19 →
+  v7 7/19 → v8 5/19 → **v9 6/19 gen / 17/19 readout**. Format 0.05→0.90 podacima.
+  Detalji u `docs/training/`.
   Serija: stock 7/19 > v3 6/19 > v1 4/15 > v4 3/16 > v2 2/10. Detalji u `docs/training/`.
 - Kalibracija vjerovatnoća je obavezan cilj treninga i evaluacije (poseban prag + ECE metrika).
 

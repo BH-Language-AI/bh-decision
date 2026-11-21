@@ -99,3 +99,11 @@
   format pao na 0.55. Bez priora nema rasuđivanja — točka na SFT na šablonima.
 - Izvještaj: `docs/training/bh-decision-2-v5-2026-11-18.md`.
 - Preostalo samo uz timski human 10x; GPU trening se ne nastavlja bez toga.
+
+## v1.1 final (2026-11-21)
+
+- v9 adapter objavljen kao **v1.1**: readout q1 17 / q2 16 / q3 17 — iznad ili par
+  stocka (16/13/15) na svim formulacijama. Generacija tolerantno 6/19, strogi format 18/20.
+- GitHub release v1.1 + tag; HF model kartica s tabelama i grafom; email izvještaj poslan.
+- Trening linije 2 zatvoren mjerenjem, ne odlukom: 9 runova, najbolji iznad stocka.
+- Preostalo samo uz: (a) anotatorski tim 10x, (b) provider odluku za DI, (c) cert-refresh za nove LUMI runove.
