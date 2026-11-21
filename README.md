@@ -28,13 +28,13 @@ Primarni README na ijekavici: [README.bs.md](README.bs.md)
 > | Jev 1.13 Free, DI staza | 14/14 (100%), p50 256 ms | 18 scenarija A/B |
 > | Sudzuki-4b-cloud, DI staza | 15/18 (83%) | held-out v1 |
 >
-> Proizvodna konfiguracija: **v1.1 + AnyJev readout** = 17/19 (q1), 16-17 (q2/q3).
+> Proizvodna konfiguracija (FINALNA): **v1.1 + AnyJev readout** = 17/19 (q1), 16-17 (q2/q3).
 > Pravilo repoa: bez fabriciranja — svaka brojka ispod je iz stvarnog runa.
 
 ## Status (20.11.2026)
 
 - FAZE 1–4 — gotove (research, arhitektura, dataseti/benchmark, infrastruktura).
-- FAZA 5 — Linija 2 do **v1.1**: [`BH-Language-AI/bh-decision-2-4b`](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
+- FAZA 5 — Linija 2 **FINAL v1.1**: [`BH-Language-AI/bh-decision-2-4b`](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
   (LoRA na Tacit-4B; readout paritet 15–16/19; generacija tolerantno 7/19).
   SFT serija v1–v9: format popravljen podacima (0.05→0.90), prior mican (o2→o3→nijedan),
   rasuđivanje ostalo na stock nivou. Nalazi: [`docs/training/`](docs/training/).
