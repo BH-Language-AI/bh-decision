@@ -43,3 +43,8 @@ posebno za v9.
 
 - v9 drži prednost na svim formulacijama (q1 17, q2 16, q3 17) — vodstvo je
   robustno, ne artefakt jednog pitanja. Stock: q1 16, q2 13, q3 15.
+
+## v1.1 objava (2026-11-21)
+
+- v9 adapter objavljen kao **v1.1** (najbolji): readout q1 17, q2 16, q3 17 —
+  iznad ili par stocka na svim formulacijama. Prvi model projekta bez "ali".

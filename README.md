@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/testovi-24_Py_%2B_47_TS-zeleno-green.svg)](#-testovi)
 [![Held-out](https://img.shields.io/badge/heldout_readout-17%2F19-yellowgreen.svg)](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01)
-[![Model](https://img.shields.io/badge/model-v0.4--rc-yellowgreen.svg)](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
+[![Model](https://img.shields.io/badge/model-v1.1-yellowgreen.svg)](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
 [![Datasets](https://img.shields.io/badge/dataseti-14_repova-blue.svg)](https://huggingface.co/collections/BH-Language-AI/bh-decision-6af57d53051dc84ba678cb41)
 [![Benchmark](https://img.shields.io/badge/benchmark-mjereno_ne_obećano-orange.svg)](docs/benchmarking/anyjev-comparison.md)
 
@@ -21,20 +21,20 @@ Primarni README na ijekavici: [README.bs.md](README.bs.md)
 > | Šta | Skor | Gdje |
 > |---|---|---|
 > | **Stock Tacit-4B, readout** | **16/19 (84%)** | held-out v1 |
-> | **v0.4-rc (mix v9) + readout** | **17/19 (89%) — prvi put iznad stocka** | held-out v1 |
+> | **v1.1 (mix v9) + readout** | **17/19 q1 (89%) — najbolji model** | held-out v1 |
 > | v1.0 (mix v4) + readout, q2/q3 | 16/19 (84%) — paritet | held-out v1 |
 > | v0.4-rc generacija (tolerantno) | 6/19 (32%) | held-out v1 |
 > | Format (strogi JSON) | **18–20/20** (mix v9: 18/20) | held-out v1 |
 > | Jev 1.13 Free, DI staza | 14/14 (100%), p50 256 ms | 18 scenarija A/B |
 > | Sudzuki-4b-cloud, DI staza | 15/18 (83%) | held-out v1 |
 >
-> Proizvodna konfiguracija: **v0.4-rc + AnyJev readout** = 17/19, prvi put iznad stocka.
+> Proizvodna konfiguracija: **v1.1 + AnyJev readout** = 17/19 (q1), 16-17 (q2/q3).
 > Pravilo repoa: bez fabriciranja — svaka brojka ispod je iz stvarnog runa.
 
 ## Status (20.11.2026)
 
 - FAZE 1–4 — gotove (research, arhitektura, dataseti/benchmark, infrastruktura).
-- FAZA 5 — Linija 2 do **v1.0**: [`BH-Language-AI/bh-decision-2-4b`](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
+- FAZA 5 — Linija 2 do **v1.1**: [`BH-Language-AI/bh-decision-2-4b`](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
   (LoRA na Tacit-4B; readout paritet 15–16/19; generacija tolerantno 7/19).
   SFT serija v1–v9: format popravljen podacima (0.05→0.90), prior mican (o2→o3→nijedan),
   rasuđivanje ostalo na stock nivou. Nalazi: [`docs/training/`](docs/training/).
@@ -49,7 +49,7 @@ Primarni README na ijekavici: [README.bs.md](README.bs.md)
 | Verzija | Readout | Generacija (tolerantno) | Generacija (strogo) | val_loss |
 |---|---|---|---|---|
 | stock Tacit-4B | 16/19 (84%) | 7/19 (37%) | — | — |
-| 🥇 v0.4-rc (mix v9) | **17/19 (89%)** | 6/19 (32%) | 3/17 | 0.413 |
+| 🥇 v1.1 (mix v9) | **17/19 q1 (89%)** | 6/19 (32%) | 18/20 | 0.413 |
 | v1.0 (mix v4, q2/q3) | 16/19 (84%) | 6/19 (32%) | 1/20 | 0.100 |
 | v0.3-rc (mix v7) | 15/19 (79%) | 7/19 (37%) | 3/20 | 0.158 |
 | v0.2-rc (mix v4, q1) | 15/19 (79%) | 6/19 (32%) | 1/20 | 0.100 |
