@@ -1,0 +1,18 @@
+{
+ "seed": 99,
+ "source": "agent-assisted-v10 (NE human — zahtijeva ljudsku verifikaciju)",
+ "license": "CC-BY-4.0",
+ "n": 120,
+ "sha256": "6dfda725b05ade5c",
+ "decision": {
+  "o1": 34,
+  "o2": 34,
+  "o3": 37,
+  "no": 8,
+  "yes": 7
+ },
+ "lang": {
+  "bs": 80,
+  "en": 40
+ }
+}

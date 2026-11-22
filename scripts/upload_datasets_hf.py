@@ -98,6 +98,14 @@ JOBS = [
     ("bs-decision-human-v05", "expanded-v09",
      "Human v09 (200: reasoning 80 + negacije 60 + apstinencija 30 + multi-choice 30; bs/en 100/100).",
      "Human v09 (200: 80 reasoning + 60 negations + 30 abstention + 30 multi-choice; bs/en 100/100)."),
+    ("bs-decision-agent-v10-draft-v01", "expanded-v10",
+     "Agent-draft v10 (120: IZRICITO agent-assisted, NE human; 80 bs + 40 en; ceka ljudsku verifikaciju).",
+     "Agent drafts v10 (120: explicitly agent-assisted, NOT human; 80 bs + 40 en; awaits human verification).",
+     ["agent-draft-a.jsonl", "agent-draft-b.jsonl", "agent-draft-c.jsonl", "manifest-v10-draft.json"]),
+    ("bs-decision-bh2-mixv10-v01", "bh-decision-2",
+     "BH-Decision-2 mix v10 (7849: mix v9 + v10 agent-draft; test agent-podataka).",
+     "BH-Decision-2 mix v10 (7849: mix v9 + v10 agent drafts; agent-data test).",
+     ["train-v10.jsonl", "manifest-v10.json"]),
 ]
 
 api = HfApi()
