@@ -23,8 +23,8 @@ Kraća engleska verzija: [README.md](README.md).
 > | **Stock Tacit-4B, readout** | **16/19 (84%)** | held-out v1 |
 > | **v1.1 (mix v9) + readout** | **17/19 q1 (89%) — najbolji model** | held-out v1 |
 > | v1.0 (mix v4) + readout, q2/q3 | 16/19 (84%) — paritet | held-out v1 |
-> | v0.4-rc generacija (tolerantno) | 6/19 (32%) | held-out v1 |
-> | Format (strogi JSON) | **18–20/20** (mix v9: 18/20) | held-out v1 |
+> | v1.1 generacija (tolerantno) | 6/19 (32%) | held-out v1 |
+> | Format (strogi JSON) | **18/20** (mix v9, rekord) | held-out v1 |
 > | Jev 1.13 Free, DI staza | 14/14 (100%), p50 256 ms | 18 scenarija A/B |
 > | Sudzuki-4b-cloud, DI staza | 15/18 (83%) | held-out v1 |
 >
@@ -46,14 +46,20 @@ Kraća engleska verzija: [README.md](README.md).
 
 ![held-out rezultati](docs/heldout-chart.png)
 
-| Verzija | Readout | Generacija (tolerantno) | Generacija (strogo) | val_loss |
-|---|---|---|---|---|
-| stock Tacit-4B | 16/19 (84%) | 7/19 (37%) | — | — |
-| 🥇 v1.1 (mix v9) | **17/19 q1 (89%)** | 6/19 (32%) | 18/20 | 0.413 |
-| v1.0 (mix v4, q2/q3) | 16/19 (84%) | 6/19 (32%) | 1/20 | 0.100 |
-| v0.3-rc (mix v7) | 15/19 (79%) | 7/19 (37%) | 3/20 | 0.158 |
-| v0.2-rc (mix v4, q1) | 15/19 (79%) | 6/19 (32%) | 1/20 | 0.100 |
-| v0.1 (mix v2) | — | 2/10 (20%) | 10/20 | 0.124 |
+| Verzija | Miks | val_loss | Generacija tol. | Generacija strogo | Readout q1 (q2/q3) | Status |
+|---|---|---|---|---|---|---|
+| stock Tacit-4B (baseline, nije naš) | — | — | 7/19 (37%) | — | 16/19 (13/15) | baseline |
+| Linija-1 Ministral pilot | ~400 šablona, Kaggle QLoRA | 0.804 | 10/19 (rerun 6/19) | format 1.0 | — | pauzirano |
+| v1 (bh-decision-2 v1) | 8474 (šabl.+thinking+conf+bos-core) | 0.80 | 4/15 (27%) | format 0.75 | — | arhiviran |
+| v0.1 | mix v2 (4989), Kaggle QLoRA | 0.124 | 2/10 (20%) | 10/20 | — | release (nadmašen) |
+| v3 | mix v3 (5189), LUMI bf16 | 0.0999 | 6/19 (32%) | — | — | arhiviran |
+| v0.2 (= v4 težine) | mix v4 (5389, očišćen), LUMI bf16 | 0.1229 | 3/16 (19%) | 17/20 | 15/19 | release |
+| v5 | mix v5 (3627, balansiran), LUMI bf16 | 0.1668 | 3/19 (16%) | 11/20 | 15/19 | arhiviran (bez priora nema rasuđivanja) |
+| v6 | mix v6 (4543 dedup, 5 epoha), LUMI bf16 | 0.125 | — (sve odsječeno) | 0/20 | 15/19 | arhiviran |
+| v0.3 (mix v7 5529 + v08) | LUMI bf16 | 0.158 | **7/19 (37%)** | 3/20 | 15/19 | release |
+| v8 (mix v8 7529 + 2k EXT) | LUMI bf16 | 0.357 | 5/19 (26%) | 14/20 | ⏳ čeka cert | readout pending |
+| 🥇 **v1.1 (mix v9 7729 + v09 reasoning)** | LUMI bf16 | 0.413 | 6/19 (32%) | **18/20 (0.90)** | **17/19 (16/17)** | ✅ **AKTUELNI NAJBOLJI** |
+| v1.0 (= v4 težine + q2/q3 protokol) | — | — | 6/19 (32%) | — | 16/19 | release (paritet) |
 
 Eval set: [bs-decision-heldout-v01](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01) (zaključan, leakage 0).
 Slike/grafike: bedževi su shields.io, graf je mjereni held-out (matplotlib, sirovi brojevi iznad).
