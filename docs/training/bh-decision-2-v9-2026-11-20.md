@@ -48,3 +48,10 @@ posebno za v9.
 
 - v9 adapter objavljen kao **v1.1** (najbolji): readout q1 17, q2 16, q3 17 —
   iznad ili par stocka na svim formulacijama. Prvi model projekta bez "ali".
+
+## Smoke test objavljenog artefakta (2026-11-22, čist direktorij)
+
+- `PeftModel.from_pretrained("BH-Language-AI/bh-decision-2-4b")` + stock baza:
+  učitavanje OK, merge OK, generacije validan protokolski JSON (bs + en).
+- Odluke generacijom nisu referentne (očekivano — proizvodni put je readout),
+  format jeste. Artefakt tehnički ispravan.
