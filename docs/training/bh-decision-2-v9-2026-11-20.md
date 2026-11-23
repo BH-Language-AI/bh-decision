@@ -55,3 +55,11 @@ posebno za v9.
   učitavanje OK, merge OK, generacije validan protokolski JSON (bs + en).
 - Odluke generacijom nisu referentne (očekivano — proizvodni put je readout),
   format jeste. Artefakt tehnički ispravan.
+
+## Recept A run (2026-11-23, LUMI, job 23953143+): NEGATIVAN u generaciji
+
+- r32/rsLoRA/cosine/1024/4epohe, mix v10: val 0.432, format 0.2, tolerantno **5/19 (o3 13)**.
+- Novi recept nije pomogao generaciji (v9: 6/19). Readout provjera u toku.
+- DPO materijal: 60 uzoraka (temp 0.7) dalo **0 stavki s oba ishoda** — model mijenja
+  formulacije ali nikad presudu. DPO s ovim generatorom nemoguć; treba slabiji/jaci
+  sampler ili drugi model za rejected stranu.
