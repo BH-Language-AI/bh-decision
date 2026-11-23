@@ -13,6 +13,17 @@ ap.add_argument("--data", required=True)
 ap.add_argument("--out", required=True)
 ap.add_argument("--model", default="mistralai/Ministral-3-3B-Base-2512")
 ap.add_argument("--epochs", type=int, default=int(os.environ.get("EPOCHS", 3)))
+# Recept A (rsLoRA r32, cosine, 1024): sve preko env-a, defaulti = stari recept.
+ap.add_argument("--rank", type=int, default=int(os.environ.get("LORA_R", 16)))
+ap.add_argument("--alpha", type=int, default=int(os.environ.get("LORA_ALPHA", 32)))
+ap.add_argument("--dropout", type=float, default=float(os.environ.get("LORA_DROPOUT", 0.05)))
+ap.add_argument("--lr", type=float, default=float(os.environ.get("LR", 2e-4)))
+ap.add_argument("--scheduler", type=str, default=os.environ.get("SCHEDULER", "linear"))
+ap.add_argument("--warmup", type=float, default=float(os.environ.get("WARMUP", 0.0)))
+ap.add_argument("--batch", type=int, default=int(os.environ.get("BATCH", 2)))
+ap.add_argument("--grad-acc", type=int, default=int(os.environ.get("GRAD_ACC", 16)))
+ap.add_argument("--max-len", type=int, default=int(os.environ.get("MAX_LEN", 512)))
+ap.add_argument("--rs-lora", action="store_true", default=os.environ.get("RS_LORA", "0") == "1")
 a = ap.parse_args()
 os.makedirs(f"{a.out}/adapter", exist_ok=True)
 
@@ -35,9 +46,10 @@ except ValueError:
     model = AutoModelForImageTextToText.from_pretrained(a.model, torch_dtype=torch.bfloat16)
     print("klasa: AutoModelForImageTextToText (multimodalni model)", flush=True)
 model = get_peft_model(model, LoraConfig(
-    r=16, lora_alpha=32, lora_dropout=0.05,
+    r=a.rank, lora_alpha=a.alpha, lora_dropout=a.dropout, use_rslora=a.rs_lora,
     target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
     task_type="CAUSAL_LM"))
+print(f"lora: r={a.rank} alpha={a.alpha} dropout={a.dropout} rs={a.rs_lora}", flush=True)
 
 tekstovi = []
 pats = sorted(glob.glob(os.path.join(a.data, "*", "*.jsonl")))
@@ -60,7 +72,7 @@ assert len(tekstovi) >= 100, "premalo primjera"
 
 class Enc(TorchDataset):
     def __init__(self, rows):
-        self.e = [tok(r["text"] if isinstance(r, dict) else r, truncation=True, max_length=512)
+        self.e = [tok(r["text"] if isinstance(r, dict) else r, truncation=True, max_length=a.max_len)
                   for r in rows]
 
     def __len__(self):
@@ -76,8 +88,9 @@ cut = int(len(idx) * 0.9)
 ds = Enc([tekstovi[i] for i in idx[:cut]])
 ds_val = Enc([tekstovi[i] for i in idx[cut:]])
 print("train/val:", len(ds), len(ds_val), flush=True)
-args = TrainingArguments(output_dir=f"{a.out}/ckpt", per_device_train_batch_size=2,
-                         gradient_accumulation_steps=16, learning_rate=2e-4,
+args = TrainingArguments(output_dir=f"{a.out}/ckpt", per_device_train_batch_size=a.batch,
+                         gradient_accumulation_steps=a.grad_acc, learning_rate=a.lr,
+                         lr_scheduler_type=a.scheduler, warmup_ratio=a.warmup,
                          num_train_epochs=a.epochs, bf16=True, gradient_checkpointing=True,
                          logging_steps=10, eval_strategy="epoch", save_strategy="epoch",
                          save_total_limit=1, load_best_model_at_end=True,
