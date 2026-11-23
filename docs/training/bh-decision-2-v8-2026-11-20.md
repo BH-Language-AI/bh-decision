@@ -23,3 +23,9 @@
 
 - v8 adapter na scratchu, skidanje ne ide — EFP cert istekao i na Oracle skočnom čvoru.
 - Čim se cert osvježi: merge + readout (očekivanje po obrascu: 15/19).
+
+## Readout (2026-11-23, lokalni CPU, q1): 17/19
+
+- Identični promašaji kao v1.1 (013 gibberish, 016 najteža stavka).
+- v8 potvrđuje 17/19 kao reproducible nivo, ali generacija mu je gora (5/19 vs 6/19)
+  pa nema nove objave — v1.1 ostaje final.
