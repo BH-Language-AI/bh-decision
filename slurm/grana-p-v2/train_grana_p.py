@@ -88,9 +88,10 @@ cut = int(len(idx) * 0.9)
 ds = Enc([tekstovi[i] for i in idx[:cut]])
 ds_val = Enc([tekstovi[i] for i in idx[cut:]])
 print("train/val:", len(ds), len(ds_val), flush=True)
+_warmup_steps = int(a.warmup * ((len(ds) // max(1, a.batch * a.grad_acc)) + 1) * max(1, a.epochs))
 args = TrainingArguments(output_dir=f"{a.out}/ckpt", per_device_train_batch_size=a.batch,
                          gradient_accumulation_steps=a.grad_acc, learning_rate=a.lr,
-                         lr_scheduler_type=a.scheduler, warmup_ratio=a.warmup,
+                         lr_scheduler_type=a.scheduler, warmup_steps=_warmup_steps,
                          num_train_epochs=a.epochs, bf16=True, gradient_checkpointing=True,
                          logging_steps=10, eval_strategy="epoch", save_strategy="epoch",
                          save_total_limit=1, load_best_model_at_end=True,
