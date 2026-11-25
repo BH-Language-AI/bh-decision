@@ -7,7 +7,7 @@
 
 [![Licenca](https://img.shields.io/badge/Licenca-Apache--2.0-blue.svg)](LICENSE)
 [![Testovi](https://img.shields.io/badge/testovi-24_Py_%2B_47_TS-zeleno-green.svg)](#-testovi)
-[![Held-out](https://img.shields.io/badge/heldout_readout-17%2F19-yellowgreen.svg)](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01)
+[![Held-out](https://img.shields.io/badge/heldout_readout-18%2F19-yellowgreen.svg)](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01)
 [![Model](https://img.shields.io/badge/model-v1.1-yellowgreen.svg)](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
 [![Dataseti](https://img.shields.io/badge/dataseti-21_stavka-blue.svg)](https://huggingface.co/collections/BH-Language-AI/bh-decision-6af57d53051dc84ba678cb41)
 [![Benchmark](https://img.shields.io/badge/benchmark-mjereno_ne_obećano-orange.svg)](docs/benchmarking/anyjev-comparison.md)
@@ -21,22 +21,27 @@ Kraća engleska verzija: [README.md](README.md).
 > | Šta | Skor | Gdje |
 > |---|---|---|
 > | **Stock Tacit-4B, readout** | **16/19 (84%)** | held-out v1 |
-> | **v1.1 (mix v9) + readout** | **17/19 q1 (89%) — najbolji model** | held-out v1 |
+> | **vA / v0.5-rc (recept A) + readout** | **18/19 q1, 18/19 q3, 16/19 q2 — najbolji model** | held-out v1 |
+> | v1.1 (mix v9) + readout | 17/19 q1 (89%) | held-out v1 |
 > | v1.0 (mix v4) + readout, q2/q3 | 16/19 (84%) — paritet | held-out v1 |
 > | v1.1 generacija (tolerantno) | 6/19 (32%) | held-out v1 |
 > | Format (strogi JSON) | **18/20** (mix v9, rekord) | held-out v1 |
 > | Jev 1.13 Free, DI staza | 14/14 (100%), p50 256 ms | 18 scenarija A/B |
 > | Sudzuki-4b-cloud, DI staza | 15/18 (83%) | held-out v1 |
 >
-> Proizvodna konfiguracija (FINALNA): **v1.1 + AnyJev readout** = 17/19 (q1), 16-17 (q2/q3).
+> Proizvodna konfiguracija: **vA (v0.5-rc) + AnyJev readout** = 18/19 (q1), 16/19 (q2), 18/19 (q3).
+> Objavljene težine su još v1.1 dok upload v0.5-rc ne završi.
 > Pravilo repoa: bez fabriciranja — svaka brojka ispod je iz stvarnog runa.
 
-## Status (20.11.2026)
+## Status (25.11.2026)
 
 - FAZE 1–4 — gotove (istraživanje, arhitektura, dataseti/benchmark, infrastruktura).
-- FAZA 5 — Linija 2 **FINAL v1.1**: [`BH-Language-AI/bh-decision-2-4b`](https://huggingface.co/BH-Language-AI/bh-decision-2-4b)
-  (LoRA na Tacit-4B; readout paritet 15–16/19; generacija tolerantno 7/19).
-  SFT serija v1–v9: format popravljen podacima (0.05→0.90), prior mican (o2→o3→nijedan),
+- FAZA 5 — Linija 2 **v0.5-rc (vA, recept A: r32/rsLoRA/cosine/1024, mix v10)**:
+  readout **18/19 q1, 16/19 q2, 18/19 q3** — iznad v1.1 na svim formulacijama,
+  jedini dosljedni promašaj je strukturni 013 (choice bez apstinencije).
+  Adapter povučen sa LUMI-ja (job 23962923), upload na
+  [`BH-Language-AI/bh-decision-2-4b`](https://huggingface.co/BH-Language-AI/bh-decision-2-4b) u toku.
+  SFT serija v1–vA: format popravljen podacima (0.05→0.90), prior mican (o2→o3→nijedan),
   rasuđivanje ostalo na stock nivou. Nalazi: [`docs/training/`](docs/training/).
 - DI staza — Core/MCP/Skill/Plugin gotovi (**71 test zeleno**); sudzuki-4b-cloud
   profilisan (15/18, ECE 0.16); izbor providera čeka cijenu/licencu.
@@ -58,7 +63,8 @@ Kraća engleska verzija: [README.md](README.md).
 | v6 | mix v6 (4543 dedup, 5 epoha), LUMI bf16 | 0.125 | — (sve odsječeno) | 0/20 | 15/19 | arhiviran |
 | v0.3 (mix v7 5529 + v08) | LUMI bf16 | 0.158 | **7/19 (37%)** | 3/20 | 15/19 | release |
 | v8 (mix v8 7529 + 2k EXT) | LUMI bf16 | 0.357 | 5/19 (26%) | 14/20 | ⏳ čeka cert | readout pending |
-| 🥇 **v1.1 (mix v9 7729 + v09 reasoning)** | LUMI bf16 | 0.413 | 6/19 (32%) | **18/20 (0.90)** | **17/19 (16/17)** | ✅ **AKTUELNI NAJBOLJI** |
+| 🥇 **vA / v0.5-rc (mix v10, recept A r32/rsLoRA/cosine/1024)** | LUMI bf16 | 0.432 | 5/19 (26%) | 4/20 (0.20) | **18/19 (16/18)** | ✅ **AKTUELNI NAJBOLJI (readout)** |
+| v1.1 (mix v9 7729 + v09 reasoning) | LUMI bf16 | 0.413 | 6/19 (32%) | **18/20 (0.90)** | 17/19 (16/17) | release (nadmašen readoutom) |
 | v1.0 (= v4 težine + q2/q3 protokol) | — | — | 6/19 (32%) | — | 16/19 | release (paritet) |
 
 Eval set: [bs-decision-heldout-v01](https://huggingface.co/datasets/BH-Language-AI/bs-decision-heldout-v01) (zaključan, leakage 0).

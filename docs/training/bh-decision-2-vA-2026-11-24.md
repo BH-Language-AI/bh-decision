@@ -25,8 +25,8 @@ Generacija i dalje slaba — ali to više nije mjerilo proizvoda.
 
 ## Readout q2/q3 (lokalni CPU, 2026-11-24, logovi `readout-vAq23.log`)
 
-- q2: **16/19** (promašaji 011, 013, 016) — acc 0.842, Brier 0.099, ECE 0.155.
-- q3: **18/19** (promašaj samo 013 gibberish) — acc 0.947, Brier 0.053, ECE 0.082.
+- q2: **16/19** (promašaji 011, 013, 016) — na odlučivim 16/18, Brier 0.088.
+- q3: **18/19** (promašaj samo 013 gibberish) — na odlučivim 18/18, Brier 0.031.
 - Ukupno sve formulacije: q1 18/19, q2 16/19, q3 18/19 — vodstvo robustno,
   jedini dosljedni promašaj je strukturni 013 (choice bez apstinencije).
 - Sirovo: `datasets/selfdistill/readout-vA.jsonl` (q1),
