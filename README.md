@@ -39,8 +39,8 @@ Primarni README na ijekavici: [README.bs.md](README.bs.md)
 - FAZA 5 — Linija 2 **v0.5-rc (vA, recept A: r32/rsLoRA/cosine/1024, mix v10)**:
   readout **18/19 q1, 16/19 q2, 18/19 q3** — iznad v1.1 na svim formulacijama,
   jedini dosljedni promašaj je strukturni 013 (choice bez apstinencije).
-  Adapter povučen sa LUMI-ja (job 23962923), upload na
-  [`BH-Language-AI/bh-decision-2-4b`](https://huggingface.co/BH-Language-AI/bh-decision-2-4b) u toku.
+  Adapter povučen sa LUMI-ja (job 23962923), objavljen na
+  [`BH-Language-AI/bh-decision-2-4b`](https://huggingface.co/BH-Language-AI/bh-decision-2-4b) 25.11.2026 (smoke OK).
   SFT serija v1–vA: format popravljen podacima (0.05→0.90), prior mican (o2→o3→nijedan),
   rasuđivanje ostalo na stock nivou. Nalazi: [`docs/training/`](docs/training/).
 - DI staza — Core/MCP/Skill/Plugin gotovi (**71 test zeleno**); sudzuki-4b-cloud
