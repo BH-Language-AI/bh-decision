@@ -25,6 +25,8 @@ ITEMS = [
     ("TildeAI/TildeOpen-30b", "model", "Jezički učitelj, eksplicitan bs/hr/sr (CC-BY-4.0)."),
     ("StrandsAgents/strands-decider-2B-hobson-v19", "model", "Decision teacher + recept (Apache 2.0)."),
     ("Cloudflare/clef-flash", "model", "Obavezni baseline i decision teacher u pilotu (Apache 2.0)."),
+    ("BH-Language-AI/bh-decision-2-4b", "model", "Vlastiti 4B: v0.5-rc readout 18/19 (RC)."),
+    ("BH-Language-AI/bh-decision-2-2b", "model", "Vlastiti 2B: v2b readout 13/19 (RC)."),
 ]
 
 

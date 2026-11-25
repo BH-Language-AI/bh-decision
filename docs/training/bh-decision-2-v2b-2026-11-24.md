@@ -16,3 +16,9 @@
 - Generacija (strogo 1/20, tolerantno 3/19) i dalje slaba — proizvod je readout,
   kao i kod 4B.
 - Sljedeće: objava kao 2B linija + 9B run istim receptom (EuroLLM-9B).
+
+## Objava (25.11.2026)
+
+- Adapter povučen sa LUMI-ja (`bh2-2b-v1/out/adapter`, sha256 match),
+  objavljen kao [`BH-Language-AI/bh-decision-2-2b`](https://huggingface.co/BH-Language-AI/bh-decision-2-2b)
+  (adapter + config + kartica). Smoke s HF-a OK (učitavanje + validan JSON).
