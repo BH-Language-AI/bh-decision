@@ -16,12 +16,15 @@ a = ap.parse_args()
 os.makedirs(a.out, exist_ok=True)
 
 import torch  # noqa: E402
-from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
+from transformers import AutoModelForCausalLM, AutoModelForImageTextToText, AutoTokenizer  # noqa: E402
 
 tok = AutoTokenizer.from_pretrained(a.model)
 if tok.pad_token is None:
     tok.pad_token = tok.eos_token
-model = AutoModelForCausalLM.from_pretrained(a.model, torch_dtype=torch.bfloat16)
+try:
+    model = AutoModelForCausalLM.from_pretrained(a.model, torch_dtype=torch.bfloat16)
+except ValueError:
+    model = AutoModelForImageTextToText.from_pretrained(a.model, torch_dtype=torch.bfloat16)
 if a.adapter:
     from peft import PeftModel  # noqa: E402
     model = PeftModel.from_pretrained(model, a.adapter)
