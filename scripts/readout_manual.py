@@ -8,8 +8,20 @@ import os
 import sys
 
 import torch
-from transformers import AutoModelForImageTextToText, AutoTokenizer
+from transformers import (AutoConfig, AutoModelForCausalLM,
+                          AutoModelForImageTextToText, AutoTokenizer)
+from transformers.models.auto.modeling_auto import (
+    MODEL_FOR_CAUSAL_LM_MAPPING, MODEL_FOR_IMAGE_TEXT_TO_TEXT_MAPPING)
 from peft import PeftModel
+
+
+def auto_cls(base):
+    """Bira pravu Auto klasu iz configa (Tacit/Qwen=causal, Mistral3=vision-text)."""
+    cfg = AutoConfig.from_pretrained(base)
+    if type(cfg) in MODEL_FOR_CAUSAL_LM_MAPPING:
+        return AutoModelForCausalLM
+    assert type(cfg) in MODEL_FOR_IMAGE_TEXT_TO_TEXT_MAPPING, type(cfg)
+    return AutoModelForImageTextToText
 
 
 def load_merged(base, adapter, outdir, dtype=torch.float16):
@@ -18,7 +30,7 @@ def load_merged(base, adapter, outdir, dtype=torch.float16):
         tok = AutoTokenizer.from_pretrained(base)
         if tok.pad_token is None:
             tok.pad_token = tok.eos_token
-        b = AutoModelForImageTextToText.from_pretrained(
+        b = auto_cls(base).from_pretrained(
             base, torch_dtype=dtype, low_cpu_mem_usage=True)
         m = PeftModel.from_pretrained(b, adapter)
         m.merge_and_unload().save_pretrained(outdir)
@@ -28,44 +40,40 @@ def load_merged(base, adapter, outdir, dtype=torch.float16):
     tok = AutoTokenizer.from_pretrained(outdir)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
-    mdl = AutoModelForImageTextToText.from_pretrained(
+    mdl = auto_cls(outdir).from_pretrained(
         outdir, torch_dtype=dtype, low_cpu_mem_usage=True)
     mdl.eval()
     return tok, mdl
 
 
-@torch.no_grad()
-def option_nll(model, tok, prompt, option):
-    full = prompt + " " + option
-    enc_full = tok(full, return_tensors="pt")
-    enc_prompt = tok(prompt, return_tensors="pt")
-    ids = enc_full["input_ids"]
-    plen = enc_prompt["input_ids"].shape[1]
-    out = model(input_ids=ids)
-    logp = torch.log_softmax(out.logits[0], dim=-1)
-    tok_ids = ids[0][plen:]
-    if len(tok_ids) == 0:
-        return float("inf")
-    nll = -logp[torch.arange(plen - 1, ids.shape[1] - 1), tok_ids].sum().item()
-    return nll / len(tok_ids)
-
-
 def score_model(model, tok, items, Q, label):
-    import math
+    """Ista metoda kao Tacit readout: chat prompt + A/B/C label-tokeni.
+    Jedina razlika: forward ide kroz multimodalnu klasu (Mistral3)."""
+    import numpy as np
+    from anyjev.question import Question
+    from anyjev.readout import build_prompt, render_chat, resolve_labels
+    from anyjev.tacit import restricted_logprobs
     recs = []
     for hid, state, opts, exp, lang in items:
-        q = Q.get(lang, Q["bs"])
-        prompt = f"Stanje: {state}\nPitanje: {q}\nOpcije:\n" + "\n".join(
-            f"{o}: {t}" for o, t in opts)
+        opt_texts = [t for _, t in opts]
         try:
-            nlls = {t: option_nll(model, tok, prompt, t) for _, t in opts}
-            best = min(nlls, key=nlls.get)
-            mx = max(-v for v in nlls.values())
-            exps = {k: math.exp(-v - mx) for k, v in nlls.items()}
-            s = sum(exps.values())
-            probs = {k: v / s for k, v in exps.items()}
-            t2id = {t: i for i, t in opts}
-            got = t2id.get(best)
+            q = Question.choice(Q.get(lang, Q["bs"]), opt_texts)
+            labels, ids = resolve_labels(tok, q)
+            perm = list(range(len(opt_texts)))
+            spec = build_prompt(state, q, perm, labels=labels)
+            text = render_chat(tok, spec)
+            enc = tok(text, return_tensors="pt", add_special_tokens=False)
+            with torch.no_grad():
+                try:
+                    logits = model(**enc, logits_to_keep=1).logits[:, -1, :].float()
+                except TypeError:
+                    logits = model(**enc).logits[:, -1, :].float()
+            row = logits[0].cpu().numpy()
+            lps = restricted_logprobs([row[i] for i in ids])
+            pj = np.exp(np.asarray(lps, dtype=np.float64))
+            probs = {opts[perm[j]][1]: float(pj[j]) for j in range(len(opts))}
+            best_j = int(np.argmax(lps))
+            got = opts[perm[best_j]][0]
             recs.append({"model": label, "id": hid, "expected": exp, "answer_id": got,
                          "probs": {str(k): float(v) for k, v in probs.items()},
                          "correct": (str(got) == str(exp)) if (exp and got) else None})
@@ -95,7 +103,7 @@ if __name__ == "__main__":
         for label, mid in [("stock-8b", None), ("bh2-9b", "/tmp/opencode/adapter-9b")]:
             if mid is None:
                 tok = AutoTokenizer.from_pretrained(BASE)
-                mdl = AutoModelForImageTextToText.from_pretrained(
+                mdl = auto_cls(BASE).from_pretrained(
                     BASE, torch_dtype=torch.float16, low_cpu_mem_usage=True)
                 mdl.eval()
             else:
