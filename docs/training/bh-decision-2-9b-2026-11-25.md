@@ -4,11 +4,14 @@
 - EuroLLM-9B je gated, 403 i lokalno i na LUMI-ju. Čeka ljudski klik.
 - Job dir `bh2-9b-v1` ostaje spreman za retry kad pristup prođe.
 
-## Pokušaj 2 — Ministral-3-8B (job 24040475, 26.11.2026)
+## Pokušaj 2 — Ministral-3-8B (job 24040475, 26.11.2026): ZAVRŠEN
 - Baza: `mistralai/Ministral-3-8B-Base-2512` (EU, Apache-2.0, nije gated —
   ista familija kao Linija-1 pilot na 3B). Metodološki čišće od Qwen fallbacka.
 - Recept A (r32/rsLoRA/cosine/1024, 4 epohe, mix v10),
   BATCH=2/GRAD_ACC=16 zbog VRAM-a, job dir `bh2-9b-v1m`.
+- Metrike (26.11, TRAIN_DONE): val_loss **0.493**, format_valid_rate **0.65**,
+  heldout_accuracy (generativna proba) 0.167 — generacija slaba kao i kod 4B/2B, čeka readout.
+- Adapter: `bh2-9b-v1m/out/adapter/` (429 MB) → povučen lokalno, readout eval u toku.
 
 - Plan: EuroLLM-9B + recept A (r32/rsLoRA/cosine/1024, 4 epohe, mix v10),
   BATCH=2/GRAD_ACC=16 zbog VRAM-a, job dir `bh2-9b-v1`.
