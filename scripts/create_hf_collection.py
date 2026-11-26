@@ -10,21 +10,18 @@ import argparse
 import sys
 
 NAMESPACE = "BH-Language-AI"
-SLUG = f"{NAMESPACE}/bh-decision"
+SLUG = f"{NAMESPACE}/bh-decision-6af57d53051dc84ba678cb41"  # puni slug; kratki puca na delete
 TITLE = "BH-Decision"
 DESCRIPTION = (
     "BH-Decision — Bosnian Decision Models (Kolektiv x Gamatrade). "
-    "2B/4B/9B u pripremi; zasad samo referentni modeli FAZE 1."
+    "Vlastiti 4B (v0.5-rc, readout 18/19) i 2B (v2b, readout 13/19); "
+    "6 vanjskih referenci FAZE 1 uklonjeno 26.11.2026."
 )
 
 # (repo_id, tip, napomena o ulozi)
+# Vanjske reference (FAZA 1) uklonjene iz kolekcije 26.11.2026 — imamo svoje modele.
+# Bile su: EuroLLM-9B/1.7B, salamandra-7b, TildeOpen-30b, strands-decider-2B, clef-flash.
 ITEMS = [
-    ("utter-project/EuroLLM-9B", "model", "Planirana baza za BH-Decision-9B (Apache 2.0, potvrđen hr)."),
-    ("utter-project/EuroLLM-1.7B", "model", "Planirana baza za BH-Decision-2B (Apache 2.0)."),
-    ("BSC-LT/salamandra-7b", "model", "Ablacija za 2B tier (Apache 2.0)."),
-    ("TildeAI/TildeOpen-30b", "model", "Jezički učitelj, eksplicitan bs/hr/sr (CC-BY-4.0)."),
-    ("StrandsAgents/strands-decider-2B-hobson-v19", "model", "Decision teacher + recept (Apache 2.0)."),
-    ("Cloudflare/clef-flash", "model", "Obavezni baseline i decision teacher u pilotu (Apache 2.0)."),
     ("BH-Language-AI/bh-decision-2-4b", "model", "Vlastiti 4B: v0.5-rc readout 18/19 (RC)."),
     ("BH-Language-AI/bh-decision-2-2b", "model", "Vlastiti 2B: v2b readout 13/19 (RC)."),
 ]
