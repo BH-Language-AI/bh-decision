@@ -25,6 +25,33 @@ ITEMS = [
     ("BH-Language-AI/bh-decision-2-2b", "model", "Vlastiti 2B: v2b readout 13/19 (RC)."),
 ]
 
+# Fiksni redoslijed prikaza (modeli pa dataseti); vraca i obrisane stavke.
+ORDER = [
+    "BH-Language-AI/bh-decision-1-2b",
+    "BH-Language-AI/bh-decision-1-4b",
+    "BH-Language-AI/bh-decision-1-9b",
+    "BH-Language-AI/bh-decision-2-2b",
+    "BH-Language-AI/bh-decision-2-4b",
+    "BH-Language-AI/bh-decision-2-9b",
+    "BH-Language-AI/bs-decision-heldout-v01",
+    "BH-Language-AI/bs-decision-train-v01",
+    "BH-Language-AI/bs-decision-human-v01",
+    "BH-Language-AI/bs-decision-human-v02",
+    "BH-Language-AI/bs-decision-human-v03",
+    "BH-Language-AI/bs-decision-human-v04",
+    "BH-Language-AI/bs-decision-human-v05",
+    "BH-Language-AI/bs-decision-bh2-mixv2-v01",
+    "BH-Language-AI/bs-decision-bh2-mixv3-v01",
+    "BH-Language-AI/bs-decision-bh2-mixv4-v01",
+    "BH-Language-AI/bs-decision-bh2-mixv5-v01",
+    "BH-Language-AI/bs-decision-bh2-mixv6-v01",
+    "BH-Language-AI/bs-decision-bh2-mixv7-v01",
+    "BH-Language-AI/bs-decision-bh2-mixv8-v01",
+    "BH-Language-AI/bs-decision-bh2-mixv9-v01",
+    "BH-Language-AI/bs-decision-external-v01",
+    "BH-Language-AI/bs-decision-external-v02",
+]
+
 
 def main() -> int:
     ap = argparse.ArgumentParser()
@@ -60,6 +87,13 @@ def main() -> int:
             continue
         api.add_collection_item(SLUG, repo_id, kind, note=note)
         print(f"  dodano: {repo_id}")
+    # redoslijed (ne brise nista, samo slaze)
+    existing = api.get_collection(SLUG)
+    by_id = {it.item_id: it for it in (existing.items or [])}
+    for pos, rid in enumerate(ORDER):
+        if rid in by_id:
+            api.update_collection_item(SLUG, by_id[rid].item_object_id, position=pos)
+    print(f" poredano po ORDER ({len(ORDER)} stavki)")
     return 0
 
 
