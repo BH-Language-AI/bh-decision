@@ -84,9 +84,13 @@ def score_model(model, tok, items, Q, label):
     return recs
 
 
+OUTD = os.environ.get("READOUT_OUTD", "/home/sha/BH-Decision/datasets/selfdistill")
+
+
 def load_items():
     held = [json.loads(l) for l in open(
-        "/home/sha/BH-Decision/datasets/heldout/heldout-v1.jsonl") if l.strip()]
+        os.path.join(os.environ.get("READOUT_DATA", "/home/sha/BH-Decision/datasets"),
+                     "heldout/heldout-v1.jsonl")) if l.strip()]
     return [(h["id"], h["state"], [(o["id"], o["text"]) for o in h["options"]],
              h["reference"]["decision"] if h.get("reference") else None,
              h.get("lang", "bs"))
@@ -107,18 +111,18 @@ if __name__ == "__main__":
                     BASE, torch_dtype=torch.float16, low_cpu_mem_usage=True)
                 mdl.eval()
             else:
-                tok, mdl = load_merged(BASE, mid, "/tmp/opencode/merged-9b")
+                tok, mdl = load_merged(BASE, mid, os.environ.get("READOUT_MERGED", "/tmp/opencode/merged-9b"))
             allrecs += score_model(mdl, tok, items, Q, label)
             del mdl
-        out = "/home/sha/BH-Decision/datasets/selfdistill/readout-v9b.jsonl"
+        out = os.path.join(OUTD, "readout-v9b.jsonl")
     else:  # validacija na vA s HF-a
         from huggingface_hub import snapshot_download
         ad = snapshot_download("BH-Language-AI/bh-decision-2-4b",
                                allow_patterns=["adapter_*"])
-        tok, mdl = load_merged("morriszjm/Tacit-4B", ad, "/tmp/opencode/merged-vA2")
+        tok, mdl = load_merged("morriszjm/Tacit-4B", ad, os.environ.get("READOUT_MERGED_VA", "/tmp/opencode/merged-vA2"))
         allrecs = score_model(mdl, tok, items, Q, "bh2-vA-check")
         del mdl
-        out = "/tmp/opencode/readout-vA-check.jsonl"
+        out = os.path.join(OUTD, "readout-vA-check.jsonl")
     with open(out, "w") as f:
         for r in allrecs:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
