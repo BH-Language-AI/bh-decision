@@ -103,8 +103,8 @@ if __name__ == "__main__":
     items = load_items()
     allrecs = []
     if mode == "9b":
-        BASE = "mistralai/Ministral-3-8B-Base-2512"
-        for label, mid in [("stock-8b", None), ("bh2-9b", "/tmp/opencode/adapter-9b")]:
+        BASE = os.environ.get("READOUT_BASE", "mistralai/Ministral-3-8B-Base-2512")
+        for label, mid in [("stock-8b", None), ("bh2-9b", os.environ.get("READOUT_ADAPTER", "/tmp/opencode/adapter-9b"))]:
             if mid is None:
                 tok = AutoTokenizer.from_pretrained(BASE)
                 mdl = auto_cls(BASE).from_pretrained(
