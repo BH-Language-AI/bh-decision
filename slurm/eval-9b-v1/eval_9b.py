@@ -25,6 +25,7 @@ try:
     model = AutoModelForCausalLM.from_pretrained(a.model, torch_dtype=torch.bfloat16)
 except ValueError:
     model = AutoModelForImageTextToText.from_pretrained(a.model, torch_dtype=torch.bfloat16)
+model = model.to("cuda")  # bez ovoga sve trci na CPU pa CUDA-only kerneli pucaju
 if a.adapter:
     from peft import PeftModel  # noqa: E402
     model = PeftModel.from_pretrained(model, a.adapter)
