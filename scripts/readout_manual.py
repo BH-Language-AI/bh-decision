@@ -24,6 +24,8 @@ def auto_cls(base):
     return AutoModelForImageTextToText
 
 
+# LUMI GPU skripta: cijeli model na 1 GCD (9B fp16 = ~18 GB od 64).
+# Za CPU (zabranjeno pravilom) maknuti device_map.
 def load_merged(base, adapter, outdir, dtype=torch.float16):
     if not os.path.exists(os.path.join(outdir, "config.json")):
         print("MERGE-START", base, flush=True)
@@ -31,7 +33,7 @@ def load_merged(base, adapter, outdir, dtype=torch.float16):
         if tok.pad_token is None:
             tok.pad_token = tok.eos_token
         b = auto_cls(base).from_pretrained(
-            base, torch_dtype=dtype, low_cpu_mem_usage=True)
+            base, torch_dtype=dtype, low_cpu_mem_usage=True, device_map={"": 0})
         m = PeftModel.from_pretrained(b, adapter)
         m.merge_and_unload().save_pretrained(outdir)
         tok.save_pretrained(outdir)
@@ -41,7 +43,7 @@ def load_merged(base, adapter, outdir, dtype=torch.float16):
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     mdl = auto_cls(outdir).from_pretrained(
-        outdir, torch_dtype=dtype, low_cpu_mem_usage=True)
+        outdir, torch_dtype=dtype, low_cpu_mem_usage=True, device_map={"": 0})
     mdl.eval()
     return tok, mdl
 
@@ -63,6 +65,7 @@ def score_model(model, tok, items, Q, label):
             spec = build_prompt(state, q, perm, labels=labels)
             text = render_chat(tok, spec)
             enc = tok(text, return_tensors="pt", add_special_tokens=False)
+            enc = {k: v.to(model.device) for k, v in enc.items()}
             with torch.no_grad():
                 try:
                     logits = model(**enc, logits_to_keep=1).logits[:, -1, :].float()
@@ -108,7 +111,7 @@ if __name__ == "__main__":
             if mid is None:
                 tok = AutoTokenizer.from_pretrained(BASE)
                 mdl = auto_cls(BASE).from_pretrained(
-                    BASE, torch_dtype=torch.float16, low_cpu_mem_usage=True)
+                    BASE, torch_dtype=torch.float16, low_cpu_mem_usage=True, device_map={"": 0})
                 mdl.eval()
             else:
                 tok, mdl = load_merged(BASE, mid, os.environ.get("READOUT_MERGED", "/tmp/opencode/merged-9b"))
