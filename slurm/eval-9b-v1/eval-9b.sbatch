@@ -24,7 +24,7 @@ export SINGULARITYENV_PYTHONPATH="$PYLIBS"
 cd "$EVALDIR"
 run() {
   srun --unbuffered singularity exec -B "$EVALDIR:/job" -B /scratch:/scratch "$SIF" \
-    python -u /job/eval_9b.py --model "$MODEL" "$@" --heldout /job/data-heldout-link --out /job/out
+    env PYTHONPATH="$PYLIBS" EVAL_NO_CACHE=1 python -u /job/eval_9b.py --model "$MODEL" "$@" --heldout /job/data-heldout-link --out /job/out
 }
 mkdir -p "$EVALDIR/out"
 ln -sfn "$JOBDIR/data/heldout/heldout-v1.jsonl" "$EVALDIR/data-heldout-link"

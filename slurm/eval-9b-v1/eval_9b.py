@@ -38,6 +38,7 @@ model.eval()
 print(f"eval: {tag} ({a.model})", flush=True)
 
 held = [json.loads(l) for l in open(a.heldout, encoding="utf-8") if l.strip()]
+no_cache = os.environ.get("EVAL_NO_CACHE", "0") == "1"  # zaobici mamba cache kernel (ROCm)
 gen, ok, tocno, scored = [], 0, 0, 0
 need = {"decision", "confidence"}
 for r in held:
@@ -45,7 +46,7 @@ for r in held:
     ids = tok(prompt, return_tensors="pt").to(model.device)
     with torch.inference_mode():
         out = model.generate(**{k: v[:, -512:] for k, v in ids.items()},
-                              max_new_tokens=256, do_sample=False,
+                              max_new_tokens=256, do_sample=False, use_cache=not no_cache,
                               pad_token_id=tok.pad_token_id)
     txt = tok.decode(out[0], skip_special_tokens=True)
     frag = txt[len(prompt):].strip()[:800]
