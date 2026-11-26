@@ -31,6 +31,9 @@ if a.adapter:
     tag = "adapter"
 else:
     tag = "stock"
+if os.path.exists(f"{a.out}/metrike-{tag}.json"):
+    print(f"SKIP: metrike-{tag}.json vec postoje", flush=True)
+    raise SystemExit(0)
 model.eval()
 print(f"eval: {tag} ({a.model})", flush=True)
 

@@ -6,7 +6,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=7
 #SBATCH --gpus-per-task=1
-#SBATCH --time=01:00:00
+#SBATCH --time=03:00:00
 #SBATCH --output=bh-eval-9b-%j.out
 # BH-Decision 9B eval — stock vs adapter, isti prompt/metrika kao in-train proba.
 # Upotreba: sbatch eval-9b.sbatch <eval-dir> <job-dir-bh2-9b-v1m> [model-hf-id]
