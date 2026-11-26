@@ -9,7 +9,13 @@ EuroLLM-9B otpao — i dalje gated (403), odluka zabilježena na kartici 1-9b.
 - Podaci: `datasets/bh-decision-2/train-v10.jsonl` — 7849 primjera, sha `d928b3333645ba78` ✅ lokalno
 - Held-out: `datasets/heldout/heldout-v1.jsonl` (zaključan, 20 neviđenih / 19 bodovanih) ✅
 - Trening skripta: `slurm/grana-p-v2/train_grana_p.py` — recept A preko env-a ✅
-- Prethodni job: 24040475 (26.11, job dir `bh2-9b-v1m`, Ministral + recept A) — status NEPOZNAT (nema LUMI pristupa)
+- Prethodni job: 24040475 (26.11, job dir `bh2-9b-v1m`, Ministral + recept A) — COMPLETED 26.11.
+  Adapter: `bh2-9b-v1m/out/adapter` (429 MB). In-train proba (ista metrika kao eval):
+  val_loss 0.4933, format 0.65, heldout točnost 0.167 (2/12 bodovanih) — SLABO, čeka fair gate.
+- Novi job (26.11 14:25, druga sesija/stroj): 24047633 `bh2-9b-v1q` (small-g, 12h limit, mix v10, r32/rsLoRA)
+  — vjerovatno Qwen3.5-9B varijanta, RUNNING (~20% u 15:00, ETA ~2h). NE DIRATI dok se vrti.
+- Fair eval paket spreman: `slurm/eval-9b-v1/` (stock vs adapter, ista metrika), job dir
+  `bh2-9b-eval1` na scratchu — submit čim se oslobodi slot (limit: 5 running).
 - Recept A (provjeren na 4B → 18/19 readout): `LORA_R=32 LORA_ALPHA=64 RS_LORA=1 SCHEDULER=cosine WARMUP=0.1 LR=1e-4 EPOCHS=4 MAX_LEN=1024 BATCH=2 GRAD_ACC=16`
 
 ## Blokeri (ljudske akcije, ne mogu sam)
