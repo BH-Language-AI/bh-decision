@@ -41,10 +41,12 @@ Primarni README na ijekavici: [README.bs.md](README.bs.md)
   jedini dosljedni promašaj je strukturni 013 (choice bez apstinencije).
   Adapter povučen sa LUMI-ja (job 23962923), objavljen na
   [`BH-Language-AI/bh-decision-2-4b`](https://huggingface.co/BH-Language-AI/bh-decision-2-4b) 25.11.2026 (smoke OK).
+  Ista težina i na Gen 1 repou [`BH-Language-AI/bh-decision-1-4b`](https://huggingface.co/BH-Language-AI/bh-decision-1-4b) (26.11.2026).
   SFT serija v1–vA: format popravljen podacima (0.05→0.90), prior mican (o2→o3→nijedan),
   rasuđivanje ostalo na stock nivou. Nalazi: [`docs/training/`](docs/training/).
 - FAZA 6 (započeta) — **2B linija** [`BH-Language-AI/bh-decision-2-2b`](https://huggingface.co/BH-Language-AI/bh-decision-2-2b):
   v2b (Qwen3-1.7B + recept A) readout **13/19** vs stock 7/19; smoke OK 25.11.2026.
+  Ista težina i na [`BH-Language-AI/bh-decision-1-2b`](https://huggingface.co/BH-Language-AI/bh-decision-1-2b) (26.11.2026).
 - DI staza — Core/MCP/Skill/Plugin gotovi (**71 test zeleno**); sudzuki-4b-cloud
   profilisan (15/18, ECE 0.16); provider-selection čeka cijenu/licencu.
   Vlastiti pipeline ovdje ne radi bez ključa (Jev mrtav, Clef nema).
