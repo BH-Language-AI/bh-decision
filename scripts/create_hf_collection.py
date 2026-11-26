@@ -13,9 +13,8 @@ NAMESPACE = "BH-Language-AI"
 SLUG = f"{NAMESPACE}/bh-decision-6af57d53051dc84ba678cb41"  # puni slug; kratki puca na delete
 TITLE = "BH-Decision"
 DESCRIPTION = (
-    "BH-Decision — Bosnian Decision Models (Kolektiv x Gamatrade). "
-    "Vlastiti 4B (v0.5-rc, readout 18/19) i 2B (v2b, readout 13/19); "
-    "6 vanjskih referenci FAZE 1 uklonjeno 26.11.2026."
+    "BH-Decision — bosanski modeli odlucivanja (ijekavica+en). "
+    "4B v0.5-rc readout 18/19, 2B v2b 13/19. Tezine+eval, Kolektiv x Gamatrade."
 )
 
 # (repo_id, tip, napomena o ulozi)
