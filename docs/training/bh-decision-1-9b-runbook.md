@@ -53,3 +53,12 @@ ssh lumi-efp "ls /scratch/project_465003647/agentmujo/bh2-9b-v1m/out/adapter 2>/
 
 - Bez fabriciranja: samo mjereni brojevi; held-out NIKAD u treningu (train-v10 vs heldout-v1 preklapanje = 0 — provjereno ranije).
 - Adapter Apache-2.0; baza Ministral-3-8B-Base-2512 (Apache-2.0, EU) — kartica to navodi.
+
+## Pomirenje presuda (27.11, odluka: readout je proizvod)
+- Druga sesija (generacijski harness, strogo): Qwen 4/19 → presuda NE OBJAVLJUJ.
+- Ova sesija (label-readout, validiran 17/19 na vA): Qwen 18/19 = stock 18/19 → objavljeno.
+- Oba mjerenja stvarna, različiti metri. Repo standard od početka (v1.1, v2b):
+  proizvod = readout; generacija se dokumentuje ali ne gatinga.
+- Rezolucija: težine OSTAJU objavljene; kartice prepisane tako da je podrzani put
+  readout-scorer (`scripts/readout_manual.py`), a generativni put eksplicitno
+  oznacen kao nepodrzan (4/19 strogo). Bez ove ograde kartica bi lagala korisnika.
